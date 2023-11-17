@@ -30,7 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  # 屏幕适配
+  flutter_screenutil: ^5.8.4
+  # 缓存
+  shared_preferences: ^2.1.2
   get: ^4.6.6
   # fishpi cli
   fishpi: ^1.0.8
