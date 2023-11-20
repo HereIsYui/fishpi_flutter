@@ -4,13 +4,11 @@ import 'package:fishpi_app/views/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'language/language.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // 这里要加入开屏动画，等做好再加入
   await FpUtil.getInstance();
 
   runApp(const MyApp());
@@ -41,7 +39,7 @@ class MyApp extends StatelessWidget{
             primaryColor: Colors.orange,
             scaffoldBackgroundColor: Colors.white,
             dialogBackgroundColor: Colors.black,
-            textTheme: TextTheme(
+            textTheme: const TextTheme(
               bodyText1: TextStyle(decoration: TextDecoration.none),
             ),
           ),

@@ -1,5 +1,7 @@
 import 'package:fishpi_app/views/chat.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fishpi_app/views/circle.dart';
+import 'package:fishpi_app/views/post.dart';
+import 'package:fishpi_app/views/user.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -16,16 +18,15 @@ class _IndexPageState extends State<IndexPage>
 
   final List<Widget> tabBarBodyItems = [
     ChatPage(),
-    ChatPage(),
-    ChatPage(),
-    ChatPage()
+    PostPage(),
+    CirclePage(),
+    UserPage()
   ];
 
   int currentIndex = 0;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabController = TabController(vsync: this, length: 4)
       ..addListener(() {
