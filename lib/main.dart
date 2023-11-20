@@ -1,4 +1,4 @@
-import 'package:fishpi_app/router/appRouter.dart';
+import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:fishpi_app/views/chat.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'language/language.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // 这里要加入开屏动画，等做好再加入
   await FpUtil.getInstance();
 
   runApp(const MyApp());
