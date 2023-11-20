@@ -12,8 +12,7 @@ class SplashScreenPage extends StatefulWidget {
   State<SplashScreenPage> createState() => _SplashScreenPageState();
 }
 
-class _IntroPageState extends State<SplashScreenPage>
-    with TickerProviderStateMixin {
+class _SplashScreenPageState extends State<SplashScreenPage> with TickerProviderStateMixin {
   late AnimationController _lottieAnimation;
   var expanded = false;
   final transitionDuration = const Duration(seconds: 1);
