@@ -98,4 +98,4 @@ class _IntroPageState extends State<SplashScreenPage>
       ],
     );
   }
-}}
+}
