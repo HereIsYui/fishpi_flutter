@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget{
             ),
           ),
           // 初始路径
-          initialRoute: AppRouters.chat,
+          initialRoute: AppRouters.splash,
           // 404页面
           // unknownRoute: GetPage(name:'',page:()=>{}),
           getPages: AppRouters.getPages,
