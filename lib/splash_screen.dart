@@ -9,7 +9,7 @@ class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
 
   @override
-  _IntroPageState createState() => _IntroPageState();
+  State<SplashScreenPage> createState() => _SplashScreenPageState();
 }
 
 class _IntroPageState extends State<SplashScreenPage>
@@ -98,4 +98,4 @@ class _IntroPageState extends State<SplashScreenPage>
       ],
     );
   }
-}
+}}
