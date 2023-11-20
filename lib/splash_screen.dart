@@ -33,7 +33,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
         .then(
           (value) => Future.delayed(const Duration(seconds: 1)).then(
             (value) => _lottieAnimation.forward().then(
-                  (value) => {Get.toNamed(AppRouters.chat)},
+                  (value) => {Get.toNamed(AppRouters.index)},
                 ),
           ),
         );

@@ -43,6 +43,8 @@ dependencies:
   # app开屏
   flutter_native_splash: ^2.3.1
   lottie: ^2.7.0
+  # tabbar
+  curved_navigation_bar: ^1.0.3
 
 dev_dependencies:
   flutter_test:
