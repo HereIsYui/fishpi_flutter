@@ -12,7 +12,8 @@ class SplashScreenPage extends StatefulWidget {
   State<SplashScreenPage> createState() => _SplashScreenPageState();
 }
 
-class _SplashScreenPageState extends State<SplashScreenPage> with TickerProviderStateMixin {
+class _SplashScreenPageState extends State<SplashScreenPage>
+    with TickerProviderStateMixin {
   late AnimationController _lottieAnimation;
   var expanded = false;
   final transitionDuration = const Duration(seconds: 1);
@@ -32,9 +33,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> with TickerProvider
         .then(
           (value) => Future.delayed(const Duration(seconds: 1)).then(
             (value) => _lottieAnimation.forward().then(
-                  (value) => {
-                    Get.toNamed(AppRouters.chat)
-                  },
+                  (value) => {Get.toNamed(AppRouters.chat)},
                 ),
           ),
         );
@@ -93,7 +92,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> with TickerProvider
           width: 160,
           controller: _lottieAnimation,
         ),
-        Image.asset('assets/images/logo_word.png',width: 160,)
+        Image.asset(
+          'assets/images/logo_word.png',
+          width: 160,
+        )
       ],
     );
   }
