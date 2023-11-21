@@ -4,6 +4,7 @@ import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pin_input_text_field/pin_input_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,6 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController userNameController;
   late TextEditingController pwdController;
   final LoginController loginController = Get.put(LoginController());
+  final TextEditingController _pinEditingController =
+      TextEditingController(text: '');
   String userName = "";
   String pwd = "";
   String mfaCode = "";
@@ -80,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                           break;
                         case 1:
                           // 二步验证弹窗
-
+                          _showMfaCodeDialog();
                           FpUtil.showToast(cb.msg);
                           break;
                         case 2:
@@ -137,7 +140,6 @@ class _LoginPageState extends State<LoginPage> {
                       GestureDetector(
                         onTap: () {
                           print('点击了扫码登录');
-                          _showMfaCodeDialog();
                         },
                         child: const Icon(
                           Icons.qr_code_scanner,
@@ -265,6 +267,7 @@ class _LoginPageState extends State<LoginPage> {
     pwd = value;
   }
 
+  /// 二步验证弹窗
   void _showMfaCodeDialog() {
     showGeneralDialog(
         context: context,
@@ -289,24 +292,40 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: Column(
                 children: [
-                  SizedBox(height: 45.h,),
-                  /// 这里还有个二次验证的输入框
+                  SizedBox(
+                    height: 45.h,
+                  ),
+                  /// 二步验证组件 有bug 下次改
+                  // PinInputTextField(
+                  //   pinLength: 6,
+                  //   controller: _pinEditingController,
+                  //   autoFocus: true,
+                  //   onChanged: _onPinChange,
+                  //   keyboardType: TextInputType.number,
+                  //   decoration: UnderlineDecoration(
+                  //     textStyle: TextStyle(
+                  //       color: Colors.black,
+                  //       fontSize: 20.sp,
+                  //     ),
+                  //     colorBuilder:
+                  //         PinListenColorBuilder(Colors.black, Colors.grey),
+                  //     bgColorBuilder: null,
+                  //   ),
+                  // ),
                   Container(
                     width: 290.w,
                     height: 60.h,
                     decoration: const BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.all(Radius.circular(10))
-                    ),
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     alignment: Alignment.center,
                     child: const Text(
                       "提交二次验证码",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                        color: Colors.white,
-                        decoration: TextDecoration.none
-                      ),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                          color: Colors.white,
+                          decoration: TextDecoration.none),
                     ),
                   )
                 ],
@@ -314,5 +333,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         });
+  }
+
+  /// 二步验证输入
+  void _onPinChange(value) async {
+    mfaCode = value;
   }
 }

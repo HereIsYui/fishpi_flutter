@@ -49,6 +49,8 @@ dependencies:
   event_bus: ^2.0.0
   # toast
   fluttertoast: ^8.2.4
+  # 二步验证用的 验证码输入框
+  pin_input_text_field: ^4.5.1
 
 dev_dependencies:
   flutter_test:
