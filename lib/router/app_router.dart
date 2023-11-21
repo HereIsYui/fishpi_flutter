@@ -24,6 +24,6 @@ abstract class AppRouters {
     GetPage(name: post, page: ()=> const PostPage()),
     GetPage(name: circle, page: ()=> const CirclePage()),
     GetPage(name: user, page: ()=> const UserPage()),
-    GetPage(name: login, page: ()=> const LoginPage()),
+    GetPage(name: login, page: ()=> LoginPage()),
   ];
 }

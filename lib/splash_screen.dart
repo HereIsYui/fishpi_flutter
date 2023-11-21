@@ -35,6 +35,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
         .then(
           (value) => Future.delayed(const Duration(seconds: 1)).then((value) {
             _lottieAnimation.forward().then((value) {
+              // 检查是否登录，没有登录就去登录
               isLogin = FpUtil.getBool('isLogin');
               isLogin ? Get.toNamed(AppRouters.index) : Get.toNamed(AppRouters.login);
             });

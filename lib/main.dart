@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget{
     String lang1 = FpUtil.getString('lang1',defValue: "zh");
     String lang2 = FpUtil.getString('lang2',defValue: "CN");
     return ScreenUtilInit(
-      designSize: const Size(750,1334),
+      designSize: const Size(430,932),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context,child){
