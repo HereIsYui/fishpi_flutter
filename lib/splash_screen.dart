@@ -37,7 +37,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
             _lottieAnimation.forward().then((value) {
               // 检查是否登录，没有登录就去登录
               isLogin = FpUtil.getBool('isLogin');
-              isLogin ? Get.toNamed(AppRouters.index) : Get.toNamed(AppRouters.login);
+              isLogin ? Get.offAllNamed(AppRouters.index) : Get.offAllNamed(AppRouters.login);
             });
           }),
         );

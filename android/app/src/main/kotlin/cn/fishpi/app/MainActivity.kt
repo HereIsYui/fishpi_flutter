@@ -1,4 +1,4 @@
-package cn.fishpi.app.fishpi_app
+package cn.fishpi.app
 
 import io.flutter.embedding.android.FlutterActivity
 

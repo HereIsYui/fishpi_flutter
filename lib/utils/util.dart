@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FpUtil {
@@ -17,7 +18,7 @@ class FpUtil {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static String getString(String key, {String defValue=''}) {
+  static String getString(String key, {String defValue = ''}) {
     if (_prefs == null) return defValue;
     return _prefs?.getString(key) ?? defValue;
   }
@@ -27,7 +28,7 @@ class FpUtil {
     return _prefs?.setString(key, value);
   }
 
-  static bool getBool(String key, {bool defValue=false}) {
+  static bool getBool(String key, {bool defValue = false}) {
     if (_prefs == null) return defValue;
     return _prefs?.getBool(key) ?? defValue;
   }
@@ -65,5 +66,14 @@ class FpUtil {
   static Future<bool>? clear() {
     if (_prefs == null) return null;
     return _prefs?.clear();
+  }
+
+  static Future<void> showToast(String msg) async {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+    );
   }
 }

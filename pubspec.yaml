@@ -47,6 +47,8 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   # event_bus
   event_bus: ^2.0.0
+  # toast
+  fluttertoast: ^8.2.4
 
 dev_dependencies:
   flutter_test:

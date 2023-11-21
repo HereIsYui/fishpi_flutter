@@ -1,4 +1,6 @@
 import 'package:fishpi_app/controller/login_controller.dart';
+import 'package:fishpi_app/router/app_router.dart';
+import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -13,10 +15,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController userNameController;
   late TextEditingController pwdController;
-  final PostController postController = Get.put(PostController());
+  final LoginController loginController = Get.put(LoginController());
   String userName = "";
   String pwd = "";
-  String twoKey = "";
+  String mfaCode = "";
 
   @override
   void initState() {
@@ -30,12 +32,12 @@ class _LoginPageState extends State<LoginPage> {
     return Material(
       child: SafeArea(
         child: Container(
-          width: 1.sw,
-          height: 1.sh,
-          color: const Color.fromRGBO(236, 212, 99, 1),
-          padding: const EdgeInsets.all(10),
-          child: Center(
-            child: SizedBox(
+            width: 1.sw,
+            height: 1.sh,
+            color: const Color.fromRGBO(236, 212, 99, 1),
+            padding: const EdgeInsets.all(10),
+            child: Center(
+                child: SizedBox(
               width: 327.w,
               height: 370.h,
               child: Column(
@@ -61,8 +63,32 @@ class _LoginPageState extends State<LoginPage> {
                     height: 48.h,
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () async {
                       print('点击了登录');
+                      if (userName.isEmpty) {
+                        FpUtil.showToast('请输入用户名');
+                        return;
+                      }
+                      if (pwd.isEmpty) {
+                        FpUtil.showToast('请输入密码');
+                        return;
+                      }
+                      var cb = await loginController.login(userName, pwd);
+                      switch (cb.code) {
+                        case 0:
+                          Get.offNamed(AppRouters.index);
+                          break;
+                        case 1:
+                          // 二步验证弹窗
+
+                          FpUtil.showToast(cb.msg);
+                          break;
+                        case 2:
+                          FpUtil.showToast(cb.msg);
+                          break;
+                        default:
+                          break;
+                      }
                     },
                     child: Container(
                       width: 327.w,
@@ -72,7 +98,11 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Colors.black,
                       ),
-                      child: const Text('登录',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16.0),),
+                      child: const Text(
+                        '登录',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16.0),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -83,28 +113,43 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Row(
                         children: [
-                          Text('还没有账号？',style: TextStyle(color:Colors.black,fontSize: 10.0,fontWeight: FontWeight.bold),),
+                          Text(
+                            '还没有账号？',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold),
+                          ),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               print('点击了注册');
                             },
-                            child: Text('立即注册',style: TextStyle(color: Colors.red,fontSize: 10.0,fontWeight: FontWeight.bold),),
+                            child: Text(
+                              '立即注册',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           print('点击了扫码登录');
+                          _showMfaCodeDialog();
                         },
-                        child: const Icon(Icons.qr_code_scanner,color: Colors.black,size: 20,),
+                        child: const Icon(
+                          Icons.qr_code_scanner,
+                          color: Colors.black,
+                          size: 20,
+                        ),
                       )
                     ],
                   )
                 ],
               ),
-            )
-          )
-        ),
+            ))),
       ),
     );
   }
@@ -139,22 +184,19 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.black,
                 width: 2,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.black,
                 width: 2,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           border: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.black,
                 width: 2,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
         ),
         keyboardType: TextInputType.text,
         onChanged: _onUserNameChanged,
@@ -192,22 +234,19 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.black,
                 width: 2,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.black,
                 width: 2,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           border: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.black,
                 width: 2,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(10))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
         ),
         keyboardType: TextInputType.text,
         obscureText: true,
@@ -222,7 +261,58 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// 密码输入框输入
-  void _onPwdChanged(value) async{
+  void _onPwdChanged(value) async {
     pwd = value;
+  }
+
+  void _showMfaCodeDialog() {
+    showGeneralDialog(
+        context: context,
+        barrierColor: Colors.black.withOpacity(.5),
+        barrierDismissible: true,
+        barrierLabel: '',
+        transitionDuration: const Duration(milliseconds: 200),
+        transitionBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation, Widget child) {
+          return ScaleTransition(scale: animation, child: child);
+        },
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
+          return Center(
+            child: Container(
+              width: 392.w,
+              height: 220.h,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 244, 204, 1),
+                border: Border.all(width: 1, color: Colors.black),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 45.h,),
+                  /// 这里还有个二次验证的输入框
+                  Container(
+                    width: 290.w,
+                    height: 60.h,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.all(Radius.circular(10))
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      "提交二次验证码",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Colors.white,
+                        decoration: TextDecoration.none
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
