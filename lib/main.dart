@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget{
             scaffoldBackgroundColor: Colors.white,
             dialogBackgroundColor: Colors.black,
             textTheme: const TextTheme(
-              bodyText1: TextStyle(decoration: TextDecoration.none),
+              bodyLarge: TextStyle(decoration: TextDecoration.none),
             ),
           ),
           // 初始路径
