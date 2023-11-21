@@ -1,3 +1,4 @@
+import 'package:fishpi/types/types.dart';
 import 'package:fishpi_app/controller/login_controller.dart';
 import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
@@ -76,22 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                         FpUtil.showToast('请输入密码');
                         return;
                       }
-                      var cb = await loginController.login(userName, pwd);
-                      switch (cb.code) {
-                        case 0:
-                          Get.offNamed(AppRouters.index);
-                          break;
-                        case 1:
-                          // 二步验证弹窗
-                          _showMfaCodeDialog();
-                          FpUtil.showToast(cb.msg);
-                          break;
-                        case 2:
-                          FpUtil.showToast(cb.msg);
-                          break;
-                        default:
-                          break;
-                      }
+                      loginController.login(userName, pwd, mfaCb: () {
+                        _showMfaCodeDialog();
+                      }).then((token) {
+                         Get.offNamed(AppRouters.index);
+                      }).catchError((e) {
+                          FpUtil.showToast(e.toString());
+                      });
                     },
                     child: Container(
                       width: 327.w,
