@@ -1,4 +1,5 @@
 import 'package:fishpi_app/views/circle.dart';
+import 'package:fishpi_app/views/login.dart';
 import 'package:fishpi_app/views/post.dart';
 import 'package:fishpi_app/views/user.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -14,6 +15,7 @@ abstract class AppRouters {
   static const post = '/post';
   static const circle = '/circle';
   static const user = '/user';
+  static const login = '/login';
 
   static final List<GetPage> getPages = [
     GetPage(name: index, page: () => const IndexPage()),
@@ -22,5 +24,6 @@ abstract class AppRouters {
     GetPage(name: post, page: ()=> const PostPage()),
     GetPage(name: circle, page: ()=> const CirclePage()),
     GetPage(name: user, page: ()=> const UserPage()),
+    GetPage(name: login, page: ()=> const LoginPage()),
   ];
 }

@@ -4,4 +4,5 @@ final Map<String, String> langZh = {
   "Post list":"帖子列表",
   "Circle list":"清风明月",
   "User page":"我的",
+  "Login title":"登录"
 };

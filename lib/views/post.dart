@@ -22,9 +22,13 @@ class _PostPageState extends State<PostPage>
           height: 1.sh,
           color: Colors.white,
           padding: const EdgeInsets.all(10),
-          child: Text(
-            'Post list'.tr,
-            style: const TextStyle(color: Colors.black),
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              ListTile(
+                title: Text("123",style: TextStyle(color: Colors.black),),
+              )
+            ],
           ),
         ),
       ),

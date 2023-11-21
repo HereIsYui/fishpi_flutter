@@ -1,9 +1,15 @@
+import 'package:fishpi_app/router/app_router.dart';
+import 'package:fishpi_app/utils/util.dart';
 import 'package:fishpi_app/views/chat.dart';
 import 'package:fishpi_app/views/circle.dart';
 import 'package:fishpi_app/views/post.dart';
 import 'package:fishpi_app/views/user.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:get/get.dart';
+
+import '../utils/event.dart';
+import '../utils/event_bus.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -15,6 +21,8 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  bool isLogin = false;
+  int currentIndex = 0;
 
   final List<Widget> tabBarBodyItems = [
     ChatPage(),
@@ -23,17 +31,22 @@ class _IndexPageState extends State<IndexPage>
     UserPage()
   ];
 
-  int currentIndex = 0;
-
   @override
   void initState() {
     super.initState();
+
     tabController = TabController(vsync: this, length: 4)
       ..addListener(() {
         setState(() {
           currentIndex = tabController.index;
         });
       });
+
+    EventBusManager.eventBus.on<LoginEvent>().listen((event) {
+      setState(() {
+        isLogin = event.isLogin;
+      });
+    });
   }
 
   @override

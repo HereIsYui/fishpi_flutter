@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:fishpi_app/router/app_router.dart';
+import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
   late AnimationController _lottieAnimation;
   var expanded = false;
   final transitionDuration = const Duration(seconds: 1);
+  bool isLogin = false;
 
   @override
   void initState() {
@@ -31,11 +33,12 @@ class _SplashScreenPageState extends State<SplashScreenPage>
         .then((value) => setState(() => expanded = true))
         // .then((value) => const Duration(seconds: 1))
         .then(
-          (value) => Future.delayed(const Duration(seconds: 1)).then(
-            (value) => _lottieAnimation.forward().then(
-                  (value) => {Get.toNamed(AppRouters.index)},
-                ),
-          ),
+          (value) => Future.delayed(const Duration(seconds: 1)).then((value) {
+            _lottieAnimation.forward().then((value) {
+              isLogin = FpUtil.getBool('isLogin');
+              isLogin ? Get.toNamed(AppRouters.index) : Get.toNamed(AppRouters.login);
+            });
+          }),
         );
     super.initState();
   }
