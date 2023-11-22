@@ -10,10 +10,11 @@ class LoginController extends GetxController {
   Future<String> login(String userName, String pwd, {String mfaCode = "", void Function()? mfaCb}) async {
     LoginData loginData =
           LoginData(username: userName, passwd: pwd, mfaCode: mfaCode);
+    print(loginData);
       return fishpi.login(loginData).onError((e, stackTrace) {
         if(e.toString() == '两步验证失败，请填写正确的一次性密码' && mfaCb != null && mfaCode.isEmpty) {
           mfaCb();
-          e = '请输入二次验证码';
+          e = '请输入正确的二次验证码';
         }
         return Future.error(e!);
       });

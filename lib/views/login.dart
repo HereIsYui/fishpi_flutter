@@ -18,7 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController userNameController;
   late TextEditingController pwdController;
   final LoginController loginController = Get.put(LoginController());
-  final TextEditingController _pinEditingController = TextEditingController(text: '');
+  final TextEditingController _pinEditingController =
+      TextEditingController(text: '');
   String userName = "";
   String pwd = "";
   String mfaCode = "";
@@ -67,10 +68,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      // for Yui debug start
-                      _showMfaCodeDialog();
-                      return;
-                      // for Yui debug end
                       print('点击了登录');
                       if (userName.isEmpty) {
                         FpUtil.showToast('请输入用户名');
@@ -80,9 +77,12 @@ class _LoginPageState extends State<LoginPage> {
                         FpUtil.showToast('请输入密码');
                         return;
                       }
+                      _pinEditingController.clear();
                       loginController.login(userName, pwd, mfaCb: () {
                         _showMfaCodeDialog();
                       }).then((token) {
+                        FpUtil.setString('token', token);
+                        FpUtil.setBool('isLogin', true);
                         Get.offNamed(AppRouters.index);
                       }).catchError((e) {
                         FpUtil.showToast(e.toString());
@@ -98,7 +98,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: const Text(
                         '登录',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16.0),
                       ),
                     ),
                   ),
@@ -112,7 +113,10 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           Text(
                             '还没有账号？',
-                            style: TextStyle(color: Colors.black, fontSize: 10.0, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.bold),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -120,7 +124,10 @@ class _LoginPageState extends State<LoginPage> {
                             },
                             child: Text(
                               '立即注册',
-                              style: TextStyle(color: Colors.red, fontSize: 10.0, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 10.0,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -263,60 +270,86 @@ class _LoginPageState extends State<LoginPage> {
         barrierDismissible: true,
         barrierLabel: '',
         transitionDuration: const Duration(milliseconds: 200),
-        transitionBuilder:
-            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+        transitionBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation, Widget child) {
           return ScaleTransition(scale: animation, child: child);
         },
-        pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+        pageBuilder: (BuildContext context, Animation<double> animation,
+            Animation<double> secondaryAnimation) {
           return Center(
             child: Container(
               width: 392.w,
               height: 220.h,
               decoration: BoxDecoration(
                 color: const Color.fromRGBO(255, 244, 204, 1),
-                border: Border.all(width: 1, color: Colors.black),
+                border: Border.all(width: 2, color: Colors.black),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                    height: 45.h,
+                    height: 5.h,
                   ),
                   // 二步验证组件 有bug 下次改
                   Material(
-                    color: const Color.fromRGBO(255, 244, 204, 1),
-                    child: PinInputTextField(
-                      pinLength: 6,
-                      controller: _pinEditingController,
-                      autoFocus: true,
-                      onChanged: _onPinChange,
-                      keyboardType: TextInputType.number,
-                      decoration: UnderlineDecoration(
-                        textStyle: TextStyle(
+                      color: const Color.fromRGBO(255, 244, 204, 1),
+                      child: Container(
+                        height: 48.h,
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: PinInputTextField(
+                          pinLength: 6,
+                          controller: _pinEditingController,
+                          autoFocus: true,
+                          onChanged: _onPinChange,
+                          keyboardType: TextInputType.number,
+                          decoration: BoxLooseDecoration(
+                            strokeWidth: 2,
+                            radius: const Radius.circular(10),
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25.sp,
+                            ),
+                            strokeColorBuilder: PinListenColorBuilder(
+                                Colors.black, Colors.grey),
+                            bgColorBuilder: PinListenColorBuilder(
+                              const Color.fromRGBO(255, 255, 255, 1),
+                              const Color.fromRGBO(255, 244, 204, 1),
+                            ),
+                          ),
+                        ),
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      print('点击提交二次验证码');
+                      Navigator.pop(context);
+                      _pinEditingController.clear();
+                      loginController.login(userName, pwd,mfaCode: mfaCode, mfaCb: () {
+                        _showMfaCodeDialog();
+                      }).then((token) {
+                        FpUtil.setString('token', token);
+                        FpUtil.setBool('isLogin', true);
+                        Get.offNamed(AppRouters.index);
+                      }).catchError((e) {
+                        FpUtil.showToast(e.toString());
+                      });
+                    },
+                    child: Container(
+                      width: 290.w,
+                      height: 60.h,
+                      decoration: const BoxDecoration(
                           color: Colors.black,
-                          fontSize: 20.sp,
-                        ),
-                        colorBuilder: PinListenColorBuilder(Colors.black, Colors.grey),
-                        bgColorBuilder: PinListenColorBuilder(
-                          const Color.fromRGBO(255, 244, 204, 1),
-                          const Color.fromRGBO(255, 244, 204, 1),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 290.w,
-                    height: 60.h,
-                    decoration:
-                        const BoxDecoration(color: Colors.black, borderRadius: BorderRadius.all(Radius.circular(10))),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      "提交二次验证码",
-                      style: TextStyle(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "提交二次验证码",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.0,
                           color: Colors.white,
-                          decoration: TextDecoration.none),
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
                     ),
                   )
                 ],

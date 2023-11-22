@@ -1,3 +1,5 @@
+import 'package:fishpi_app/controller/post_controller.dart';
+import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,6 +13,17 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage>
     with AutomaticKeepAliveClientMixin {
+  final PostController postController = Get.put(PostController());
+  String token = "";
+  @override
+  void initState(){
+    super.initState();
+
+    token = FpUtil.getString('token');
+    postController.init(token);
+    postController.getArticleList();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
