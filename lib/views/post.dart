@@ -15,8 +15,9 @@ class _PostPageState extends State<PostPage>
     with AutomaticKeepAliveClientMixin {
   final PostController postController = Get.put(PostController());
   String token = "";
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     token = FpUtil.getString('token');
@@ -34,17 +35,31 @@ class _PostPageState extends State<PostPage>
           width: 1.sw,
           height: 1.sh,
           color: Colors.white,
-          padding: const EdgeInsets.all(10),
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              ListTile(
-                title: Text("123",style: TextStyle(color: Colors.black),),
-              )
-            ],
-          ),
+          child: _articleList(),
         ),
       ),
+    );
+  }
+
+  Widget _articleList() {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {},
+          child: ListTile(
+            title: Text(
+              postController.postList.list[index].titleEmoj,
+              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              postController.postList.list[index].previewContent,
+              style: TextStyle(color: Color.fromRGBO(74, 74, 87, 1),fontSize: 15.sp),
+            ),
+          ),
+        );
+      },
     );
   }
 

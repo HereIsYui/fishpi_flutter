@@ -11,7 +11,5 @@ class PostController extends GetxController {
 
   Future<void> getArticleList() async {
     postList = await fishpi.article.list(type: ArticleListType.Recent);
-    /// 这里数据格式错了
-    //print(postList.toJson());
   }
 }
