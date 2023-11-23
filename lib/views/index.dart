@@ -1,12 +1,10 @@
-import 'package:fishpi_app/router/app_router.dart';
-import 'package:fishpi_app/utils/util.dart';
+import 'package:fishpi/fishpi.dart';
 import 'package:fishpi_app/views/chat.dart';
 import 'package:fishpi_app/views/circle.dart';
 import 'package:fishpi_app/views/post.dart';
 import 'package:fishpi_app/views/user.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:get/get.dart';
 
 import '../utils/event.dart';
 import '../utils/event_bus.dart';
@@ -21,6 +19,7 @@ class IndexPage extends StatefulWidget {
 class _IndexPageState extends State<IndexPage>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  late Fishpi fishpi;
   bool isLogin = false;
   int currentIndex = 0;
 
@@ -95,9 +94,11 @@ class _IndexPageState extends State<IndexPage>
           ],
           onTap: (index) {
             //Handle button tap
+            print('index: $index');
             setState(() {
               currentIndex = index;
             });
+
             tabController.animateTo(
               index,
               duration: const Duration(milliseconds: 300),

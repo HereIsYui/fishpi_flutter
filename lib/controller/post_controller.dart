@@ -9,8 +9,14 @@ class PostController extends GetxController {
     fishpi = Fishpi(token);
   }
 
-  Future<void> getArticleList() async {
-    postList = await fishpi.article.list(type: ArticleListType.Recent);
+  Future<void> getArticleList(int page) async {
+    ArticleList list = await fishpi.article.list(page: page,type: ArticleListType.Recent);
+    print(list.pagination.toJson());
+    if(page == 1){
+      postList = list;
+    }else{
+      postList.list += list.list;
+    }
     update();
   }
 }
