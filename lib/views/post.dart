@@ -35,7 +35,9 @@ class _PostPageState extends State<PostPage>
           width: 1.sw,
           height: 1.sh,
           color: Colors.white,
-          child: _articleList(),
+          child: GetBuilder<PostController>(builder:(controller){
+            return postController.postList.list.isNotEmpty ? _articleList() : const Text('is loading');
+          }),
         ),
       ),
     );
@@ -44,20 +46,48 @@ class _PostPageState extends State<PostPage>
   Widget _articleList() {
     return ListView.builder(
       scrollDirection: Axis.vertical,
-      
+      itemCount: postController.postList.list.length,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {},
-          child: ListTile(
-            title: Text(
-              postController.postList.list[index].titleEmoj,
-              style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  color: Colors.black,
+                  width: 1,
+                  style: BorderStyle.solid
+                ),
+                bottom: BorderSide(
+                    color: Colors.black,
+                    width: 4,
+                    style: BorderStyle.solid
+                ),
+                left: BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                    style: BorderStyle.solid
+                ),
+                right: BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                    style: BorderStyle.solid
+                ),
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(10))
             ),
-            subtitle: Text(
-              postController.postList.list[index].previewContent,
-              style: TextStyle(color: Color.fromRGBO(74, 74, 87, 1),fontSize: 15.sp),
+            child: ListTile(
+              title: Text(
+                postController.postList.list[index].titleEmoj,
+                style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                postController.postList.list[index].previewContent,
+                style: TextStyle(color:const Color.fromRGBO(74, 74, 87, 1),fontSize: 15.sp),
+              ),
             ),
-          ),
+          )
         );
       },
     );

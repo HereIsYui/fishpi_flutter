@@ -31,6 +31,8 @@ class _IndexPageState extends State<IndexPage>
     UserPage()
   ];
 
+  final List<String> titleList = ["聊天", "文章", "清风明月", "我的"];
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +54,17 @@ class _IndexPageState extends State<IndexPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: const Icon(Icons.qr_code_scanner,color: Colors.black,),
+          title: Text(titleList[currentIndex],style: const TextStyle(color: Colors.black),),
+          actions: const [
+            Icon(Icons.notifications,color: Colors.black,),
+            SizedBox(width: 15,),
+          ],
+          toolbarHeight: 40,
+          centerTitle: true,
+          backgroundColor: const Color.fromRGBO(238, 239, 244, 1),
+        ),
         bottomNavigationBar: CurvedNavigationBar(
           color: const Color.fromRGBO(236, 212, 99, 1),
           height: 50,
