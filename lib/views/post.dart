@@ -1,6 +1,7 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:fishpi/types/article.dart';
 import 'package:fishpi_app/controller/post_controller.dart';
+import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -212,9 +213,9 @@ class _PostPageState extends State<PostPage>
                           child: Row(
                             children: [
                               const Icon(
-                                Icons.chat_bubble,
+                                FishIcon.reply,
                                 color: Colors.black,
-                                size: 10,
+                                size: 12,
                               ),
                               Text(
                                 postController.postList.list[index].commentCnt
@@ -228,9 +229,9 @@ class _PostPageState extends State<PostPage>
                                 width: 5,
                               ),
                               const Icon(
-                                Icons.heart_broken,
+                                FishIcon.like,
                                 color: Colors.black,
-                                size: 10,
+                                size: 12,
                               ),
                               Text(
                                 postController.postList.list[index].thankCnt

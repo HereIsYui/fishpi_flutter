@@ -43,8 +43,6 @@ dependencies:
   # app开屏
   flutter_native_splash: ^2.3.1
   lottie: ^2.7.0
-  # tabbar
-  curved_navigation_bar: ^1.0.3
   # event_bus
   event_bus: ^2.0.0
   # toast
@@ -85,6 +83,11 @@ flutter:
     - assets/images/
     - assets/images/2.0x/
     - assets/images/3.0x/
+
+  fonts:
+    - family: fishIcon
+      fonts:
+        - asset: assets/fonts/iconfont.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
