@@ -83,7 +83,7 @@ class _IndexPageState extends State<IndexPage>
               border: Border(top: BorderSide(width: 2, color: Colors.black))),
           child: BottomNavigationBar(
             backgroundColor: CommonStyle.primaryColor,
-            unselectedItemColor: Colors.grey,
+            unselectedItemColor: Colors.black54,
             selectedItemColor: Colors.black,
             selectedLabelStyle:
                 const TextStyle(height: 1.8, fontSize: 12, wordSpacing: 10),
