@@ -1,4 +1,4 @@
-import 'package:fishpi_app/views/circle.dart';
+import 'package:fishpi_app/views/breeze.dart';
 import 'package:fishpi_app/views/login.dart';
 import 'package:fishpi_app/views/post.dart';
 import 'package:fishpi_app/views/user.dart';

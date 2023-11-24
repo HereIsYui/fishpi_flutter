@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
 
+import '../common_style/style.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -38,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
             width: 1.sw,
             height: 1.sh,
-            color: const Color.fromRGBO(236, 212, 99, 1),
+            color: CommonStyle.primaryColor,
             padding: const EdgeInsets.all(10),
             child: Center(
                 child: SizedBox(
@@ -111,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             '还没有账号？',
                             style: TextStyle(
                                 color: Colors.black,
@@ -122,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () {
                               print('点击了注册');
                             },
-                            child: Text(
+                            child: const Text(
                               '立即注册',
                               style: TextStyle(
                                   color: Colors.red,

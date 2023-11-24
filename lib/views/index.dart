@@ -1,12 +1,13 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:fishpi_app/views/chat.dart';
-import 'package:fishpi_app/views/circle.dart';
+import 'package:fishpi_app/views/breeze.dart';
 import 'package:fishpi_app/views/post.dart';
 import 'package:fishpi_app/views/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../common_style/style.dart';
 import '../utils/event.dart';
 import '../utils/event_bus.dart';
 
@@ -61,7 +62,7 @@ class _IndexPageState extends State<IndexPage>
           ),
           title: Text(
             titleList[currentIndex],
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),
           ),
           actions: const [
             Icon(
@@ -74,14 +75,14 @@ class _IndexPageState extends State<IndexPage>
           ],
           toolbarHeight: 40,
           centerTitle: true,
-          backgroundColor: const Color.fromRGBO(238, 239, 244, 1),
+          backgroundColor: CommonStyle.primaryColor,
         ),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
               color: Color.fromRGBO(238, 239, 244, 1),
               border: Border(top: BorderSide(width: 2, color: Colors.black))),
           child: BottomNavigationBar(
-            backgroundColor: const Color.fromRGBO(236, 212, 99, 1),
+            backgroundColor: CommonStyle.primaryColor,
             unselectedItemColor: Colors.grey,
             selectedItemColor: Colors.black,
             selectedLabelStyle:

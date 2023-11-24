@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'common_style/style.dart';
+
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
 
@@ -48,16 +50,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color.fromRGBO(236, 212, 99, 1),
-              Color.fromRGBO(236, 212, 99, 1),
-            ],
-          ),
-        ),
+        color: CommonStyle.primaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../common_style/style.dart';
 import '../utils/util.dart';
 
 class PostPage extends StatefulWidget {
@@ -146,24 +147,7 @@ class _PostPageState extends State<PostPage>
           child: Container(
               margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                        color: Colors.black,
-                        width: 1,
-                        style: BorderStyle.solid),
-                    bottom: BorderSide(
-                        color: Colors.black,
-                        width: 4,
-                        style: BorderStyle.solid),
-                    left: BorderSide(
-                        color: Colors.black,
-                        width: 1,
-                        style: BorderStyle.solid),
-                    right: BorderSide(
-                        color: Colors.black,
-                        width: 1,
-                        style: BorderStyle.solid),
-                  ),
+                  border: CommonStyle.commonBorder,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Column(
                 children: [
@@ -223,7 +207,7 @@ class _PostPageState extends State<PostPage>
                                     .toString(),
                                 style: const TextStyle(
                                   color: Colors.black,
-                                  fontSize: 10,
+                                  fontSize: 12,
                                 ),
                               ),
                               const SizedBox(width: 2,),
@@ -241,7 +225,7 @@ class _PostPageState extends State<PostPage>
                                     .toString(),
                                 style: const TextStyle(
                                   color: Colors.black,
-                                  fontSize: 10,
+                                  fontSize: 12,
                                 ),
                               ),
                             ],
