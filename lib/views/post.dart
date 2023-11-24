@@ -92,7 +92,6 @@ class _PostPageState extends State<PostPage>
             return Container(
               width: 1.sw,
               height: 1.sh,
-              padding: EdgeInsets.symmetric(vertical: 10),
               color: Colors.white,
               child: GetBuilder<PostController>(builder: (controller) {
                 return postController.postList.list.isNotEmpty
@@ -145,7 +144,7 @@ class _PostPageState extends State<PostPage>
             print('点击了文章:${postController.postList.list[index].oId}');
           },
           child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               decoration: const BoxDecoration(
                   border: Border(
                     top: BorderSide(
@@ -211,12 +210,14 @@ class _PostPageState extends State<PostPage>
                         Container(
                           alignment: Alignment.centerRight,
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Icon(
                                 FishIcon.reply,
                                 color: Colors.black,
                                 size: 12,
                               ),
+                              const SizedBox(width: 2,),
                               Text(
                                 postController.postList.list[index].commentCnt
                                     .toString(),
@@ -225,6 +226,7 @@ class _PostPageState extends State<PostPage>
                                   fontSize: 10,
                                 ),
                               ),
+                              const SizedBox(width: 2,),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -233,6 +235,7 @@ class _PostPageState extends State<PostPage>
                                 color: Colors.black,
                                 size: 12,
                               ),
+                              const SizedBox(width: 2,),
                               Text(
                                 postController.postList.list[index].thankCnt
                                     .toString(),

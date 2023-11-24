@@ -23,7 +23,7 @@ class _UserPageState extends State<UserPage>
           color: Colors.white,
           padding: const EdgeInsets.all(10),
           child: Text(
-            'Circle list'.tr,
+            'User page'.tr,
             style: const TextStyle(color: Colors.black),
           ),
         ),
