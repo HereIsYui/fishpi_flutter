@@ -1,4 +1,5 @@
 import 'package:easy_refresh/easy_refresh.dart';
+import 'package:fishpi_app/common_style/style.dart';
 import 'package:fishpi_app/controller/breeze_controller.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -20,18 +21,16 @@ class _CirclePageState extends State<CirclePage>
   String token = "";
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     token = FpUtil.getString('token');
     breezeController.init(token);
     _controller = EasyRefreshController(
-      controlFinishLoad: true,
-      controlFinishRefresh: true
-    );
+        controlFinishLoad: true, controlFinishRefresh: true);
     loadData();
   }
 
-  void loadData(){
+  void loadData() {
     breezeController.getBreezeList(page);
     page == 1 ? _controller.finishRefresh() : _controller.finishLoad();
   }
@@ -78,6 +77,7 @@ class _CirclePageState extends State<CirclePage>
               print('已到达世界边缘');
               page++;
               loadData();
+
               /// 等等？清风明月好像没返回一共有多少页？
               // if (breezeController.breezeList.length < 5) {
               //
@@ -93,16 +93,75 @@ class _CirclePageState extends State<CirclePage>
               color: Colors.white,
               child: GetBuilder<BreezeController>(builder: (controller) {
                 return breezeController.breezeList.isNotEmpty
-                    ? const Text('还在写呢！！')
+                    ? _breezeList(physics)
                     : const Text(
-                  'is loading',
-                  style: TextStyle(color: Colors.black),
-                );
+                        'is loading',
+                        style: TextStyle(color: Colors.black),
+                      );
               }),
             );
           },
         ),
       ),
+    );
+  }
+
+  Widget _breezeList(physics) {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return Container(
+          margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+          decoration: const BoxDecoration(
+            border: CommonStyle.commonBorder,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: SizedBox(
+                          width: 35.w,
+                          height: 35.w,
+                          child: Image.network(
+                            breezeController.breezeList[index].thumbnailURL48,
+                            fit: BoxFit.cover,
+                            width: 35.w,
+                            height: 35.w,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        breezeController.breezeList[index].authorName,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.black),
+                      )
+                    ],
+                  ),
+                  Text(
+                    breezeController.breezeList[index].timeAgo,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
