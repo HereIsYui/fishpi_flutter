@@ -1,4 +1,5 @@
 import 'package:fishpi/fishpi.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 class BreezeController extends GetxController {
@@ -12,11 +13,18 @@ class BreezeController extends GetxController {
   Future<void> getBreezeList(int page) async {
     List<BreezemoonContent> list = await fishpi.breezemoon.list(page: page);
     print(list.toString());
-    if(page == 1){
+    if (page == 1) {
       breezeList = list;
-    }else{
+    } else {
       breezeList += list;
     }
     update();
+  }
+
+  Future<void> sendBreeze(String content) async {
+    EasyLoading.show(status: 'loading...');
+    await fishpi.breezemoon.send(content);
+    EasyLoading.dismiss();
+    return;
   }
 }

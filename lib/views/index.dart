@@ -5,6 +5,7 @@ import 'package:fishpi_app/views/breeze.dart';
 import 'package:fishpi_app/views/post.dart';
 import 'package:fishpi_app/views/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../common_style/style.dart';
@@ -50,6 +51,11 @@ class _IndexPageState extends State<IndexPage>
         isLogin = event.isLogin;
       });
     });
+
+    /// 初始化Easyloading组件
+    EasyLoading.instance
+      ..userInteractions = false
+      ..dismissOnTap = false;
   }
 
   @override
@@ -62,7 +68,8 @@ class _IndexPageState extends State<IndexPage>
           ),
           title: Text(
             titleList[currentIndex],
-            style: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
           ),
           actions: const [
             Icon(

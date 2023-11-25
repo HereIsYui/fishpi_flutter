@@ -1,10 +1,12 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:fishpi_app/common_style/style.dart';
 import 'package:fishpi_app/controller/breeze_controller.dart';
+import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 
 class CirclePage extends StatefulWidget {
   const CirclePage({super.key});
@@ -17,6 +19,8 @@ class _CirclePageState extends State<CirclePage>
     with AutomaticKeepAliveClientMixin {
   final BreezeController breezeController = Get.put(BreezeController());
   late EasyRefreshController _controller;
+  late TextEditingController breezeSendController;
+  String breezeContent = "";
   int page = 1;
   String token = "";
 
@@ -27,6 +31,7 @@ class _CirclePageState extends State<CirclePage>
     breezeController.init(token);
     _controller = EasyRefreshController(
         controlFinishLoad: true, controlFinishRefresh: true);
+    breezeSendController = TextEditingController();
     loadData();
   }
 
@@ -80,7 +85,8 @@ class _CirclePageState extends State<CirclePage>
 
               /// 等等？清风明月好像没返回一共有多少页？
               // if (breezeController.breezeList.length < 5) {
-              //
+              //   page++;
+              //   loadData();
               // } else {
               //   _controller.finishLoad(IndicatorResult.noMore);
               // }
@@ -88,18 +94,17 @@ class _CirclePageState extends State<CirclePage>
           },
           childBuilder: (BuildContext context, ScrollPhysics physics) {
             return Container(
-              width: 1.sw,
-              height: 1.sh,
-              color: Colors.white,
-              child: GetBuilder<BreezeController>(builder: (controller) {
-                return breezeController.breezeList.isNotEmpty
-                    ? _breezeList(physics)
-                    : const Text(
-                        'is loading',
-                        style: TextStyle(color: Colors.black),
-                      );
-              }),
-            );
+                width: 1.sw,
+                height: 1.sh,
+                color: Colors.white,
+                child: GetBuilder<BreezeController>(builder: (controller) {
+                  return breezeController.breezeList.isNotEmpty
+                      ? _breezeList(physics)
+                      : const Text(
+                          'is loading',
+                          style: TextStyle(color: Colors.black),
+                        );
+                }));
           },
         ),
       ),
@@ -108,60 +113,191 @@ class _CirclePageState extends State<CirclePage>
 
   Widget _breezeList(physics) {
     return ListView.builder(
+      scrollDirection: Axis.vertical,
+      physics: physics,
+      itemCount: breezeController.breezeList.length,
       itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-          decoration: const BoxDecoration(
-            border: CommonStyle.commonBorder,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: SizedBox(
-                          width: 35.w,
-                          height: 35.w,
-                          child: Image.network(
-                            breezeController.breezeList[index].thumbnailURL48,
-                            fit: BoxFit.cover,
+        if (index == 0) {
+          return buildBreezeInputWidget(breezeSendController);
+        } else {
+          return Container(
+            margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+            decoration: const BoxDecoration(
+              border: CommonStyle.commonBorder,
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: SizedBox(
                             width: 35.w,
                             height: 35.w,
+                            child: Image.network(
+                              breezeController.breezeList[index].thumbnailURL48,
+                              fit: BoxFit.cover,
+                              width: 35.w,
+                              height: 35.w,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        breezeController.breezeList[index].authorName,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.black),
-                      )
-                    ],
-                  ),
-                  Text(
-                    breezeController.breezeList[index].timeAgo,
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          breezeController.breezeList[index].authorName,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.black),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              )
-            ],
-          ),
-        );
+                    Text(
+                      breezeController.breezeList[index].timeAgo,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    )
+                  ],
+                ),
+                handleBreeze(breezeController.breezeList[index].content),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.black,
+                      size: 12,
+                    ),
+                    Text(
+                      breezeController.breezeList[index].city.isNotEmpty
+                          ? breezeController.breezeList[index].city
+                          : '未知',
+                      style: const TextStyle(color: Colors.black, fontSize: 10),
+                    )
+                  ],
+                )
+              ],
+            ),
+          );
+        }
       },
+    );
+  }
+
+  /// 清风明月输入框
+  Widget buildBreezeInputWidget(TextEditingController controller) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: 340.w,
+            height: 36.h,
+            child: TextField(
+              controller: controller,
+              cursorColor: Colors.black,
+              textAlign: TextAlign.left,
+              textAlignVertical: TextAlignVertical.center,
+              style: const TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w300),
+              decoration: const InputDecoration(
+                hintText: "随便说说...",
+                hintStyle: TextStyle(color: Colors.grey),
+                contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                filled: true,
+                fillColor: Colors.white,
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+              ),
+              keyboardType: TextInputType.text,
+              onChanged: _breezeChange,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              breezeController.sendBreeze(breezeContent).then((value) {
+                breezeSendController.clear();
+                page = 1;
+                loadData();
+              });
+            },
+            child: Icon(
+              FishIcon.send,
+              color: Colors.black,
+              size: 30.h,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _breezeChange(value) {
+    breezeContent = value;
+  }
+
+  /// 清风明月内容处理
+  Widget handleBreeze(content) {
+    var document = parse(content);
+    List<Widget> list = [];
+
+    /// 处理文本
+    document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
+      if (element.text.isEmpty) return;
+      list.add(
+        Text(
+          element.text,
+          style: const TextStyle(
+            fontSize: 26,
+            color: Colors.black,
+          ),
+        ),
+      );
+    });
+
+    /// 处理图片
+    document.querySelectorAll("img").forEach((element) {
+      if (element.attributes['src']!.isEmpty) return;
+      list.add(
+        Image.network(element.attributes['src']!),
+      );
+    });
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+      child: Column(
+        children: list,
+      ),
     );
   }
 

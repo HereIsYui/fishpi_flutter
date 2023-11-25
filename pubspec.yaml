@@ -51,6 +51,11 @@ dependencies:
   pin_input_text_field: ^4.5.1
   # 上拉加载 & 下拉刷新
   easy_refresh: ^3.3.2+4
+  # 解析html
+  flutter_html: ^3.0.0-beta.2
+  # loading
+  flutter_easyloading: ^3.0.5
+  html: ^0.15.4
 
 dev_dependencies:
   flutter_test:

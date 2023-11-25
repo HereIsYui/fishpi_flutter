@@ -2,6 +2,7 @@ import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:fishpi_app/views/chat.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget{
           // unknownRoute: GetPage(name:'',page:()=>{}),
           getPages: AppRouters.getPages,
           home: const ChatPage(),
+          builder: EasyLoading.init(),
         );
       },
     );

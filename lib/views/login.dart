@@ -3,6 +3,7 @@ import 'package:fishpi_app/controller/login_controller.dart';
 import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
@@ -80,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                         return;
                       }
                       _pinEditingController.clear();
+                      EasyLoading.dismiss();
                       loginController.login(userName, pwd, mfaCb: () {
                         _showMfaCodeDialog();
                       }).then((token) {
@@ -255,12 +257,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// 用户名输入框输入
-  void _onUserNameChanged(value) async {
+  void _onUserNameChanged(value) {
     userName = value;
   }
 
   /// 密码输入框输入
-  void _onPwdChanged(value) async {
+  void _onPwdChanged(value) {
     pwd = value;
   }
 
@@ -326,6 +328,7 @@ class _LoginPageState extends State<LoginPage> {
                       print('点击提交二次验证码');
                       Navigator.pop(context);
                       _pinEditingController.clear();
+                      EasyLoading.dismiss();
                       loginController.login(userName, pwd,mfaCode: mfaCode, mfaCb: () {
                         _showMfaCodeDialog();
                       }).then((token) {
@@ -362,7 +365,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// 二步验证输入
-  void _onPinChange(value) async {
+  void _onPinChange(value) {
     mfaCode = value;
   }
 }
