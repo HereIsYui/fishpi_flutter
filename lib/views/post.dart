@@ -145,7 +145,7 @@ class _PostPageState extends State<PostPage>
             print('点击了文章:${postController.postList.list[index].oId}');
           },
           child: Container(
-              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               decoration: const BoxDecoration(
                   border: CommonStyle.commonBorder,
                   borderRadius: BorderRadius.all(Radius.circular(10))),

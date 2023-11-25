@@ -81,14 +81,15 @@ class _LoginPageState extends State<LoginPage> {
                         return;
                       }
                       _pinEditingController.clear();
-                      EasyLoading.dismiss();
                       loginController.login(userName, pwd, mfaCb: () {
                         _showMfaCodeDialog();
                       }).then((token) {
+                        EasyLoading.dismiss();
                         FpUtil.setString('token', token);
                         FpUtil.setBool('isLogin', true);
                         Get.offNamed(AppRouters.index);
                       }).catchError((e) {
+                        EasyLoading.dismiss();
                         FpUtil.showToast(e.toString());
                       });
                     },
@@ -328,14 +329,15 @@ class _LoginPageState extends State<LoginPage> {
                       print('点击提交二次验证码');
                       Navigator.pop(context);
                       _pinEditingController.clear();
-                      EasyLoading.dismiss();
                       loginController.login(userName, pwd,mfaCode: mfaCode, mfaCb: () {
                         _showMfaCodeDialog();
                       }).then((token) {
+                        EasyLoading.dismiss();
                         FpUtil.setString('token', token);
                         FpUtil.setBool('isLogin', true);
                         Get.offNamed(AppRouters.index);
                       }).catchError((e) {
+                        EasyLoading.dismiss();
                         FpUtil.showToast(e.toString());
                       });
                     },

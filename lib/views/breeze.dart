@@ -30,7 +30,9 @@ class _CirclePageState extends State<CirclePage>
     token = FpUtil.getString('token');
     breezeController.init(token);
     _controller = EasyRefreshController(
-        controlFinishLoad: true, controlFinishRefresh: true);
+      controlFinishLoad: true,
+      controlFinishRefresh: true,
+    );
     breezeSendController = TextEditingController();
     loadData();
   }
