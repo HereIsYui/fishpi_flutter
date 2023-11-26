@@ -1,3 +1,6 @@
+import 'package:easy_refresh/easy_refresh.dart';
+import 'package:fishpi_app/controller/chat_controller.dart';
+import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,6 +14,26 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage>
     with AutomaticKeepAliveClientMixin {
+  final ChatController chatController = Get.put(ChatController());
+  late EasyRefreshController _controller;
+  String token = "";
+
+  @override
+  void initState(){
+    super.initState();
+    token =  FpUtil.getString('token');
+    chatController.init(token);
+    _controller = EasyRefreshController(
+      controlFinishRefresh: true,
+    );
+    loadData();
+  }
+
+  void loadData(){
+    chatController.getChatList();
+    _controller.finishRefresh();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
