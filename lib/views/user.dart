@@ -1,5 +1,6 @@
 import 'package:fishpi_app/common_style/style.dart';
 import 'package:fishpi_app/controller/user_controller.dart';
+import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,6 +51,14 @@ class _UserPageState extends State<UserPage>
                         style: TextStyle(color: Colors.black),
                       );
               }),
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                decoration: BoxDecoration(
+                  border: CommonStyle.commonBorder,
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                child: _settingList(),
+              )
             ],
           ),
         ),
@@ -191,6 +200,38 @@ class _UserPageState extends State<UserPage>
           )
         ],
       )
+    );
+  }
+
+  Widget _settingList(){
+    return const Column(
+      children: [
+        ListTile(
+          leading: Icon(Icons.not_interested,color: Colors.red,),
+          title: Text('屏蔽设置',style: TextStyle(color: Colors.black),),
+          trailing: Icon(Icons.chevron_right,color: Colors.black,),
+        ),
+        ListTile(
+          leading: Icon(Icons.analytics_outlined,color: Colors.orange,),
+          title: Text('隐私政策',style: TextStyle(color: Colors.black),),
+          trailing: Icon(Icons.chevron_right,color: Colors.black,),
+        ),
+        ListTile(
+          leading: Icon(FishIcon.notice,color: Colors.pinkAccent,),
+          title: Text('消息通知',style: TextStyle(color: Colors.black),),
+          trailing: Icon(Icons.chevron_right,color: Colors.black,),
+        ),
+        ListTile(
+          leading: Icon(Icons.color_lens_outlined,color: Colors.greenAccent,),
+          title: Text('外观设置',style: TextStyle(color: Colors.black),),
+          trailing: Icon(Icons.chevron_right,color: Colors.black,),
+        ),
+        ListTile(
+          leading: Icon(Icons.logout,color: Colors.red,),
+          title: Text('退出登录',style: TextStyle(color: Colors.black),),
+          trailing: Icon(Icons.chevron_right,color: Colors.black,),
+        ),
+      ],
     );
   }
 
