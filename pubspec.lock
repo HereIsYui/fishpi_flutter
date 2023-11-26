@@ -105,6 +105,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0"
+  dayfl:
+    dependency: "direct main"
+    description:
+      name: dayfl
+      sha256: "5cb54db4ff70e1a2d9da380a746b08b09565d9760149f29efd41ba4d8eaba47e"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.5"
   dio:
     dependency: transitive
     description:
