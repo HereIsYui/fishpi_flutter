@@ -52,8 +52,8 @@ class _UserPageState extends State<UserPage>
                       );
               }),
               Container(
-                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                decoration: const BoxDecoration(
                   border: CommonStyle.commonBorder,
                   borderRadius: BorderRadius.all(Radius.circular(10))
                 ),

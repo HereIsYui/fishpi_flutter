@@ -1,4 +1,3 @@
-import 'package:dayfl/dayfl.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:fishpi_app/controller/chat_controller.dart';
 import 'package:fishpi_app/utils/util.dart';
@@ -105,6 +104,7 @@ class _ChatPageState extends State<ChatPage>
                   child: Image.network(
                     chatController.chatList[index].receiverAvatar,
                     width: 48.w,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -121,6 +121,8 @@ class _ChatPageState extends State<ChatPage>
                         fontWeight: FontWeight.bold,
                         fontSize: 21,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     Text(
                       chatController.chatList[index].preview,
@@ -134,7 +136,7 @@ class _ChatPageState extends State<ChatPage>
               Column(
                 children: [
                   Text(
-                    Dayfl().format(chatController.chatList[index].time,'cn',true),
+                    chatController.chatList[index].time,
                     style: const TextStyle(fontSize: 11),
                   ),
                 ],
