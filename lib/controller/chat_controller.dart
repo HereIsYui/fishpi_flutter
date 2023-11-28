@@ -14,4 +14,9 @@ class ChatController extends GetxController {
     print(chatList.toString());
     update();
   }
+
+  ///  连接聊天室
+  Future<void> chetInit() async{
+    //
+  }
 }
