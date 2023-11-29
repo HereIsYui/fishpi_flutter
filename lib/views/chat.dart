@@ -1,5 +1,6 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:fishpi_app/controller/chat_controller.dart';
+import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +32,7 @@ class _ChatPageState extends State<ChatPage>
 
   void loadData() {
     chatController.getChatList();
+    chatController.chetInit();
     _controller.finishRefresh();
   }
 
@@ -82,66 +84,71 @@ class _ChatPageState extends State<ChatPage>
       physics: physics,
       itemCount: chatController.chatList.length,
       itemBuilder: (context, index) {
-        return Container(
-          width: 1.sw,
-          height: 64.h,
-          margin: const EdgeInsets.only(top: 5),
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: const BoxDecoration(
-              border: Border(bottom: BorderSide(width: 1, color: Colors.grey))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 48.w,
-                height: 48.w,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.black),
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
-                ),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  child: Image.network(
-                    chatController.chatList[index].receiverAvatar,
-                    width: 48.w,
-                    fit: BoxFit.cover,
+        return GestureDetector(
+          onTap: (){
+            Get.toNamed(AppRouters.chatroom);
+          },
+          child: Container(
+            width: 1.sw,
+            height: 64.h,
+            margin: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(width: 1, color: Colors.grey))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 48.w,
+                  height: 48.w,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2, color: Colors.black),
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    child: Image.network(
+                      chatController.chatList[index].receiverAvatar,
+                      width: 48.w,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                width: 200.w,
-                margin: const EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Container(
+                  width: 200.w,
+                  margin: const EdgeInsets.only(left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        chatController.chatList[index].receiverUserName,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 21,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        chatController.chatList[index].preview,
+                        style: const TextStyle(fontSize: 15,color: Color.fromRGBO(71, 74, 87, 1)),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                Column(
                   children: [
                     Text(
-                      chatController.chatList[index].receiverUserName,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 21,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      chatController.chatList[index].preview,
-                      style: const TextStyle(fontSize: 15,color: Color.fromRGBO(71, 74, 87, 1)),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                      chatController.chatList[index].time,
+                      style: const TextStyle(fontSize: 11),
                     ),
                   ],
                 ),
-              ),
-              Column(
-                children: [
-                  Text(
-                    chatController.chatList[index].time,
-                    style: const TextStyle(fontSize: 11),
-                  ),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

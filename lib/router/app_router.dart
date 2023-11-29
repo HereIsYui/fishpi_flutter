@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 
 import '../splash_screen.dart';
 import '../views/chat.dart';
+import '../views/chatroom.dart';
 import '../views/index.dart';
 
 abstract class AppRouters {
@@ -16,6 +17,7 @@ abstract class AppRouters {
   static const circle = '/circle';
   static const user = '/user';
   static const login = '/login';
+  static const chatroom = '/chatroom';
 
   static final List<GetPage> getPages = [
     GetPage(name: index, page: () => const IndexPage()),
@@ -25,5 +27,7 @@ abstract class AppRouters {
     GetPage(name: circle, page: ()=> const CirclePage()),
     GetPage(name: user, page: ()=> const UserPage()),
     GetPage(name: login, page: ()=> LoginPage()),
+    GetPage(name: chatroom, page: ()=> ChatRoomPage()),
+
   ];
 }
