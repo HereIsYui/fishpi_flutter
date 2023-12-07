@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Login title'.tr,
+                    'login.title'.tr,
                     style: const TextStyle(
                       fontSize: 26,
                       color: Colors.black,
@@ -73,11 +73,11 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () async {
                       print('点击了登录');
                       if (userName.isEmpty) {
-                        FpUtil.showToast('请输入用户名');
+                        FpUtil.showToast('login.username_placeholder'.tr);
                         return;
                       }
                       if (pwd.isEmpty) {
-                        FpUtil.showToast('请输入密码');
+                        FpUtil.showToast('login.password_placeholder'.tr);
                         return;
                       }
                       _pinEditingController.clear();
@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.black,
                       ),
                       child: const Text(
-                        '登录',
+                        'login.title',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16.0),
                       ),
@@ -116,9 +116,9 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Row(
                         children: [
-                          const Text(
-                            '还没有账号？',
-                            style: TextStyle(
+                          Text(
+                            'login.no_account_yet'.tr,
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 10.0,
                                 fontWeight: FontWeight.bold),
@@ -127,9 +127,9 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () {
                               print('点击了注册');
                             },
-                            child: const Text(
-                              '立即注册',
-                              style: TextStyle(
+                            child: Text(
+                              'login.register_now'.tr,
+                              style: const TextStyle(
                                   color: Colors.red,
                                   fontSize: 10.0,
                                   fontWeight: FontWeight.bold),

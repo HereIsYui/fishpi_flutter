@@ -7,6 +7,7 @@ import 'package:fishpi_app/views/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../common_style/style.dart';
 import '../utils/event.dart';
@@ -33,7 +34,7 @@ class _IndexPageState extends State<IndexPage>
     const UserPage()
   ];
 
-  final List<String> titleList = ["聊天", "文章", "清风明月", "我的"];
+  final List<String> titleList = ['index.chat'.tr, 'index.article'.tr, 'index.breezemoon'.tr, 'index.profile'.tr];
 
   @override
   void initState() {
@@ -98,34 +99,34 @@ class _IndexPageState extends State<IndexPage>
                 const TextStyle(height: 1.8, fontSize: 12, wordSpacing: 10),
             type: BottomNavigationBarType.fixed,
             currentIndex: currentIndex,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   FishIcon.chat,
                   size: 25,
                 ),
-                label: '聊天',
+                label: titleList[0],
               ),
               BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   FishIcon.article,
                   size: 25,
                 ),
-                label: '文章',
+                label: titleList[1],
               ),
               BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   FishIcon.breeze,
                   size: 25,
                 ),
-                label: '清风明月',
+                label: titleList[2]
               ),
               BottomNavigationBarItem(
-                icon: Icon(
+                icon: const Icon(
                   FishIcon.my,
                   size: 25,
                 ),
-                label: '我的',
+                label: titleList[3],
               ),
             ],
             onTap: (index) {
