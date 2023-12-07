@@ -1,6 +1,6 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:fishpi/types/article.dart';
-import 'package:fishpi_app/controller/post_controller.dart';
+import 'package:fishpi_app/controller/article.dart';
 import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,16 +9,16 @@ import 'package:get/get.dart';
 import '../common_style/style.dart';
 import '../utils/util.dart';
 
-class PostPage extends StatefulWidget {
-  const PostPage({super.key});
+class ArticlePage extends StatefulWidget {
+  const ArticlePage({super.key});
 
   @override
-  State<PostPage> createState() => _PostPageState();
+  State<ArticlePage> createState() => _ArticlePageState();
 }
 
-class _PostPageState extends State<PostPage>
+class _ArticlePageState extends State<ArticlePage>
     with AutomaticKeepAliveClientMixin {
-  final PostController postController = Get.put(PostController());
+  final ArticleController postController = Get.put(ArticleController());
   late EasyRefreshController _controller;
   int page = 1;
   String token = "";
@@ -94,7 +94,7 @@ class _PostPageState extends State<PostPage>
               width: 1.sw,
               height: 1.sh,
               color: Colors.white,
-              child: GetBuilder<PostController>(builder: (controller) {
+              child: GetBuilder<ArticleController>(builder: (controller) {
                 return postController.postList.list.isNotEmpty
                     ? _articleList(physics)
                     : const Text(

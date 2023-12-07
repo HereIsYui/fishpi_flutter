@@ -1,6 +1,6 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:fishpi_app/common_style/style.dart';
-import 'package:fishpi_app/controller/breeze_controller.dart';
+import 'package:fishpi_app/controller/breezemoon.dart';
 import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -8,16 +8,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 
-class CirclePage extends StatefulWidget {
-  const CirclePage({super.key});
+class BreezeMoonPage extends StatefulWidget {
+  const BreezeMoonPage({super.key});
 
   @override
-  State<CirclePage> createState() => _CirclePageState();
+  State<BreezeMoonPage> createState() => _BreezeMoonPageState();
 }
 
-class _CirclePageState extends State<CirclePage>
+class _BreezeMoonPageState extends State<BreezeMoonPage>
     with AutomaticKeepAliveClientMixin {
-  final BreezeController breezeController = Get.put(BreezeController());
+  final BreezeMoonController breezeController = Get.put(BreezeMoonController());
   late EasyRefreshController _controller;
   late TextEditingController breezeSendController;
   String breezeContent = "";
@@ -99,7 +99,7 @@ class _CirclePageState extends State<CirclePage>
                 width: 1.sw,
                 height: 1.sh,
                 color: Colors.white,
-                child: GetBuilder<BreezeController>(builder: (controller) {
+                child: GetBuilder<BreezeMoonController>(builder: (controller) {
                   return breezeController.breezeList.isNotEmpty
                       ? _breezeList(physics)
                       : const Text(

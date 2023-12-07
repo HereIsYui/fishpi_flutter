@@ -1,7 +1,7 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:get/get.dart';
 
-class PostController extends GetxController {
+class ArticleController extends GetxController {
   late Fishpi fishpi;
   ArticleList postList = ArticleList();
 

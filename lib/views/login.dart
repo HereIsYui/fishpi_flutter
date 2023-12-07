@@ -1,5 +1,5 @@
 import 'package:fishpi/types/types.dart';
-import 'package:fishpi_app/controller/login_controller.dart';
+import 'package:fishpi_app/controller/login.dart';
 import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';

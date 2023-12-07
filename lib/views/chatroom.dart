@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../controller/chat_controller.dart';
+import '../controller/chat.dart';
 
 class ChatRoomPage extends StatefulWidget {
   const ChatRoomPage({super.key});

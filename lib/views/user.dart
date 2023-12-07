@@ -1,5 +1,5 @@
 import 'package:fishpi_app/common_style/style.dart';
-import 'package:fishpi_app/controller/user_controller.dart';
+import 'package:fishpi_app/controller/user.dart';
 import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +128,7 @@ class _UserPageState extends State<UserPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '# ${userController.user.oId}',
+                        '# ${userController.user.userNo}',
                         style: const TextStyle(color: Colors.white70, fontSize: 17),
                       ),
                       const SizedBox(

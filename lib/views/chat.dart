@@ -1,5 +1,5 @@
 import 'package:easy_refresh/easy_refresh.dart';
-import 'package:fishpi_app/controller/chat_controller.dart';
+import 'package:fishpi_app/controller/chat.dart';
 import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/material.dart';

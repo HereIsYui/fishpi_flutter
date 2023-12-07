@@ -2,7 +2,7 @@ import 'package:fishpi/fishpi.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-class BreezeController extends GetxController {
+class BreezeMoonController extends GetxController {
   late Fishpi fishpi;
   List<BreezemoonContent> breezeList = [];
 

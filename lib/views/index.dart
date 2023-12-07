@@ -1,8 +1,8 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:fishpi_app/utils/app_icon.dart';
 import 'package:fishpi_app/views/chat.dart';
-import 'package:fishpi_app/views/breeze.dart';
-import 'package:fishpi_app/views/post.dart';
+import 'package:fishpi_app/views/breezemoon.dart';
+import 'package:fishpi_app/views/article.dart';
 import 'package:fishpi_app/views/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -27,10 +27,10 @@ class _IndexPageState extends State<IndexPage>
   int currentIndex = 0;
 
   final List<Widget> tabBarBodyItems = [
-    ChatPage(),
-    PostPage(),
-    CirclePage(),
-    UserPage()
+    const ChatPage(),
+    const ArticlePage(),
+    const BreezeMoonPage(),
+    const UserPage()
   ];
 
   final List<String> titleList = ["聊天", "文章", "清风明月", "我的"];
@@ -93,7 +93,7 @@ class _IndexPageState extends State<IndexPage>
             unselectedItemColor: Colors.black54,
             selectedItemColor: Colors.black,
             selectedLabelStyle:
-                const TextStyle(height: 1.8, fontSize: 12, wordSpacing: 10),
+                const TextStyle(height: 1.8, fontSize: 12, wordSpacing: 10, fontWeight: FontWeight.bold),
             unselectedLabelStyle:
                 const TextStyle(height: 1.8, fontSize: 12, wordSpacing: 10),
             type: BottomNavigationBarType.fixed,
