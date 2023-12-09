@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
   final String image;
+  final bool isAssets;
   final double size;
   final double borderWidth;
   final Color borderColor;
@@ -9,6 +10,7 @@ class Avatar extends StatelessWidget {
   const Avatar({
     Key? key,
     required this.image,
+    this.isAssets = false,
     this.size = 50,
     this.borderWidth = 2,
     this.borderColor = Colors.black,
@@ -25,11 +27,17 @@ class Avatar extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(50)),
-        child: Image.network(
-          image,
-          width: size,
-          fit: BoxFit.cover,
-        ),
+        child: isAssets
+            ? Image.asset(
+                image,
+                width: size,
+                fit: BoxFit.cover,
+              )
+            : Image.network(
+                image,
+                width: size,
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }

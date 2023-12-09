@@ -101,21 +101,10 @@ class _ChatPageState extends State<ChatPage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 48.w,
-                    height: 48.w,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.black),
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                      child: Image.asset(
-                        'assets/images/logo.png',
-                        width: 48.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  Avatar(
+                    image: 'assets/images/logo.png',
+                    size: 48.w,
+                    isAssets: true,
                   ),
                   Container(
                     width: 255.w,
@@ -171,21 +160,9 @@ class _ChatPageState extends State<ChatPage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 48.w,
-                    height: 48.w,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2, color: Colors.black),
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                      child: Image.network(
-                        chatController.chatList[index - 1].receiverAvatar,
-                        width: 48.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  Avatar(
+                    image: chatController.chatList[index - 1].receiverAvatar,
+                    size: 48.w,
                   ),
                   Container(
                     width: 255.w,
