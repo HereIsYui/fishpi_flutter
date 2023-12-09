@@ -76,4 +76,24 @@ class FpUtil {
       timeInSecForIosWeb: 1,
     );
   }
+
+  /// 聊天时间处理
+  /// [time] 发消息时间
+  /// 5分钟以内返回:刚刚 一天内的返回:具体时间 前一天的返回:昨天 其他的返回:日期
+  static getChatTime(String time) {
+    var chatTime = DateTime.parse(time);
+    var nowTime = DateTime.now();
+    var interval = nowTime.millisecondsSinceEpoch - chatTime.millisecondsSinceEpoch;
+    var cb = '${chatTime.month}月${chatTime.day}日';
+    if(interval < 5 * 60 * 1000){
+      cb = '刚刚';
+    }else if (interval < 24 * 60 * 60 * 1000){
+      cb = '${chatTime.hour}:${chatTime.minute}';
+    }else if (interval < 48 * 60 * 60 * 1000){
+      cb = '昨天';
+    }else{
+      cb = '${chatTime.month}月${chatTime.day}日';
+    }
+    return cb;
+  }
 }

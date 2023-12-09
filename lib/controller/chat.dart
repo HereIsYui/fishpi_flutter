@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class ChatController extends GetxController {
   late Fishpi fishpi;
   List<ChatData> chatList = [];
+  ChatRoomMessage previewMsg = ChatRoomMessage();
 
   Future<void> init(String token) async {
     fishpi = Fishpi(token);
@@ -35,6 +36,7 @@ class ChatController extends GetxController {
           case ChatRoomMessageType.msg:
             // 普通消息
             print(data.msg!.content);
+            previewMsg = data.msg!;
             break;
           case ChatRoomMessageType.revoke:
             // 撤回消息
