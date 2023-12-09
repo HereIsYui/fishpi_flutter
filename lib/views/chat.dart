@@ -1,4 +1,5 @@
 import 'package:easy_refresh/easy_refresh.dart';
+import 'package:fishpi_app/components/avatar.dart';
 import 'package:fishpi_app/controller/chat.dart';
 import 'package:fishpi_app/router/app_router.dart';
 import 'package:fishpi_app/utils/util.dart';
@@ -98,21 +99,9 @@ class _ChatPageState extends State<ChatPage>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 48.w,
-                  height: 48.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Colors.black),
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                    child: Image.network(
-                      chatController.chatList[index].receiverAvatar,
-                      width: 48.w,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                Avatar(
+                  size: 48.w,
+                  image: chatController.chatList[index].receiverAvatar,
                 ),
                 Container(
                   width: 200.w,

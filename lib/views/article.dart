@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../common_style/style.dart';
+import '../components/avatar.dart';
 import '../utils/util.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -154,6 +155,8 @@ class _ArticlePageState extends State<ArticlePage>
                   ListTile(
                     title: Text(
                       postController.postList.list[index].titleEmoj,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -168,19 +171,11 @@ class _ArticlePageState extends State<ArticlePage>
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    trailing: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: SizedBox(
-                          width: 48.w,
-                          height: 48.w,
-                          child: Image.network(
-                            postController
-                                .postList.list[index].author.avatarURL,
-                            fit: BoxFit.cover,
-                            width: 48.w,
-                            height: 48.w,
-                          ),
-                        )),
+                    trailing: Avatar(
+                      size: 48.w,
+                      image: postController
+                          .postList.list[index].author.avatarURL,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
