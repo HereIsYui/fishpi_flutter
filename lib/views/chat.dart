@@ -123,7 +123,10 @@ class _ChatPageState extends State<ChatPage>
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        handleLastMsg(chatController.previewMsg),
+                        chatController.chatRoomMsg.isNotEmpty
+                            ? handleLastMsg(
+                                chatController.chatRoomMsg[chatController.chatRoomMsg.length-1])
+                            : const Text(''),
                       ],
                     ),
                   ),
@@ -217,36 +220,28 @@ class _ChatPageState extends State<ChatPage>
 
   Widget handleLastMsg(ChatRoomMessage msg) {
     var document = parse(msg.content);
-    Widget chatMsg = const Text('');
+    String chatMsg = '';
 
     /// 处理文本
     document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
       if (element.text.isEmpty) return;
-      chatMsg = Text(
-        '${msg.userName}:${element.text}',
-        style: const TextStyle(
-          fontSize: 15,
-          color: Color.fromRGBO(71, 74, 87, 1),
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      );
+      chatMsg = '${msg.userName}:${element.text}';
     });
 
     /// 处理图片
     document.querySelectorAll("img").forEach((element) {
       if (element.attributes['src']!.isEmpty) return;
-      chatMsg = Text(
-        '${msg.userName}:[图片]',
-        style: const TextStyle(
-          fontSize: 15,
-          color: Color.fromRGBO(71, 74, 87, 1),
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      );
+      chatMsg = '${msg.userName}:[图片]';
     });
-    return chatMsg;
+    return Text(
+      chatMsg,
+      style: const TextStyle(
+        fontSize: 15,
+        color: Color.fromRGBO(71, 74, 87, 1),
+      ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
   }
 
   @override
