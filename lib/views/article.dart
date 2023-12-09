@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../common_style/style.dart';
+import '../components/avatar.dart';
+import '../components/tag.dart';
 import '../utils/util.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -109,6 +111,7 @@ class _ArticlePageState extends State<ArticlePage>
     );
   }
 
+
   Widget _articleList(physics) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
@@ -119,24 +122,14 @@ class _ArticlePageState extends State<ArticlePage>
         List<Widget> tagList = [];
         List<ArticleTag> tagObjs = postController.postList.list[index].tagObjs;
         for (var i = 0; i < tagObjs.length; i++) {
-          tagList.add(
-            GestureDetector(
-                onTap: () {
-                  print('点击了标签: ${tagObjs[i].title}');
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  child: Text(
-                    tagObjs[i].title,
-                    style: TextStyle(
-                        color: (tagObjs[i].title == '新人报道' ||
-                                tagObjs[i].title == '新人报到')
-                            ? Colors.red
-                            : Colors.grey,
-                        fontSize: 10),
-                  ),
-                )),
-          );
+          tagList.add(Tag(
+            tagObjs[i],
+            onTap: () {
+              print('点击了标签: ${tagObjs[i].title}');
+            },
+            iconSize: 12.w,
+            fontSize: 10
+          ));
         }
 
         /// 上面是处理标签的代码
@@ -154,6 +147,8 @@ class _ArticlePageState extends State<ArticlePage>
                   ListTile(
                     title: Text(
                       postController.postList.list[index].titleEmoj,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -168,19 +163,11 @@ class _ArticlePageState extends State<ArticlePage>
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    trailing: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: SizedBox(
-                          width: 48.w,
-                          height: 48.w,
-                          child: Image.network(
-                            postController
-                                .postList.list[index].author.avatarURL,
-                            fit: BoxFit.cover,
-                            width: 48.w,
-                            height: 48.w,
-                          ),
-                        )),
+                    trailing: Avatar(
+                      size: 48.w,
+                      image:
+                          postController.postList.list[index].author.avatarURL,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -201,7 +188,9 @@ class _ArticlePageState extends State<ArticlePage>
                                 color: Colors.black,
                                 size: 12,
                               ),
-                              const SizedBox(width: 2,),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               Text(
                                 postController.postList.list[index].commentCnt
                                     .toString(),
@@ -210,7 +199,9 @@ class _ArticlePageState extends State<ArticlePage>
                                   fontSize: 12,
                                 ),
                               ),
-                              const SizedBox(width: 2,),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               const SizedBox(
                                 width: 5,
                               ),
@@ -219,7 +210,9 @@ class _ArticlePageState extends State<ArticlePage>
                                 color: Colors.black,
                                 size: 12,
                               ),
-                              const SizedBox(width: 2,),
+                              const SizedBox(
+                                width: 2,
+                              ),
                               Text(
                                 postController.postList.list[index].thankCnt
                                     .toString(),

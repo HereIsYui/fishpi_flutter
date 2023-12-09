@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 
+import '../components/avatar.dart';
+
 class BreezeMoonPage extends StatefulWidget {
   const BreezeMoonPage({super.key});
 
@@ -137,18 +139,9 @@ class _BreezeMoonPageState extends State<BreezeMoonPage>
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: SizedBox(
-                            width: 35.w,
-                            height: 35.w,
-                            child: Image.network(
-                              breezeController.breezeList[index].thumbnailURL48,
-                              fit: BoxFit.cover,
-                              width: 35.w,
-                              height: 35.w,
-                            ),
-                          ),
+                        Avatar(
+                          size: 35.w,
+                          image: breezeController.breezeList[index].thumbnailURL48,
                         ),
                         const SizedBox(
                           width: 10,
