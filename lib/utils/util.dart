@@ -84,16 +84,28 @@ class FpUtil {
     var chatTime = DateTime.parse(time);
     var nowTime = DateTime.now();
     var interval = nowTime.millisecondsSinceEpoch - chatTime.millisecondsSinceEpoch;
-    var cb = '${chatTime.month}月${chatTime.day}日';
+    var cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
     if(interval < 5 * 60 * 1000){
       cb = '刚刚';
     }else if (interval < 24 * 60 * 60 * 1000){
-      cb = '${chatTime.hour}:${chatTime.minute}';
+      cb = '${_fillZero(chatTime.hour.toString(),2)}:${_fillZero(chatTime.minute.toString(),2)}';
     }else if (interval < 48 * 60 * 60 * 1000){
       cb = '昨天';
     }else{
-      cb = '${chatTime.month}月${chatTime.day}日';
+      cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
     }
     return cb;
+  }
+
+  /// 根据长度补零
+  static _fillZero(String str, int length) {
+    if (str.length == length) {
+      return str;
+    }
+    String zero = '';
+    for (int i = 0; i < length - str.length; i++) {
+      zero += '0';
+    }
+    return zero + str;
   }
 }

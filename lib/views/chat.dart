@@ -123,9 +123,11 @@ class _ChatPageState extends State<ChatPage>
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        chatController.chatRoomMsg.isNotEmpty
+                        chatController.chatLastMsg.isNotEmpty
                             ? handleLastMsg(
-                                chatController.chatRoomMsg[chatController.chatRoomMsg.length-1])
+                                chatController.chatLastMsg,
+                                chatController.chatLastUser,
+                              )
                             : const Text(''),
                       ],
                     ),
@@ -218,20 +220,20 @@ class _ChatPageState extends State<ChatPage>
     );
   }
 
-  Widget handleLastMsg(ChatRoomMessage msg) {
-    var document = parse(msg.content);
+  Widget handleLastMsg(String msg, String user) {
+    var document = parse(msg);
     String chatMsg = '';
 
     /// 处理文本
     document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
       if (element.text.isEmpty) return;
-      chatMsg = '${msg.userName}:${element.text}';
+      chatMsg = '$user:${element.text}';
     });
 
     /// 处理图片
     document.querySelectorAll("img").forEach((element) {
       if (element.attributes['src']!.isEmpty) return;
-      chatMsg = '${msg.userName}:[图片]';
+      chatMsg = '$user:[图片]';
     });
     return Text(
       chatMsg,

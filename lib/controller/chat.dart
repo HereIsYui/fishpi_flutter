@@ -5,6 +5,8 @@ class ChatController extends GetxController {
   late Fishpi fishpi;
   List<ChatData> chatList = [];
   List<ChatRoomMessage> chatRoomMsg = [];
+  String chatLastMsg = "";
+  String chatLastUser = "";
 
   Future<void> init(String token) async {
     fishpi = Fishpi(token);
@@ -37,9 +39,12 @@ class ChatController extends GetxController {
             // 普通消息
             print(data.msg!.content);
             chatRoomMsg.add(data.msg!);
+            chatLastMsg = data.msg!.content;
+            chatLastUser = data.msg!.userName;
             if(chatRoomMsg.length > 200){
               // chatRoomMsg
             }
+            update();
             break;
           case ChatRoomMessageType.revoke:
             // 撤回消息
