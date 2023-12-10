@@ -18,6 +18,11 @@ class ChatController extends GetxController {
     update();
   }
 
+  Future<void> getChatRoomHistory() async{
+    List<ChatRoomMessage> historyMsg = await fishpi.chatroom.more(1);
+    chatRoomMsg.addAll(historyMsg);
+  }
+
   ///  连接聊天室
   Future<void> chetInit() async {
     fishpi.chatroom.addListener((ChatRoomData data) {

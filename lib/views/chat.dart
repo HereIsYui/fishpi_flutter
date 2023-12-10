@@ -35,6 +35,7 @@ class _ChatPageState extends State<ChatPage>
 
   void loadData() {
     chatController.getChatList();
+    chatController.getChatRoomHistory();
     chatController.chetInit();
     _controller.finishRefresh();
   }
