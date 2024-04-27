@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../common_style/style.dart';
 import '../components/avatar.dart';
+import '../components/empty.dart';
 import '../components/tag.dart';
 import '../utils/util.dart';
 
@@ -99,10 +100,7 @@ class _ArticlePageState extends State<ArticlePage>
               child: GetBuilder<ArticleController>(builder: (controller) {
                 return postController.postList.list.isNotEmpty
                     ? _articleList(physics)
-                    : const Text(
-                        'is loading',
-                        style: TextStyle(color: Colors.black),
-                      );
+                    : const EmptyContent();
               }),
             );
           },

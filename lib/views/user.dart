@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../components/avatar.dart';
+import '../components/empty.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -38,20 +39,17 @@ class _UserPageState extends State<UserPage>
 
     return Material(
       child: SafeArea(
+        top: false,
         child: Container(
           width: 1.sw,
-          height: 1.sh,
           color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
+            padding: EdgeInsets.zero,
             children: [
               GetBuilder<UserController>(builder: (controller) {
                 return userController.user.oId.isNotEmpty
                     ? _userInfo()
-                    : const Text(
-                        'is loading',
-                        style: TextStyle(color: Colors.black),
-                      );
+                    : const EmptyContent();
               }),
               Container(
                 margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -59,7 +57,7 @@ class _UserPageState extends State<UserPage>
                     border: CommonStyle.commonBorder,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: _settingList(),
-              )
+              ),
             ],
           ),
         ),

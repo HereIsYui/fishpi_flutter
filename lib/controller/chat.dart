@@ -1,26 +1,27 @@
 import 'package:fishpi/fishpi.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ChatController extends GetxController {
   late Fishpi fishpi;
-  List<ChatData> chatList = [];
-  List<ChatRoomMessage> chatRoomMsg = [];
-  String chatLastMsg = "";
-  String chatLastUser = "";
+  final chatList = <ChatData>[].obs;
+  final chatRoomMsg = <ChatRoomMessage>[].obs;
+  final ScrollController scrollController = ScrollController();
 
   Future<void> init(String token) async {
     fishpi = Fishpi(token);
   }
 
   Future<void> getChatList() async {
-    chatList = await fishpi.chat.list();
+    chatList.value = await fishpi.chat.list();
     print(chatList.toString());
     update();
   }
 
   Future<void> getChatRoomHistory() async{
     List<ChatRoomMessage> historyMsg = await fishpi.chatroom.more(1);
-    chatRoomMsg.addAll(historyMsg);
+    chatRoomMsg.value = historyMsg.reversed.toList();
+    chatRoomMsg.refresh();
   }
 
   ///  连接聊天室
@@ -44,11 +45,11 @@ class ChatController extends GetxController {
             // 普通消息
             print(data.msg!.content);
             chatRoomMsg.add(data.msg!);
-            chatLastMsg = data.msg!.content;
-            chatLastUser = data.msg!.userName;
             if(chatRoomMsg.length > 200){
               // chatRoomMsg
+              chatRoomMsg.removeAt(0);
             }
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
             update();
             break;
           case ChatRoomMessageType.revoke:

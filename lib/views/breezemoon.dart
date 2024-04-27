@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:html/parser.dart';
 
 import '../components/avatar.dart';
+import '../components/empty.dart';
 
 class BreezeMoonPage extends StatefulWidget {
   const BreezeMoonPage({super.key});
@@ -104,10 +105,7 @@ class _BreezeMoonPageState extends State<BreezeMoonPage>
                 child: GetBuilder<BreezeMoonController>(builder: (controller) {
                   return breezeController.breezeList.isNotEmpty
                       ? _breezeList(physics)
-                      : const Text(
-                          'is loading',
-                          style: TextStyle(color: Colors.black),
-                        );
+                      : const EmptyContent();
                 }));
           },
         ),

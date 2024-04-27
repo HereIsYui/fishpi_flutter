@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 
+import '../components/empty.dart';
+
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
 
@@ -70,10 +72,7 @@ class _ChatPageState extends State<ChatPage>
                 child: GetBuilder<ChatController>(builder: (controller) {
                   return chatController.chatList.isNotEmpty
                       ? _chatList(physics)
-                      : const Text(
-                          'is loading',
-                          style: TextStyle(color: Colors.black),
-                        );
+                      : const EmptyContent();
                 }));
           },
         ),
@@ -89,7 +88,7 @@ class _ChatPageState extends State<ChatPage>
       itemBuilder: (context, index) {
         if (index == 0) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {Get.toNamed(AppRouters.chatroom);},
             child: Container(
               width: 1.sw,
               height: 64.h,
@@ -123,10 +122,10 @@ class _ChatPageState extends State<ChatPage>
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        chatController.chatLastMsg.isNotEmpty
+                        chatController.chatRoomMsg.isNotEmpty
                             ? handleLastMsg(
-                                chatController.chatLastMsg,
-                                chatController.chatLastUser,
+                                chatController.chatRoomMsg.last.content,
+                                chatController.chatRoomMsg.last.userName,
                               )
                             : const Text(''),
                       ],
@@ -138,7 +137,7 @@ class _ChatPageState extends State<ChatPage>
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          FpUtil.getChatTime('2023-12-09 13:03:00'),
+                          FpUtil.getChatTime(chatController.chatRoomMsg.last.time),
                           style: const TextStyle(
                               fontSize: 11, color: Colors.black),
                         ),
