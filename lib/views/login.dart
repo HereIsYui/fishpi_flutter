@@ -39,12 +39,12 @@ class _LoginPageState extends State<LoginPage> {
     return Material(
       child: SafeArea(
         child: Container(
-            width: 1.sw,
-            height: 1.sh,
-            color: CommonStyle.primaryColor,
-            padding: const EdgeInsets.all(10),
-            child: Center(
-                child: SizedBox(
+          width: 1.sw,
+          height: 1.sh,
+          color: CommonStyle.primaryColor,
+          padding: const EdgeInsets.all(10),
+          child: Center(
+            child: SizedBox(
               width: 327.w,
               height: 370.h,
               child: Column(
@@ -101,9 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Colors.black,
                       ),
-                      child: const Text(
-                        'login.title',
-                        style: TextStyle(
+                      child: Text(
+                        'login.title'.tr,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16.0),
                       ),
                     ),
@@ -151,7 +151,9 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
               ),
-            ))),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -329,7 +331,8 @@ class _LoginPageState extends State<LoginPage> {
                       print('点击提交二次验证码');
                       Navigator.pop(context);
                       _pinEditingController.clear();
-                      loginController.login(userName, pwd,mfaCode: mfaCode, mfaCb: () {
+                      loginController.login(userName, pwd, mfaCode: mfaCode,
+                          mfaCb: () {
                         _showMfaCodeDialog();
                       }).then((token) {
                         EasyLoading.dismiss();

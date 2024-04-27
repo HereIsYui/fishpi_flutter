@@ -1,5 +1,4 @@
 import 'package:easy_refresh/easy_refresh.dart';
-import 'package:fishpi/types/chatroom.dart';
 import 'package:fishpi_app/components/avatar.dart';
 import 'package:fishpi_app/controller/chat.dart';
 import 'package:fishpi_app/router/app_router.dart';
