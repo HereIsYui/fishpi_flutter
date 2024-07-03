@@ -1,3 +1,4 @@
+import 'package:fishpi_app/controller/chatroom.dart';
 import 'package:fishpi_app/utils/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,13 @@ class ChatRoomPage extends StatefulWidget {
 }
 
 class _ChatRoomPageState extends State<ChatRoomPage> {
-  final ChatController chatController = Get.put(ChatController());
+  final ChatController chat = Get.put(ChatController());
+  final ChatRoomLogic chatRoom = Get.put(ChatRoomLogic());
   final maxWidth = 1.sw * 0.8;
 
   @override
   void initState() {
-    print(chatController.fishpi.token);
+    print(chat.fishpi.token);
     super.initState();
   }
 
@@ -28,7 +30,10 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios),
+        leading: GestureDetector(
+          onTap: (){Get.back();},
+          child: Icon(Icons.arrow_back_ios,color: Colors.white,),
+        ),
         backgroundColor: CommonStyle.primaryColor,
         title: const Text(
           '聊天室',
@@ -37,14 +42,17 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
         ),
       ),
       body: SafeArea(
+        top: false,
         child: Obx(
           () => Container(
             width: 1.sw,
-            height: 1.sh,
-            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 15.w),
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 0),
             child: ListView.builder(
-              controller: chatController.scrollController,
-              itemCount: chatController.chatRoomMsg.length,
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              reverse: true,
+              controller: chatRoom.scrollController,
+              itemCount: chat.chatRoomMsg.length,
               itemBuilder: _chatItemBuilder,
             ),
           ),
@@ -71,7 +79,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 ),
               ),
               child: Image.network(
-                chatController.chatRoomMsg[index].avatarURL,
+                chat.chatRoomMsg[index].avatarURL,
                 width: 48.w,
                 height: 48.w,
               ),
@@ -84,7 +92,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  chatController.chatRoomMsg[index].nickname,
+                  chat.chatRoomMsg[index].nickname,
                   style: TextStyle(
                     color: const Color(0xFF18191F),
                     fontSize: 21.sp,
@@ -92,7 +100,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 ),
                 5.horizontalSpace,
                 Text(
-                  FpUtil.getChatTime(chatController.chatRoomMsg[index].time),
+                  FpUtil.getChatTime(chat.chatRoomMsg[index].time),
                   style: TextStyle(
                     color: const Color(0xFF9FA4B4),
                     fontSize: 11.sp,
@@ -113,7 +121,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
                 ),
               ),
               child: Text(
-                chatController.chatRoomMsg[index].content,
+                chat.chatRoomMsg[index].content,
                 style: TextStyle(color: Colors.black),
               ),
             ),

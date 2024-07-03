@@ -1,12 +1,14 @@
 import 'package:fishpi/fishpi.dart';
+import 'package:fishpi_app/utils/event.dart';
+import 'package:fishpi_app/utils/event_bus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+
 
 class ChatController extends GetxController {
   late Fishpi fishpi;
   final chatList = <ChatData>[].obs;
   final chatRoomMsg = <ChatRoomMessage>[].obs;
-  final ScrollController scrollController = ScrollController();
 
   Future<void> init(String token) async {
     fishpi = Fishpi(token);
@@ -20,8 +22,9 @@ class ChatController extends GetxController {
 
   Future<void> getChatRoomHistory() async{
     List<ChatRoomMessage> historyMsg = await fishpi.chatroom.more(1);
-    chatRoomMsg.value = historyMsg.reversed.toList();
+    chatRoomMsg.value = historyMsg.toList();
     chatRoomMsg.refresh();
+
   }
 
   ///  连接聊天室
@@ -44,12 +47,13 @@ class ChatController extends GetxController {
           case ChatRoomMessageType.msg:
             // 普通消息
             print(data.msg!.content);
-            chatRoomMsg.add(data.msg!);
+            chatRoomMsg.insert(0, data.msg!);
             if(chatRoomMsg.length > 200){
               // chatRoomMsg
               chatRoomMsg.removeAt(0);
             }
-            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+            chatRoomMsg.refresh();
+            EventBusManager.eventBus.fire(NewMsgEvent(true));
             update();
             break;
           case ChatRoomMessageType.revoke:
@@ -74,4 +78,6 @@ class ChatController extends GetxController {
       }
     });
   }
+
+
 }

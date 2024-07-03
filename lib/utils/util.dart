@@ -81,20 +81,26 @@ class FpUtil {
   /// [time] 发消息时间
   /// 5分钟以内返回:刚刚 一天内的返回:具体时间 前一天的返回:昨天 其他的返回:日期
   static getChatTime(String time) {
-    var chatTime = DateTime.parse(time);
-    var nowTime = DateTime.now();
-    var interval = nowTime.millisecondsSinceEpoch - chatTime.millisecondsSinceEpoch;
-    var cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
-    if(interval < 5 * 60 * 1000){
-      cb = '刚刚';
-    }else if (interval < 24 * 60 * 60 * 1000){
-      cb = '${_fillZero(chatTime.hour.toString(),2)}:${_fillZero(chatTime.minute.toString(),2)}';
-    }else if (interval < 48 * 60 * 60 * 1000){
-      cb = '昨天';
-    }else{
-      cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
+    //print(time);
+    try{
+      var chatTime = DateTime.parse(time);
+      var nowTime = DateTime.now();
+      var interval = nowTime.millisecondsSinceEpoch - chatTime.millisecondsSinceEpoch;
+      var cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
+      if(interval < 5 * 60 * 1000){
+        cb = '刚刚';
+      }else if (interval < 24 * 60 * 60 * 1000){
+        cb = '${_fillZero(chatTime.hour.toString(),2)}:${_fillZero(chatTime.minute.toString(),2)}';
+      }else if (interval < 48 * 60 * 60 * 1000){
+        cb = '昨天';
+      }else{
+        cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
+      }
+      return cb;
+    }catch(e){
+      return '';
     }
-    return cb;
+
   }
 
   /// 根据长度补零
