@@ -12,9 +12,9 @@ APP仍在开发中，欢迎大家PR，欢迎star，欢迎提issue
 
 在该版本之前，一共三个APP客户端，三个版本独立存在。
 
-- 2022.01.04 由 @HereIsYui 开发的uni-app版本上线 
-- 2022.06.02 由 @iwpz 开发的flutter第一个版本上线 
-- 2022.06.25 由 @csfwff 开发的原生安卓版本上线
+- 2022.01.04 由 [@HereIsYui](https://github.com/HereIsYui) 开发的uni-app版本上线 
+- 2022.06.02 由 [@iwpz](https://github.com/iwpz) 开发的flutter第一个版本上线 
+- 2022.06.25 由 [@csfwff](https://github.com/csfwff) 开发的原生安卓版本上线
 
 由于种种原因，以上版本都陆续停止了更新和维护(~~开发者太懒了~~)。于是在2023.10.11日，flutter v2版本的APP计划被提出，
 但是因各种原因(~~才不是懒~~)，该版本于2024.07.04停止开发。
