@@ -1,6 +1,6 @@
 # fishpi_app
 
-fishpi app
+A new Flutter project.
 
 ## Getting Started
 
