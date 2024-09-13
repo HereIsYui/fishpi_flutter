@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="fishpi_app"
+        android:label="摸鱼派"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
