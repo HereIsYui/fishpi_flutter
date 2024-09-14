@@ -45,19 +45,20 @@ class AppPages {
     _pageBuilder(
       name: AppRoutes.splash,
       page: () => const SplashPage(),
-      transition: Transition.fadeIn,
       binding: SplashBinding(),
+      transition: Transition.fadeIn,
     ),
     _pageBuilder(
       name: AppRoutes.login,
       page: () => LoginPage(),
-      transition: Transition.fadeIn,
       binding: LoginBinding(),
+      transition: Transition.fadeIn,
     ),
     _pageBuilder(
       name: AppRoutes.home,
       page: () => HomePage(),
       binding: HomeBinding(),
+      transition: Transition.fadeIn,
     ),
     _pageBuilder(
       name: AppRoutes.conversation,

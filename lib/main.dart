@@ -1,4 +1,6 @@
+import 'package:fishpi_app/core/controller/im.dart';
 import 'package:fishpi_app/routers/pages.dart';
+import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -6,12 +8,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async{
   SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   );
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await PiUtils.getInstance();
   runApp(ScreenUtilInit(
     designSize: const Size(360, 812),
     minTextAdapt: true,
@@ -46,5 +50,7 @@ void main() {
 
 class InitBinding extends Bindings {
   @override
-  void dependencies() {}
+  void dependencies() {
+    Get.put<IMController>(IMController());
+  }
 }

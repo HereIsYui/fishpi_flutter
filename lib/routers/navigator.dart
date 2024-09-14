@@ -7,4 +7,8 @@ class AppNavigator {
   static void startLogin() {
     Get.offAllNamed(AppRoutes.login);
   }
+
+  static void closeAllToHome(){
+    Get.offAllNamed(AppRoutes.home);
+  }
 }
