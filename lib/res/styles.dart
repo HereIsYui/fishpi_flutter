@@ -10,4 +10,13 @@ class Styles {
     left: BorderSide(color: Colors.black, width: 2, style: BorderStyle.solid),
     right: BorderSide(color: Colors.black, width: 2, style: BorderStyle.solid),
   );
+  static const inputBorder = OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.black,
+      width: 2,
+    ),
+    borderRadius: BorderRadius.all(
+      Radius.circular(10),
+    ),
+  );
 }

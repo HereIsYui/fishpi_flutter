@@ -29,6 +29,7 @@ class AppPages {
     required String name,
     required GetPageBuilder page,
     Bindings? binding,
+    Transition? transition,
     bool preventDuplicates = true,
   }) =>
       GetPage(
@@ -36,7 +37,7 @@ class AppPages {
         page: page,
         binding: binding,
         preventDuplicates: preventDuplicates,
-        transition: Transition.cupertino,
+        transition: transition ?? Transition.cupertino,
         popGesture: true,
       );
 
@@ -44,11 +45,13 @@ class AppPages {
     _pageBuilder(
       name: AppRoutes.splash,
       page: () => const SplashPage(),
+      transition: Transition.fadeIn,
       binding: SplashBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.login,
       page: () => LoginPage(),
+      transition: Transition.fadeIn,
       binding: LoginBinding(),
     ),
     _pageBuilder(
