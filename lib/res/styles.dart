@@ -19,6 +19,11 @@ class Styles {
     left: BorderSide(color: primaryTextColor, width: 2, style: BorderStyle.solid),
     right: BorderSide(color: primaryTextColor, width: 2, style: BorderStyle.solid),
   );
+  static TextStyle bottomTextStyle = TextStyle(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.bold,
+    color: primaryTextColor,
+  );
   static const inputBorder = OutlineInputBorder(
     borderSide: BorderSide(
       color: Colors.black,
