@@ -1,9 +1,10 @@
 import 'package:fishpi/fishpi.dart';
+import 'package:fishpi_app/core/controller/im.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoginLogic extends GetxController {
-  Fishpi fishpi = Fishpi();
+  final imController = Get.find<IMController>();
   TextEditingController userNameController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
   final TextEditingController pinEditingController = TextEditingController();
@@ -38,14 +39,10 @@ class LoginLogic extends GetxController {
       mfaCode: mfaCode.value,
     );
     print(loginData);
-    return fishpi.login(loginData).onError((e, stackTrace) {
-      if (e.toString() == '两步验证失败，请填写正确的一次性密码' &&
-          mfaCb != null &&
-          mfaCode.isEmpty) {
-        mfaCb();
-        e = '请输入正确的二次验证码';
-      }
-      return Future.error(e!);
-    });
+    return imController.login(
+      loginData,
+      mfaCb: mfaCb,
+      mfaCode: mfaCode.value,
+    );
   }
 }
