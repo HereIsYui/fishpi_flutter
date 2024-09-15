@@ -1,7 +1,9 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:get/get.dart';
 
-class IMController extends GetxController {
+import '../im_callback.dart';
+
+class IMController extends GetxController with IMCallback{
   Fishpi fishpi = Fishpi();
 
   Future<String> login(
@@ -36,34 +38,42 @@ class IMController extends GetxController {
           case ChatRoomMessageType.online:
             // 上线消息
             print(data.online!);
+            recvOnlineMessage(data.online!);
             break;
           case ChatRoomMessageType.barrager:
             // 弹幕消息
             print(data.barrager!);
+            recvBarrageMessage(data.barrager!);
             break;
           case ChatRoomMessageType.discussChanged:
             // 话题变更
             print(data.discuss!);
+            recvDiscussMessage(data.discuss!);
             break;
           case ChatRoomMessageType.msg:
             // 普通消息
             print(data.msg!.content);
+            recvNewMessage(data.msg!);
             break;
           case ChatRoomMessageType.revoke:
             // 撤回消息
             print(data.revoke!);
+            recvRevokeMessage(data.revoke!);
             break;
           case ChatRoomMessageType.redPacket:
             // 红包消息
             print(data.msg!);
+            recvRedPacketMessage(data.msg!);
             break;
           case ChatRoomMessageType.redPacketStatus:
             // 红包领取
             print(data.status!);
+            recvRedPacketStatusMessage(data.status!);
             break;
           case ChatRoomMessageType.custom:
             // 自定义消息
             print(data.custom!);
+            recvCustomMessage(data.custom!);
             break;
         }
       } catch (e) {
