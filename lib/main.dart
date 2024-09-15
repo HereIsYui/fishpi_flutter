@@ -1,58 +1,56 @@
-import 'package:fishpi_app/router/app_router.dart';
-import 'package:fishpi_app/utils/util.dart';
-import 'package:fishpi_app/views/chat.dart';
+import 'package:fishpi_app/core/controller/im.dart';
+import 'package:fishpi_app/routers/pages.dart';
+import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'language/language.dart';
-
-void main() async {
+void main() async{
+  SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  );
+  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  await FpUtil.getInstance();
-
-  runApp(const MyApp());
+  await PiUtils.getInstance();
+  runApp(ScreenUtilInit(
+    designSize: const Size(360, 812),
+    minTextAdapt: true,
+    splitScreenMode: true,
+    ensureScreenSize: false,
+    builder: (context, child) {
+      return GetMaterialApp(
+        title: '摸鱼派',
+        initialBinding: InitBinding(),
+        theme: ThemeData(
+          textSelectionTheme: const TextSelectionThemeData(
+            selectionHandleColor: Colors.orange,
+            selectionColor: Colors.orange,
+          ), // 设置手柄主题色
+        ),
+        getPages: AppPages.routes,
+        initialRoute: AppRoutes.splash,
+        builder: EasyLoading.init(),
+        locale: const Locale('zh'),
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('zh', 'CN'),
+        ],
+      );
+    },
+  ));
 }
 
-class MyApp extends StatelessWidget{
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class InitBinding extends Bindings {
   @override
-  Widget build(BuildContext context) {
-    String lang1 = FpUtil.getString('lang1',defValue: "zh");
-    String lang2 = FpUtil.getString('lang2',defValue: "CN");
-    return ScreenUtilInit(
-      designSize: const Size(430,932),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context,child){
-        return GetMaterialApp(
-          title: 'app_name'.tr,
-          translations: Messages(),
-          locale: Locale(lang1, lang2),
-          debugShowCheckedModeBanner: false,//去掉debug图标
-          fallbackLocale: const Locale('zh', 'CN'),// 在配置错误的情况下,使用的语言
-          theme: ThemeData(
-            brightness: Brightness.dark,
-            hintColor: Colors.white,
-            primaryColor: Colors.orange,
-            scaffoldBackgroundColor: Colors.white,
-            dialogBackgroundColor: Colors.black,
-            textTheme: const TextTheme(
-              bodyLarge: TextStyle(decoration: TextDecoration.none),
-            ),
-          ),
-          // 初始路径
-          initialRoute: AppRouters.splash,
-          // 404页面
-          // unknownRoute: GetPage(name:'',page:()=>{}),
-          getPages: AppRouters.getPages,
-          home: const ChatPage(),
-          builder: EasyLoading.init(),
-        );
-      },
-    );
+  void dependencies() {
+    Get.put<IMController>(IMController());
   }
 }
