@@ -48,6 +48,7 @@ dependencies:
   pin_input_text_field: ^4.5.2
   shared_preferences: ^2.2.3
   pull_to_refresh: ^2.0.0
+  cached_network_image: ^3.4.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:fishpi/types/article.dart';
 import 'package:fishpi_app/res/styles.dart';
+import 'package:fishpi_app/widgets/pi_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -111,10 +112,9 @@ class ForumPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                Image.network(
-                  article.thumbnailURL210,
-                  width: 48.w,
-                  height: 48.w,
+                PiAvatar(
+                  userName: article.authorName,
+                  avatarURL: article.thumbnailURL210,
                 ),
               ],
             )
