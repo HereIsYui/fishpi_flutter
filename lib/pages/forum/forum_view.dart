@@ -1,5 +1,6 @@
 import 'package:fishpi/types/article.dart';
 import 'package:fishpi_app/res/styles.dart';
+import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +68,6 @@ class ForumPage extends StatelessWidget {
 
   Widget _buildArticleList(BuildContext context, int idx) {
     ArticleDetail article = logic.list[idx];
-    String thumbnailURL = article.thumbnailURL.replaceFirst('/w/180', '/w/750');
-    thumbnailURL = thumbnailURL.replaceFirst('/h/135', '/h/360');
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -79,14 +78,18 @@ class ForumPage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            if (thumbnailURL != '')
+            if (article.thumbnailURL != '')
               ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(14.r),
                   topRight: Radius.circular(14.r),
                 ),
                 child: Image.network(
-                  thumbnailURL,
+                  PiUtils.filterImageWithSize(
+                    article.thumbnailURL,
+                    width: 750,
+                    height: 360,
+                  ),
                   width: 1.sw,
                   height: 180.h,
                   fit: BoxFit.cover,

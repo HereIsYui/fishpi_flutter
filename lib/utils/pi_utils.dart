@@ -1,5 +1,3 @@
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PiUtils {
@@ -74,25 +72,28 @@ class PiUtils {
   /// 5分钟以内返回:刚刚 一天内的返回:具体时间 前一天的返回:昨天 其他的返回:日期
   static getChatTime(String time) {
     //print(time);
-    try{
+    try {
       var chatTime = DateTime.parse(time);
       var nowTime = DateTime.now();
-      var interval = nowTime.millisecondsSinceEpoch - chatTime.millisecondsSinceEpoch;
-      var cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
-      if(interval < 5 * 60 * 1000){
+      var interval =
+          nowTime.millisecondsSinceEpoch - chatTime.millisecondsSinceEpoch;
+      var cb =
+          '${_fillZero(chatTime.month.toString(), 2)}月${_fillZero(chatTime.day.toString(), 2)}日';
+      if (interval < 5 * 60 * 1000) {
         cb = '刚刚';
-      }else if (interval < 24 * 60 * 60 * 1000){
-        cb = '${_fillZero(chatTime.hour.toString(),2)}:${_fillZero(chatTime.minute.toString(),2)}';
-      }else if (interval < 48 * 60 * 60 * 1000){
+      } else if (interval < 24 * 60 * 60 * 1000) {
+        cb =
+            '${_fillZero(chatTime.hour.toString(), 2)}:${_fillZero(chatTime.minute.toString(), 2)}';
+      } else if (interval < 48 * 60 * 60 * 1000) {
         cb = '昨天';
-      }else{
-        cb = '${_fillZero(chatTime.month.toString(),2)}月${_fillZero(chatTime.day.toString(),2)}日';
+      } else {
+        cb =
+            '${_fillZero(chatTime.month.toString(), 2)}月${_fillZero(chatTime.day.toString(), 2)}日';
       }
       return cb;
-    }catch(e){
+    } catch (e) {
       return '';
     }
-
   }
 
   /// 根据长度补零
@@ -105,5 +106,21 @@ class PiUtils {
       zero += '0';
     }
     return zero + str;
+  }
+
+  /// 处理鱼派压缩过的图片大小
+  /// [imgUrl] 原图片链接
+  /// [width] 处理后的宽度
+  /// [height] 处理后的高度
+  static filterImageWithSize(
+    String imgUrl, {
+    int? width,
+    int? height,
+  }) {
+    String url = '';
+    RegExp regW = RegExp(r'/w/\d{1,3}');
+    RegExp regH = RegExp(r'/w/\d{1,3}');
+    url = imgUrl.replaceAll(regW, '/w/$width').replaceAll(regH, '/w/$height');
+    return url;
   }
 }
