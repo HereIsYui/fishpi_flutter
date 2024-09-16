@@ -18,7 +18,7 @@ class ForumLogic extends GetxController {
 
   void initArticle() async{
     ArticleList res = await imController.fishpi.article.list(
-      type: ArticleListType.Hot,
+      type: ArticleListType.Reply,
       page: page.value,
     );
     list.value = res.list;

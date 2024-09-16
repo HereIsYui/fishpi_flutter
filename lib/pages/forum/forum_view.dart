@@ -67,57 +67,67 @@ class ForumPage extends StatelessWidget {
 
   Widget _buildArticleList(BuildContext context, int idx) {
     ArticleDetail article = logic.list[idx];
+    String thumbnailURL = article.thumbnailURL.replaceFirst('/w/180', '/w/750');
+    thumbnailURL = thumbnailURL.replaceFirst('/h/135', '/h/360');
     return GestureDetector(
       onTap: () {},
       child: Container(
         margin: EdgeInsets.only(bottom: 20.h),
-        padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-          vertical: 10.h,
-        ),
         decoration: BoxDecoration(
           border: Styles.commonBorder,
           borderRadius: BorderRadius.circular(16.r),
         ),
         child: Column(
           children: [
-            if (article.img1URL != '')
-              Image.network(
-                article.img1URL,
-                width: 1.sw,
-                height: 180.h,
-                fit: BoxFit.cover,
+            if (thumbnailURL != '')
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(14.r),
+                  topRight: Radius.circular(14.r),
+                ),
+                child: Image.network(
+                  thumbnailURL,
+                  width: 1.sw,
+                  height: 180.h,
+                  fit: BoxFit.cover,
+                ),
               ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        article.title,
-                        style: TextStyle(
-                          fontSize: 27.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Styles.primaryTextColor,
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 10.h,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          article.titleEmojUnicode,
+                          style: TextStyle(
+                            fontSize: 27.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Styles.primaryTextColor,
+                          ),
                         ),
-                      ),
-                      Text(
-                        article.previewContent,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                        Text(
+                          article.previewContent,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                PiAvatar(
-                  userName: article.authorName,
-                  avatarURL: article.thumbnailURL210,
-                ),
-              ],
-            )
+                  PiAvatar(
+                    userName: article.authorName,
+                    avatarURL: article.thumbnailURL210,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
