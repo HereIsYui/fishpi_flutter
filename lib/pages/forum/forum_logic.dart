@@ -9,6 +9,7 @@ class ForumLogic extends GetxController {
 
   final list = <ArticleDetail>[].obs;
   final page = 0.obs;
+  final isFinished = false.obs;
 
   @override
   void onInit() {
@@ -21,12 +22,30 @@ class ForumLogic extends GetxController {
       type: ArticleListType.Reply,
       page: page.value,
     );
-    list.value = res.list;
-    list.refresh();
-    refresherController.refreshCompleted();
+    if(page.value == 1){
+      list.value = res.list;
+      list.refresh();
+      refresherController.refreshCompleted();
+    }else{
+      list.addAll(res.list);
+      list.refresh();
+      if(res.list.isNotEmpty) {
+        refresherController.loadComplete();
+      }else{
+        refresherController.loadNoData();
+        isFinished.value = true;
+      }
+    }
+
   }
 
   void onRefresh(){
+    initArticle();
+  }
+
+  void onLoading(){
+    if(isFinished.value) return;
+    page.value++;
     initArticle();
   }
 }

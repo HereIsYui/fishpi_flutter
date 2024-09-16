@@ -37,16 +37,17 @@ class ForumPage extends StatelessWidget {
                   // body = Text("pull up load");
                   body = const CupertinoActivityIndicator();
                 } else if (mode == LoadStatus.loading) {
+                  body = Text("加载中");
                   body = const CupertinoActivityIndicator();
                 } else if (mode == LoadStatus.failed) {
-                  // body = Text("Load Failed!Click retry!");
-                  body = const CupertinoActivityIndicator();
+                  body = Text("加载失败!");
+                  // body = const CupertinoActivityIndicator();
                 } else if (mode == LoadStatus.canLoading) {
-                  // body = Text("release to load more");
-                  body = const CupertinoActivityIndicator();
+                  body = Text("加载中");
+                  // body = const CupertinoActivityIndicator();
                 } else {
-                  // body = Text("No more Data");
-                  body = const SizedBox();
+                  body = Text("- 我是有底线的 -");
+                  // body = const SizedBox();
                 }
                 return SizedBox(
                   height: 55.0,
@@ -55,6 +56,7 @@ class ForumPage extends StatelessWidget {
               },
             ),
             onRefresh: logic.onRefresh,
+            onLoading: logic.onLoading,
             child: ListView.builder(
               padding: EdgeInsets.only(top: 20.h),
               itemBuilder: _buildArticleList,
