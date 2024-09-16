@@ -25,7 +25,7 @@ class ForumLogic extends GetxController {
     if(page.value == 1){
       list.value = res.list;
       list.refresh();
-      refresherController.refreshCompleted();
+      refresherController.loadComplete();
     }else{
       list.addAll(res.list);
       list.refresh();
@@ -40,7 +40,10 @@ class ForumLogic extends GetxController {
   }
 
   void onRefresh(){
+    isFinished.value = false;
+    page.value = 1;
     initArticle();
+    refresherController.refreshCompleted();
   }
 
   void onLoading(){

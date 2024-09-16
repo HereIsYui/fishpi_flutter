@@ -5,15 +5,17 @@ import '../res/styles.dart';
 
 class PiInput extends StatelessWidget {
   final TextEditingController controller;
-  final Function(String) onUserNameChanged;
+  final Function(String) onInputChanged;
   final String? hintText;
   final Icon? prefixIcon;
+  final TextAlign? textAlign;
 
   const PiInput({
     required this.controller,
-    required this.onUserNameChanged,
+    required this.onInputChanged,
     this.hintText,
     this.prefixIcon,
+    this.textAlign,
     super.key,
   });
 
@@ -22,7 +24,7 @@ class PiInput extends StatelessWidget {
     return TextField(
       controller: controller,
       cursorColor: Colors.black,
-      textAlign: TextAlign.center,
+      textAlign: textAlign ?? TextAlign.center,
       textAlignVertical: TextAlignVertical.center,
       style: TextStyle(
         fontSize: 14.sp,
@@ -34,7 +36,7 @@ class PiInput extends StatelessWidget {
         hintStyle: const TextStyle(
           color: Colors.black,
         ),
-        contentPadding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+        contentPadding: const EdgeInsets.fromLTRB(10, 0, 50, 0),
         filled: true,
         fillColor: Colors.white,
         prefixIcon: prefixIcon,
@@ -44,7 +46,7 @@ class PiInput extends StatelessWidget {
         border: Styles.inputBorder,
       ),
       keyboardType: TextInputType.text,
-      onChanged: onUserNameChanged,
+      onChanged: onInputChanged,
     );
   }
 }

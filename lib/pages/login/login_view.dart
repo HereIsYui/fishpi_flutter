@@ -152,7 +152,7 @@ class LoginPage extends StatelessWidget {
         hintText: '用户名/邮箱',
         prefixIcon: const Icon(Icons.person),
         controller: logic.userNameController,
-        onUserNameChanged: (text) {
+        onInputChanged: (text) {
           logic.onUserNameChanged(text);
         },
       ),
@@ -168,7 +168,7 @@ class LoginPage extends StatelessWidget {
         hintText: '密码',
         prefixIcon: const Icon(Icons.lock),
         controller: logic.pwdController,
-        onUserNameChanged: (text) {
+        onInputChanged: (text) {
           logic.onPwdChanged(text);
         },
       ),

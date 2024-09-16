@@ -1,5 +1,6 @@
 import 'package:fishpi/types/breezemoon.dart';
 import 'package:fishpi_app/core/controller/im.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -11,9 +12,12 @@ class BreezemoonsLogic extends GetxController {
   final list = <BreezemoonContent>[].obs;
   final page = 0.obs;
   final isFinished = false.obs;
+
+  TextEditingController textEditingController = TextEditingController();
+
   @override
   void onInit(){
-    
+    initBreezemoon();
     super.onInit();
   }
 
@@ -25,7 +29,7 @@ class BreezemoonsLogic extends GetxController {
     if(page.value == 1){
       list.value = res;
       list.refresh();
-      refresherController.refreshCompleted();
+      refresherController.loadComplete();
     }else{
       list.addAll(res);
       list.refresh();
@@ -39,12 +43,19 @@ class BreezemoonsLogic extends GetxController {
   }
 
   void onRefresh(){
+    isFinished.value = false;
+    page.value = 1;
     initBreezemoon();
+    refresherController.refreshCompleted();
   }
 
   void onLoading(){
     if(isFinished.value) return;
     page.value++;
     initBreezemoon();
+  }
+
+  void onInputChanged(text){
+
   }
 }

@@ -71,7 +71,7 @@ class PiUtils {
   /// [time] 发消息时间
   /// 5分钟以内返回:刚刚 一天内的返回:具体时间 前一天的返回:昨天 其他的返回:日期
   static getChatTime(String time) {
-    //print(time);
+    // print(time);
     try {
       var chatTime = DateTime.parse(time);
       var nowTime = DateTime.now();
