@@ -16,7 +16,7 @@ import 'breezemoons_logic.dart';
 class BreezemoonsPage extends StatelessWidget {
   final BreezemoonsLogic logic = Get.put(BreezemoonsLogic());
 
-  BreezemoonsPage({Key? key}) : super(key: key);
+  BreezemoonsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +63,7 @@ class BreezemoonsPage extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.only(top: 20.h),
+                    shrinkWrap: true,
                     itemBuilder: _buildBreezemoonList,
                     itemCount: logic.list.length,
                   ),
@@ -120,6 +121,25 @@ class BreezemoonsPage extends StatelessWidget {
             ],
           ),
           handleBreeze(item.content),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.location_on_outlined,
+                color: Styles.primaryTextColor,
+                size: 20.w,
+              ),
+              Text(
+                item.city,
+                style: TextStyle(
+                  color: Styles.primaryTextColor,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

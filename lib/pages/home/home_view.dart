@@ -40,11 +40,13 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            PiBottomBar(
-              callback: logic.changeIndex,
-              index: logic.index.value,
-            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Obx(
+        () => PiBottomBar(
+          callback: logic.changeIndex,
+          index: logic.index.value,
         ),
       ),
     );

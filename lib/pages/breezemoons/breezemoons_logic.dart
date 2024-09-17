@@ -10,8 +10,10 @@ class BreezemoonsLogic extends GetxController {
   final imController = Get.find<IMController>();
 
   final list = <BreezemoonContent>[].obs;
-  final page = 0.obs;
+  final page = 1.obs;
   final isFinished = false.obs;
+
+  final breezemoons = ''.obs;
 
   TextEditingController textEditingController = TextEditingController();
 
@@ -26,6 +28,7 @@ class BreezemoonsLogic extends GetxController {
       page: page.value,
       size: 15,
     );
+    print(res.toString());
     if(page.value == 1){
       list.value = res;
       list.refresh();
@@ -56,6 +59,6 @@ class BreezemoonsLogic extends GetxController {
   }
 
   void onInputChanged(text){
-
+    breezemoons.value = text;
   }
 }

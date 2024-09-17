@@ -8,7 +8,7 @@ class ForumLogic extends GetxController {
   final imController = Get.find<IMController>();
 
   final list = <ArticleDetail>[].obs;
-  final page = 0.obs;
+  final page = 1.obs;
   final isFinished = false.obs;
 
   @override

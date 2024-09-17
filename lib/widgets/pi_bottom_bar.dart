@@ -17,10 +17,10 @@ class PiBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 88.h + MediaQuery.of(context).padding.bottom,
       padding: EdgeInsets.only(
         top: 10.h,
         bottom: MediaQuery.of(context).padding.bottom,
-        // bottom: 20.h,
       ),
       decoration: const BoxDecoration(
         border: BorderDirectional(
