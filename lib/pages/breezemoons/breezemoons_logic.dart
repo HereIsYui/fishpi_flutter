@@ -1,5 +1,6 @@
 import 'package:fishpi/types/breezemoon.dart';
 import 'package:fishpi_app/core/controller/im.dart';
+import 'package:fishpi_app/core/manager/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -60,5 +61,15 @@ class BreezemoonsLogic extends GetxController {
 
   void onInputChanged(text){
     breezemoons.value = text;
+  }
+
+  void sendBreezemoon() async{
+    if(breezemoons.value == '') return;
+    ToastManager.show();
+    await imController.fishpi.breezemoon.send(breezemoons.value);
+    ToastManager.dismiss();
+    textEditingController.text = '';
+    breezemoons.value = '';
+    onRefresh();
   }
 }

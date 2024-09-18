@@ -32,43 +32,15 @@ class BreezemoonsPage extends StatelessWidget {
             controller: logic.refresherController,
             header: Views.buildHeader(),
             footer: Views.buildFooter(),
+            enablePullUp: true,
+            enablePullDown: true,
             onRefresh: logic.onRefresh,
             onLoading: logic.onLoading,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 20.h),
-                  height: 36.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 290.w,
-                        height: 36.h,
-                        child: PiInput(
-                          controller: logic.textEditingController,
-                          onInputChanged: logic.onInputChanged,
-                          hintText: '随便说说...',
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      Icon(
-                        FishIcon.send,
-                        size: 30.w,
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    padding: EdgeInsets.only(top: 20.h),
-                    shrinkWrap: true,
-                    itemBuilder: _buildBreezemoonList,
-                    itemCount: logic.list.length,
-                  ),
-                ),
-              ],
+            child: ListView.builder(
+              padding: EdgeInsets.only(top: 20.h),
+              shrinkWrap: true,
+              itemBuilder: _buildBreezemoonList,
+              itemCount: logic.list.length + 1,
             ),
           ),
         ),
@@ -80,7 +52,35 @@ class BreezemoonsPage extends StatelessWidget {
     BuildContext context,
     int idx,
   ) {
-    final item = logic.list[idx];
+    if(idx == 0){
+      return Container(
+        margin: EdgeInsets.only(bottom: 20.h),
+        height: 36.h,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 290.w,
+              height: 36.h,
+              child: PiInput(
+                controller: logic.textEditingController,
+                onInputChanged: logic.onInputChanged,
+                hintText: '随便说说...',
+                textAlign: TextAlign.left,
+              ),
+            ),
+            GestureDetector(
+              onTap: logic.sendBreezemoon,
+              child: Icon(
+                FishIcon.send,
+                size: 30.w,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    final item = logic.list[idx - 1];
     return Container(
       margin: EdgeInsets.only(bottom: 20.h),
       padding: EdgeInsets.all(10.w),

@@ -31,6 +31,8 @@ class ForumPage extends StatelessWidget {
             controller: logic.refresherController,
             header: Views.buildHeader(),
             footer: Views.buildFooter(),
+            enablePullUp: true,
+            enablePullDown: true,
             onRefresh: logic.onRefresh,
             onLoading: logic.onLoading,
             child: ListView.builder(
