@@ -34,6 +34,9 @@ class PiAvatar extends StatelessWidget {
           child: avatarURL != ''
               ? CachedNetworkImage(
                   imageUrl: avatarURL ?? '',
+                  width: width ?? 48.w,
+                  height: height ?? 48.w,
+                  fit: BoxFit.cover,
                   errorWidget: (_, e, a) => _buildDefaultAvatar(),
                 )
               : _buildDefaultAvatar(),
