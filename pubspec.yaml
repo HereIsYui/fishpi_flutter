@@ -50,6 +50,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   cached_network_image: ^3.4.0
   html: ^0.15.4
+  markdown_widget: ^2.3.2+6
+  flutter_emoji: ^2.5.1
 
 dev_dependencies:
   flutter_test:

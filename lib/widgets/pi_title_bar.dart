@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../res/icons.dart';
 
-class PiTitleBar extends StatelessWidget {
+class PiTitleBar extends StatelessWidget implements PreferredSizeWidget{
   final Widget? left;
   final Widget? center;
   final Widget? right;
   final double? height;
   final Color? backgroundColor;
   final bool showUnderline;
+
   const PiTitleBar(
       {this.left,
       this.center,
@@ -47,6 +48,9 @@ class PiTitleBar extends StatelessWidget {
     );
   }
 
+  @override
+  Size get preferredSize => Size.fromHeight(height ?? 48.h);
+
   PiTitleBar.home({
     super.key,
     String? title,
@@ -65,7 +69,7 @@ class PiTitleBar extends StatelessWidget {
         height = 48.h,
         showUnderline = true,
         left = GestureDetector(
-          onTap: (){},
+          onTap: () {},
           child: SizedBox(
             width: 24.w,
             height: 24.w,
@@ -76,7 +80,7 @@ class PiTitleBar extends StatelessWidget {
           ),
         ),
         right = GestureDetector(
-          onTap: (){},
+          onTap: () {},
           child: SizedBox(
             width: 24.w,
             height: 24.w,
@@ -84,6 +88,43 @@ class PiTitleBar extends StatelessWidget {
               FishIcon.notice,
               color: Styles.primaryTextColor,
             ),
+          ),
+        ),
+        backgroundColor = null;
+
+  PiTitleBar.back({
+    super.key,
+    String? title,
+  })  : center = Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title!,
+                textAlign: TextAlign.center,
+                style: Styles.titleBarStyle,
+              ),
+            ],
+          ),
+        ),
+        height = 48.h,
+        showUnderline = true,
+        left = GestureDetector(
+          onTap: () {},
+          child: SizedBox(
+            width: 24.w,
+            height: 24.w,
+            child: const Icon(
+              Icons.arrow_back_ios_new_outlined,
+              color: Styles.primaryTextColor,
+            ),
+          ),
+        ),
+        right = GestureDetector(
+          onTap: () {},
+          child: SizedBox(
+            width: 24.w,
+            height: 24.w,
           ),
         ),
         backgroundColor = null;

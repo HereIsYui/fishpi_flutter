@@ -1,6 +1,7 @@
 import 'package:fishpi/types/article.dart';
 import 'package:fishpi_app/res/styles.dart';
 import 'package:fishpi_app/res/view.dart';
+import 'package:fishpi_app/routers/navigator.dart';
 import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
 import 'package:fishpi_app/widgets/pi_image.dart';
@@ -49,7 +50,9 @@ class ForumPage extends StatelessWidget {
   Widget _buildArticleList(BuildContext context, int idx) {
     ArticleDetail article = logic.list[idx];
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        AppNavigator.toForumDetail(oId: article.oId);
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 20.h),
         decoration: BoxDecoration(
