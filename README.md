@@ -45,6 +45,6 @@ Dart 3.3.4
 
 # 鸣谢
 
-[fishpi dart sdk](https://pub.dev/packages/fishpi]) 由[@imlinhanchao](https://github.com/imlinhanchao) 大佬开发的摸鱼派Dart版本sdk
+[fishpi dart sdk](https://pub.dev/packages/fishpi) 由[@imlinhanchao](https://github.com/imlinhanchao) 大佬开发的摸鱼派Dart版本sdk
 
 [fishpi UI](https://pixso.cn/app/editor/l_uc36XwPK9YiU1h3VcuGQ?page-id=0%3A1) 由[@imlinhanchao](https://github.com/imlinhanchao) 大佬设计的新版UI
