@@ -4,6 +4,8 @@ import 'package:fishpi_app/pages/chat/chat_binding.dart';
 import 'package:fishpi_app/pages/chat/chat_view.dart';
 import 'package:fishpi_app/pages/conversation/conversation_binding.dart';
 import 'package:fishpi_app/pages/conversation/conversation_view.dart';
+import 'package:fishpi_app/pages/forum/detail/forum_detail_binding.dart';
+import 'package:fishpi_app/pages/forum/detail/forum_detail_view.dart';
 import 'package:fishpi_app/pages/forum/forum_binding.dart';
 import 'package:fishpi_app/pages/forum/forum_view.dart';
 import 'package:fishpi_app/pages/home/home_binding.dart';
@@ -74,6 +76,11 @@ class AppPages {
       name: AppRoutes.forum,
       page: () => ForumPage(),
       binding: ForumBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.forumDetail,
+      page: () => ForumDetailPage(),
+      binding: ForumDetailBinding(),
     ),
     _pageBuilder(
       name: AppRoutes.breezemoons,
