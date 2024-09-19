@@ -19,7 +19,7 @@ class ForumDetailPage extends StatelessWidget {
         title: '详情',
       ),
       body: Obx(
-        () => Container(
+        () => SizedBox(
           width: 1.sw,
           height: 1.sh,
           child: ListView(

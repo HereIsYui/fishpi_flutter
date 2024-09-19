@@ -123,13 +123,13 @@ class ForumPage extends StatelessWidget {
                         article.tags.replaceAll(",", " "),
                         style: TextStyle(
                           fontSize: 12.sp,
-                          color: Color(0xFFC4C4C4),
+                          color: Styles.c4Color,
                         ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             FishIcon.reply,
                           ),
                           5.horizontalSpace,
@@ -142,7 +142,7 @@ class ForumPage extends StatelessWidget {
                             ),
                           ),
                           10.horizontalSpace,
-                          Icon(FishIcon.like),
+                          const Icon(FishIcon.like),
                           5.horizontalSpace,
                           Text(
                             article.goodCnt.toString(),

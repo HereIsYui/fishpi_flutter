@@ -8,6 +8,7 @@ class Styles {
   static const primaryTextColor = Color(0xFF18191F);
   static const secondaryTextColor = Color(0xFF474A57);
   static const titleBarColor = Color(0xFFEEEFF4);
+  static const c4Color = Color(0xFFC4C4C4);
   static TextStyle titleBarStyle = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.bold,

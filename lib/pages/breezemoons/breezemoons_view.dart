@@ -115,7 +115,7 @@ class BreezemoonsPage extends StatelessWidget {
                 item.timeAgo,
                 style: TextStyle(
                   fontSize: 12.sp,
-                  color: const Color(0xFFC4C4C4),
+                  color: Styles.c4Color,
                 ),
               ),
             ],
