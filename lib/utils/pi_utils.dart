@@ -1,3 +1,4 @@
+import 'package:html/parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PiUtils {
@@ -122,5 +123,20 @@ class PiUtils {
     RegExp regH = RegExp(r'/w/\d{1,3}');
     url = imgUrl.replaceAll(regW, '/w/$width').replaceAll(regH, '/w/$height');
     return url;
+  }
+
+  /// 处理聊天室预览数据
+  /// [content] 消息内容
+  static String getChatPreview(String content) {
+    var document = parse(content);
+    List<String> list = [];
+
+    /// 处理文本
+    document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
+      if (element.text.isEmpty) return;
+      list.add(element.text);
+    });
+
+    return list.join(' ');
   }
 }
