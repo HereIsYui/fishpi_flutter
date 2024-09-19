@@ -16,35 +16,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Obx(
-        () => Column(
+    return Obx(
+      () => Scaffold(
+        appBar: PiTitleBar.home(
+          title: [
+            '聊天',
+            '帖子',
+            '清风明月',
+            '我的',
+          ][logic.index.value],
+        ),
+        body: PageView(
+          controller: logic.pageController,
+          onPageChanged: logic.onPageChanged,
           children: [
-            PiTitleBar.home(
-              title: [
-                '聊天',
-                '帖子',
-                '清风明月',
-                '我的',
-              ][logic.index.value],
-            ),
-            Expanded(
-              child: PageView(
-                controller: logic.pageController,
-                onPageChanged: logic.onPageChanged,
-                children: [
-                  ConversationPage(),
-                  ForumPage(),
-                  BreezemoonsPage(),
-                  MinePage(),
-                ],
-              ),
-            ),
+            ConversationPage(),
+            ForumPage(),
+            BreezemoonsPage(),
+            MinePage(),
           ],
         ),
-      ),
-      bottomNavigationBar: Obx(
-        () => PiBottomBar(
+        bottomNavigationBar: PiBottomBar(
           callback: logic.changeIndex,
           index: logic.index.value,
         ),

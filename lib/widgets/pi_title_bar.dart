@@ -1,6 +1,7 @@
 import 'package:fishpi_app/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../res/icons.dart';
 
@@ -110,7 +111,7 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget{
         height = 48.h,
         showUnderline = true,
         left = GestureDetector(
-          onTap: () {},
+          onTap: () {Get.back();},
           child: SizedBox(
             width: 24.w,
             height: 24.w,

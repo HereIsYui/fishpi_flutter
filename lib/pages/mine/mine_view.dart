@@ -171,7 +171,7 @@ class MinePage extends StatelessWidget {
                       icon: Icons.security_outlined,
                     ),
                     _buildMenuItem(
-                      title: '收藏馆',
+                      title: '典藏馆',
                       iconColor: Colors.lightBlueAccent,
                       icon: Icons.dataset,
                     ),
