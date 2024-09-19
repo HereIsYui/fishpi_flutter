@@ -19,26 +19,24 @@ class ConversationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        body: ListView.builder(
-          itemCount: logic.chatList.length + 1,
-          itemBuilder: (_, index) => _buildConversation(_, index),
+        body: ListView(
+          children: [
+            _buildItem(),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: logic.chatList.length,
+              itemBuilder: (_, index) =>
+                  _buildItem(chat: logic.chatList[index]),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildConversation(
-    BuildContext context,
-    int index,
-  ) {
-    if (index == 0) {
-      return _buildItem();
-    }
-    ChatData chat = logic.chatList[index - 1];
-    return _buildItem(chat: chat);
-  }
-
   Widget _buildItem({
+    BuildContext? context,
     ChatData? chat,
   }) {
     return GestureDetector(

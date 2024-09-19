@@ -11,17 +11,26 @@ class ConversationLogic extends GetxController {
 
   @override
   void onInit() {
-    messageList.add(ChatRoomMessage());
-    initChatList();
+    loadHistoryMessage();
     super.onInit();
   }
 
-  void initChatList() async {
+  void loadHistoryMessage() async {
     List<ChatData> list = await imController.fishpi.chat.list();
     chatList.value = list;
+    chatList.refresh();
+    imController.fishpi.chatroom.more(1).then((value) {
+      value = value.reversed.toList();
+      messageList.addAll(value);
+      messageList.refresh();
+      initChat();
+    });
+  }
+
+  void initChat(){
     imController.onRecvNewMessage = (ChatRoomMessage msg) {
       messageList.add(msg);
-      print(msg.toJson());
+      print(msg);
       messageList.refresh();
     };
   }

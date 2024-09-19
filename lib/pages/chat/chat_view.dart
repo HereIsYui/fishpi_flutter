@@ -21,24 +21,26 @@ class ChatPage extends StatelessWidget {
         appBar: PiTitleBar.back(
           title: logic.isGroup.value ? '聊天室' : logic.userName.value,
         ),
-        body: Container(
-          width: 1.sw,
-          height: 1.sh,
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-          ),
-          child: logic.isGroup.value
-              ? ListView.builder(
-                  controller: logic.chatRoomController,
-                  itemBuilder: _buildChatItem,
-                  itemCount: logic.messageList.length,
-                )
-              : ListView.builder(
-                  controller: logic.chatRoomController,
-                  itemBuilder: _buildChatItem,
-                  itemCount: logic.messageList.length,
+        body: logic.messageList.isEmpty
+            ? Container()
+            : Container(
+                width: 1.sw,
+                height: 1.sh,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
                 ),
-        ),
+                child: logic.isGroup.value
+                    ? ListView.builder(
+                        controller: logic.chatRoomController,
+                        itemBuilder: _buildChatItem,
+                        itemCount: logic.messageList.length,
+                      )
+                    : ListView.builder(
+                        controller: logic.chatRoomController,
+                        itemBuilder: _buildChatItem,
+                        itemCount: logic.messageList.length,
+                      ),
+              ),
       ),
     );
   }
@@ -49,7 +51,7 @@ class ChatPage extends StatelessWidget {
       onTap: () {},
       child: Container(
         width: 0.8.sw,
-        margin: EdgeInsets.only(bottom: 5.h,top: 5.h),
+        margin: EdgeInsets.only(bottom: 5.h, top: 5.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +99,7 @@ class ChatPage extends StatelessWidget {
                         SizedBox(
                           width: 0.8.sw - 58.w,
                           child: Text(
-                            chat.time.split(' ')[1],
+                            chat.time,
                             style: TextStyle(
                               color: const Color(0xFF9FA4B4),
                               fontWeight: FontWeight.bold,
