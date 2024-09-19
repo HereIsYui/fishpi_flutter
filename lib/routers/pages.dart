@@ -12,8 +12,6 @@ import 'package:fishpi_app/pages/home/home_binding.dart';
 import 'package:fishpi_app/pages/home/home_view.dart';
 import 'package:fishpi_app/pages/login/login_binding.dart';
 import 'package:fishpi_app/pages/login/login_view.dart';
-import 'package:fishpi_app/pages/mine/about/about_binding.dart';
-import 'package:fishpi_app/pages/mine/about/about_view.dart';
 import 'package:fishpi_app/pages/mine/edit_info/edit_info_binding.dart';
 import 'package:fishpi_app/pages/mine/edit_info/edit_info_view.dart';
 import 'package:fishpi_app/pages/mine/mine_binding.dart';
@@ -23,6 +21,9 @@ import 'package:fishpi_app/pages/mine/set_up/set_up_view.dart';
 import 'package:fishpi_app/pages/splash/splash_binding.dart';
 import 'package:fishpi_app/pages/splash/splash_view.dart';
 import 'package:get/get.dart';
+
+import '../pages/mine/set_up/about/about_binding.dart';
+import '../pages/mine/set_up/about/about_view.dart';
 
 part 'routes.dart';
 

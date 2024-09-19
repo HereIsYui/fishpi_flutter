@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/pi_menu_item.dart';
 import 'mine_logic.dart';
 
 class MinePage extends StatelessWidget {
@@ -165,20 +166,23 @@ class MinePage extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    _buildMenuItem(
+                    PiMenuItem(
                       title: '账号与安全',
                       iconColor: Colors.redAccent,
                       icon: Icons.security_outlined,
+                      onTap: logic.toAccountPage,
                     ),
-                    _buildMenuItem(
+                    PiMenuItem(
                       title: '典藏馆',
                       iconColor: Colors.lightBlueAccent,
                       icon: Icons.dataset,
+                      onTap: logic.toCollectionPage,
                     ),
-                    _buildMenuItem(
+                    PiMenuItem(
                       title: '设置',
                       iconColor: Styles.primaryColor,
                       icon: Icons.settings,
+                      onTap: logic.toSetUpPage
                     ),
                   ],
                 ),
@@ -190,51 +194,5 @@ class MinePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem({
-    IconData? icon,
-    Color? iconColor,
-    String? title,
-    Function()? onTap,
-  }) {
-    return Ink(
-      child: InkWell(
-        splashColor: Colors.grey,
-        splashFactory: InkRipple.splashFactory,
-        onTap: onTap,
-        child: Container(
-          width: 1.sw - 32.w,
-          padding: EdgeInsets.symmetric(horizontal: 10.w),
-          margin: EdgeInsets.symmetric(vertical: 10.h),
-          color: Colors.white,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(
-                icon,
-                color: iconColor,
-                size: 20.w,
-              ),
-              10.horizontalSpace,
-              Expanded(
-                child: Text(
-                  '$title',
-                  style: TextStyle(
-                    color: Styles.primaryTextColor,
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              10.horizontalSpace,
-              Icon(
-                Icons.keyboard_arrow_right_outlined,
-                color: Styles.primaryTextColor,
-                size: 24.w,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+
 }

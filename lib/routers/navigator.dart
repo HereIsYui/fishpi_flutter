@@ -27,4 +27,9 @@ class AppNavigator {
         "userName": userName,
         "userID": userID,
       });
+
+  /// 设置页面
+  static void toSetting() => Get.toNamed(AppRoutes.setUp);
+  /// 关于
+  static void toAboutUs() => Get.toNamed(AppRoutes.about);
 }
