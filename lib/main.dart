@@ -1,4 +1,5 @@
 import 'package:fishpi_app/core/controller/im.dart';
+import 'package:fishpi_app/pages/chat/chat_logic.dart';
 import 'package:fishpi_app/routers/pages.dart';
 import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void main() async{
+void main() async {
   SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,

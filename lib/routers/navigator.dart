@@ -16,4 +16,15 @@ class AppNavigator {
       Get.toNamed(AppRoutes.forumDetail, arguments: {
         "oId": oId,
       });
+
+  static void toChat({
+    isGroup = false,
+    String? userName,
+    String? userID,
+  }) =>
+      Get.toNamed(AppRoutes.chat, arguments: {
+        "isGroup": isGroup,
+        "userName": userName,
+        "userID": userID,
+      });
 }
