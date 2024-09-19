@@ -1,4 +1,5 @@
 import 'package:fishpi/types/article.dart';
+import 'package:fishpi_app/res/icons.dart';
 import 'package:fishpi_app/res/styles.dart';
 import 'package:fishpi_app/res/view.dart';
 import 'package:fishpi_app/routers/navigator.dart';
@@ -79,33 +80,81 @@ class ForumPage extends StatelessWidget {
               ),
             Container(
               padding: EdgeInsets.all(10.w),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
                 children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          article.titleEmojUnicode,
-                          style: TextStyle(
-                            fontSize: 27.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Styles.primaryTextColor,
-                          ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              article.titleEmojUnicode,
+                              style: TextStyle(
+                                fontSize: 27.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Styles.primaryTextColor,
+                              ),
+                            ),
+                            Text(
+                              article.previewContent,
+                              style: TextStyle(
+                                fontSize: 15.sp,
+                                color: Styles.secondaryTextColor,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
                         ),
-                        Text(
-                          article.previewContent,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
+                      ),
+                      PiAvatar(
+                        userName: article.authorName,
+                        avatarURL: article.thumbnailURL210,
+                      ),
+                    ],
                   ),
-                  PiAvatar(
-                    userName: article.authorName,
-                    avatarURL: article.thumbnailURL210,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        article.tags.replaceAll(",", " "),
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Color(0xFFC4C4C4),
+                        ),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            FishIcon.reply,
+                          ),
+                          5.horizontalSpace,
+                          Text(
+                            article.commentCnt.toString(),
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Styles.primaryTextColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          10.horizontalSpace,
+                          Icon(FishIcon.like),
+                          5.horizontalSpace,
+                          Text(
+                            article.goodCnt.toString(),
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Styles.primaryTextColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ],
               ),
