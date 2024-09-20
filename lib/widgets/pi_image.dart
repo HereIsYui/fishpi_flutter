@@ -7,13 +7,15 @@ class PiImage extends StatelessWidget {
   final String imgUrl;
   final double width;
   final double height;
-  final BoxFit? fit;
+  final BoxFit fit;
+  final Alignment alignment;
 
   const PiImage({
     required this.imgUrl,
     required this.width,
     required this.height,
     this.fit = BoxFit.cover,
+    this.alignment = Alignment.center,
     super.key,
   });
 
@@ -24,6 +26,7 @@ class PiImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      alignment: alignment,
       placeholder: (_, e) => _buildLoadingImg(),
       errorWidget: (_, a, e) => _buildErrorImg(),
     );

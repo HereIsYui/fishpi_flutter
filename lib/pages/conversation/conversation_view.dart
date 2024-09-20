@@ -114,7 +114,7 @@ class ConversationPage extends StatelessWidget {
                       Text(
                         chat != null
                             ? chat.preview
-                            : '${logic.messageList.lastOrNull?.userName}:${PiUtils.getChatPreview(logic.messageList.lastOrNull?.content ?? '')}',
+                            : '${logic.messageList.lastOrNull?.userName}:${PiUtils.getConversationPreview(logic.messageList.lastOrNull?.content ?? '')}',
                         style: TextStyle(
                           fontSize: 15.sp,
                           color: Styles.secondaryTextColor,

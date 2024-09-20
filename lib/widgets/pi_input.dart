@@ -9,6 +9,7 @@ class PiInput extends StatelessWidget {
   final String? hintText;
   final Icon? prefixIcon;
   final TextAlign? textAlign;
+  final FocusNode? focusNode;
 
   const PiInput({
     required this.controller,
@@ -16,6 +17,7 @@ class PiInput extends StatelessWidget {
     this.hintText,
     this.prefixIcon,
     this.textAlign,
+    this.focusNode,
     super.key,
   });
 
@@ -26,6 +28,7 @@ class PiInput extends StatelessWidget {
       cursorColor: Colors.black,
       textAlign: textAlign ?? TextAlign.center,
       textAlignVertical: TextAlignVertical.center,
+      focusNode: focusNode,
       style: TextStyle(
         fontSize: 14.sp,
         color: Colors.black,

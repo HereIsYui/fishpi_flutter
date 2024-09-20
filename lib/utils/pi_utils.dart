@@ -1,3 +1,7 @@
+import 'package:fishpi_app/widgets/pi_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:html/parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -127,16 +131,61 @@ class PiUtils {
 
   /// 处理聊天室预览数据
   /// [content] 消息内容
-  static String getChatPreview(String content) {
+  static Widget getChatPreview(String content) {
     var document = parse(content);
-    List<String> list = [];
+    List<Widget> list = [];
 
     /// 处理文本
     document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
       if (element.text.isEmpty) return;
-      list.add(element.text);
+      list.add(Container(
+        child: Text(element.text),
+      ));
+    });
+    document.querySelectorAll("img").forEach((element) {
+      if (element.attributes['src']!.isEmpty) return;
+      list.add(
+        Container(
+          child: PiImage(
+            imgUrl: element.attributes['src']!,
+            width: 120.sw,
+            height: 70.h,
+            fit: BoxFit.contain,
+            alignment: Alignment.topLeft,
+          ),
+        ),
+      );
     });
 
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: list,
+    );
+  }
+
+  /// 处理会话列表显示消息
+  /// [content] 消息内容
+  static String getConversationPreview(String content) {
+    var document = parse(content);
+    List<String> list = [];
+
+    /// 处理文本
+    var res = document.querySelectorAll("img");
+    var item = res.firstOrNull;
+    print(item?.localName);
+    if (item == null) {
+      /// 处理文本
+      document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
+        if (element.text.isEmpty) return;
+        list.add(element.text);
+      });
+    } else {
+      if (item.localName == "img") {
+        list.add('[图片]');
+      }
+    }
     return list.join(' ');
   }
 }
