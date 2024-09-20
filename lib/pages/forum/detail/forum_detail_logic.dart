@@ -7,6 +7,8 @@ class ForumDetailLogic extends GetxController {
   final oId = ''.obs;
   final article = ArticleDetail().obs;
 
+  final isLoading = false.obs;
+
   @override
   void onInit() {
     var args = Get.arguments;
@@ -16,7 +18,9 @@ class ForumDetailLogic extends GetxController {
   }
 
   void initArticleInfo() async {
+    isLoading.value = true;
     ArticleDetail res = await imController.fishpi.article.detail(oId.value);
+    isLoading.value = false;
     article.value = res;
     print(article.value.toJson());
   }
