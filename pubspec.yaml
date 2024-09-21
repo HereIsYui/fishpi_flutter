@@ -54,6 +54,7 @@ dependencies:
   flutter_emoji: ^2.5.1
   package_info_plus: ^8.0.2
   animate_do: ^3.3.4
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:
