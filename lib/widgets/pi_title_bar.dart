@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../res/icons.dart';
 
-class PiTitleBar extends StatelessWidget implements PreferredSizeWidget{
+class PiTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? left;
   final Widget? center;
   final Widget? right;
@@ -74,9 +74,10 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget{
           child: SizedBox(
             width: 24.w,
             height: 24.w,
-            child: const Icon(
-              FishIcon.scan,
-              color: Styles.primaryTextColor,
+            child: Image.asset(
+              'assets/images/scan.png',
+              width: 24.w,
+              height: 24.w,
             ),
           ),
         ),
@@ -85,9 +86,10 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget{
           child: SizedBox(
             width: 24.w,
             height: 24.w,
-            child: const Icon(
-              FishIcon.notice,
-              color: Styles.primaryTextColor,
+            child: Image.asset(
+              'assets/images/notice.png',
+              width: 24.w,
+              height: 24.w,
             ),
           ),
         ),
@@ -111,7 +113,9 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget{
         height = 48.h,
         showUnderline = true,
         left = GestureDetector(
-          onTap: () {Get.back();},
+          onTap: () {
+            Get.back();
+          },
           child: SizedBox(
             width: 24.w,
             height: 24.w,

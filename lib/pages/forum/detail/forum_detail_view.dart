@@ -47,6 +47,19 @@ class ForumDetailPage extends StatelessWidget {
                     ),
                     const Divider(),
                     ...buildMarkdown(),
+                    Container(
+                      child:
+                      logic.article.value.rewarded ?
+                      Column(
+                        children: [
+                          Text(logic.article.value.rewardContent)
+                        ],
+                      ):Column(
+                        children: [
+                          Text('打赏${logic.article.value.rewardPoint}积分可见')
+                        ],
+                      ),
+                    )
                   ],
                 ),
         ),

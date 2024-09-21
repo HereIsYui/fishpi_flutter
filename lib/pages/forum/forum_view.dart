@@ -1,12 +1,10 @@
 import 'package:fishpi/types/article.dart';
-import 'package:fishpi_app/res/icons.dart';
 import 'package:fishpi_app/res/styles.dart';
 import 'package:fishpi_app/res/view.dart';
 import 'package:fishpi_app/routers/navigator.dart';
 import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
 import 'package:fishpi_app/widgets/pi_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -129,8 +127,10 @@ class ForumPage extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
-                            FishIcon.reply,
+                          Image.asset(
+                            'assets/images/comment.png',
+                            width: 20.w,
+                            height: 20.w,
                           ),
                           5.horizontalSpace,
                           Text(
@@ -142,7 +142,7 @@ class ForumPage extends StatelessWidget {
                             ),
                           ),
                           10.horizontalSpace,
-                          const Icon(FishIcon.like),
+                          Image.asset('assets/images/thank.png',width: 20.w,height: 20.w,),
                           5.horizontalSpace,
                           Text(
                             article.goodCnt.toString(),

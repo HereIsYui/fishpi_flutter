@@ -1,6 +1,4 @@
-import 'package:fishpi_app/res/icons.dart';
 import 'package:fishpi_app/res/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,25 +33,41 @@ class PiBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildItem(
-            icon: const Icon(FishIcon.chat),
+            icon: Image.asset(
+              'assets/images/chat.png',
+              width: 24.w,
+              height: 24.w,
+            ),
             title: '聊天',
             idx: 0,
             cb: callback,
           ),
           _buildItem(
-            icon: const Icon(FishIcon.article),
+            icon: Image.asset(
+              'assets/images/article.png',
+              width: 24.w,
+              height: 24.w,
+            ),
             title: '帖子',
             idx: 1,
             cb: callback,
           ),
           _buildItem(
-            icon: const Icon(FishIcon.breeze),
+            icon: Image.asset(
+              'assets/images/breezemoon.png',
+              width: 24.w,
+              height: 24.w,
+            ),
             title: '清风明月',
             idx: 2,
             cb: callback,
           ),
           _buildItem(
-            icon: const Icon(FishIcon.my),
+            icon: Image.asset(
+              'assets/images/profile-circle.png',
+              width: 24.w,
+              height: 24.w,
+            ),
             title: '我的',
             idx: 3,
             cb: callback,
@@ -64,7 +78,7 @@ class PiBottomBar extends StatelessWidget {
   }
 
   Widget _buildItem({
-    required Icon icon,
+    required Widget icon,
     required String title,
     required int idx,
     required Function(int) cb,

@@ -1,6 +1,4 @@
-import 'package:fishpi_app/res/icons.dart';
 import 'package:fishpi_app/res/styles.dart';
-import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
 import 'package:fishpi_app/widgets/pi_image.dart';
 import 'package:fishpi_app/widgets/pi_input.dart';
@@ -52,7 +50,7 @@ class BreezemoonsPage extends StatelessWidget {
     BuildContext context,
     int idx,
   ) {
-    if(idx == 0){
+    if (idx == 0) {
       return Container(
         margin: EdgeInsets.only(bottom: 20.h),
         height: 36.h,
@@ -71,9 +69,10 @@ class BreezemoonsPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: logic.sendBreezemoon,
-              child: Icon(
-                FishIcon.send,
-                size: 30.w,
+              child: Image.asset(
+                'assets/images/send.png',
+                width: 30.w,
+                height: 30.w,
               ),
             ),
           ],
@@ -125,10 +124,10 @@ class BreezemoonsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                Icons.location_on_outlined,
-                color: Styles.primaryTextColor,
-                size: 20.w,
+              Image.asset(
+                'assets/images/Location.png',
+                width: 24.w,
+                height: 24.w,
               ),
               Text(
                 item.city,

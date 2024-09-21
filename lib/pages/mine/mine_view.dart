@@ -1,4 +1,3 @@
-import 'package:fishpi_app/res/icons.dart';
 import 'package:fishpi_app/res/styles.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
 import 'package:flutter/material.dart';
@@ -77,10 +76,10 @@ class MinePage extends StatelessWidget {
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Icon(
-                                        Icons.person_outline,
-                                        color: const Color(0xFFEFEFEF),
-                                        size: 18.w,
+                                      Image.asset(
+                                        'assets/images/admin.png',
+                                        width: 20.w,
+                                        height: 20.w,
                                       ),
                                       2.horizontalSpace,
                                       Text(
@@ -112,10 +111,10 @@ class MinePage extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              Icons.monetization_on,
-                              color: Styles.primaryColor,
-                              size: 18.w,
+                            Image.asset(
+                              'assets/images/coin.png',
+                              width: 24.w,
+                              height: 24.w,
                             ),
                             2.horizontalSpace,
                             Text(
@@ -131,10 +130,10 @@ class MinePage extends StatelessWidget {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              color: Styles.primaryTextColor,
-                              size: 18.w,
+                            Image.asset(
+                              'assets/images/Location-Colorful.png',
+                              width: 24.w,
+                              height: 24.w,
                             ),
                             2.horizontalSpace,
                             Text(
@@ -179,11 +178,10 @@ class MinePage extends StatelessWidget {
                       onTap: logic.toCollectionPage,
                     ),
                     PiMenuItem(
-                      title: '设置',
-                      iconColor: Styles.primaryColor,
-                      icon: Icons.settings,
-                      onTap: logic.toSetUpPage
-                    ),
+                        title: '设置',
+                        iconColor: Styles.primaryColor,
+                        icon: Icons.settings,
+                        onTap: logic.toSetUpPage),
                   ],
                 ),
               )
@@ -193,6 +191,4 @@ class MinePage extends StatelessWidget {
       ),
     );
   }
-
-
 }

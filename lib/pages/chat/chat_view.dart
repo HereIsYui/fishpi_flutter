@@ -96,17 +96,22 @@ class ChatPage extends StatelessWidget {
                               onInputChanged: (text) {
                                 logic.onInput(text);
                               },
+                              onEditingComplete: () {
+                                logic.clickSend();
+                              },
                             ),
                           ),
                           GestureDetector(
                             onTap: () {
                               logic.toggleEmoji();
                             },
-                            child: Container(
+                            child: SizedBox(
                               width: 24.w,
                               height: 24.w,
-                              child: const Icon(
-                                Icons.emoji_emotions_outlined,
+                              child: Image.asset(
+                                'assets/images/face.png',
+                                width: 24.w,
+                                height: 24.w,
                               ),
                             ),
                           ),
@@ -119,15 +124,15 @@ class ChatPage extends StatelessWidget {
                               }
                             },
                             child: Container(
-                              width: 24.w,
-                              height: 24.w,
-                              child: Icon(
+                              width: 28.w,
+                              height: 28.w,
+                              alignment: Alignment.center,
+                              child: Image.asset(
                                 logic.content.value == ''
-                                    ? Icons.add
-                                    : Icons.send_rounded,
-                                color: logic.content.value == ''
-                                    ? Styles.primaryTextColor
-                                    : Styles.primaryColor,
+                                    ? 'assets/images/more_feature.png'
+                                    : 'assets/images/send.png',
+                                width: 28.w,
+                                height: 28.w,
                               ),
                             ),
                           ),
@@ -319,9 +324,10 @@ class ChatPage extends StatelessWidget {
                     width: 30.w,
                     height: 30.w,
                     margin: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Icon(
-                      Icons.emoji_emotions_outlined,
-                      size: 30.w,
+                    child: Image.asset(
+                      'assets/images/face.png',
+                      width: 24.w,
+                      height: 24.w,
                     ),
                   ),
                 ),
