@@ -10,6 +10,7 @@ class PiInput extends StatelessWidget {
   final Icon? prefixIcon;
   final TextAlign? textAlign;
   final FocusNode? focusNode;
+  final Function()? onEditingComplete;
 
   const PiInput({
     required this.controller,
@@ -18,6 +19,7 @@ class PiInput extends StatelessWidget {
     this.prefixIcon,
     this.textAlign,
     this.focusNode,
+    this.onEditingComplete,
     super.key,
   });
 
@@ -50,6 +52,7 @@ class PiInput extends StatelessWidget {
       ),
       keyboardType: TextInputType.text,
       onChanged: onInputChanged,
+      onEditingComplete: onEditingComplete,
     );
   }
 }
