@@ -6,6 +6,7 @@ import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:markdown_widget/markdown_widget.dart';
+import '../../../widgets/pi_sm.dart';
 import 'forum_detail_logic.dart';
 
 class ForumDetailPage extends StatelessWidget {
@@ -48,15 +49,107 @@ class ForumDetailPage extends StatelessWidget {
                     const Divider(),
                     ...buildMarkdown(),
                     Container(
-                      child:
-                      logic.article.value.rewarded ?
-                      Column(
+                      width: 1.sw - 32.w,
+                      child: Stack(
                         children: [
-                          Text(logic.article.value.rewardContent)
-                        ],
-                      ):Column(
-                        children: [
-                          Text('打赏${logic.article.value.rewardPoint}积分可见')
+                          Positioned(
+                            child: PiZebraStripesBack(
+                              width: 1.sw - 32.w,
+                              height: 88.h,
+                              lineWidth: 10.w,
+                              lineColor: Styles.c4Color,
+                              spacing: 10.w,
+                            ),
+                          ),
+                          logic.article.value.rewarded
+                              ? Positioned(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // 打赏
+                                    },
+                                    child: Container(
+                                      width: 1.sw - 32.w,
+                                      padding: EdgeInsets.all(10.w),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            logic.article.value.rewardContent,
+                                            style: TextStyle(
+                                              color: Styles.primaryTextColor,
+                                              fontSize: 16.sp,
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          Text(
+                                            '${logic.article.value.rewardedCnt}人打赏',
+                                            style: TextStyle(
+                                              color: Styles.primaryTextColor,
+                                              fontSize: 16.sp,
+                                            ),
+                                            textAlign: TextAlign.right,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Positioned(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // 打赏
+                                    },
+                                    child: Container(
+                                      width: 1.sw - 32.w,
+                                      height: 88.h,
+                                      padding: EdgeInsets.all(10.w),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width: 1.sw - 32.w,
+                                            child: RichText(
+                                              text: TextSpan(
+                                                text: '打赏',
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFFED8F26),
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                children: [
+                                                  TextSpan(
+                                                    text:
+                                                        '${logic.article.value.rewardPoint}积分后可见',
+                                                    style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                      color: Styles
+                                                          .primaryTextColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 1.sw - 32.w,
+                                            child: Text(
+                                              '${logic.article.value.rewardedCnt}人打赏',
+                                              style: TextStyle(
+                                                color: const Color(0xFFED8F26),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12.sp,
+                                              ),
+                                              textAlign: TextAlign.right,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                         ],
                       ),
                     )
