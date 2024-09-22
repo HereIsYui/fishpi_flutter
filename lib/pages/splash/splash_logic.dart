@@ -8,15 +8,16 @@ import 'package:get/get.dart';
 class SplashLogic extends GetxController {
   final isLogin = false.obs;
   final dio = Dio();
+
   @override
   void onInit() {
-    isLogin.value =  PiUtils.getBool('isLogin');
+    isLogin.value = PiUtils.getBool('isLogin');
     print('isLogin:${isLogin.value}');
     super.onInit();
   }
 
-  void toStartApp() {
-    dio.getUri(Uri.parse('https://fishpi.cn/privacy'));
-    isLogin.value ? AppNavigator.closeAllToHome() : AppNavigator.startLogin() ;
+  void toStartApp() async {
+    await dio.getUri(Uri.parse('https://fishpi.cn/privacy'));
+    isLogin.value ? AppNavigator.closeAllToHome() : AppNavigator.startLogin();
   }
 }
