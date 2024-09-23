@@ -2,6 +2,8 @@ import 'package:fishpi_app/pages/breezemoons/breezemoons_binding.dart';
 import 'package:fishpi_app/pages/breezemoons/breezemoons_view.dart';
 import 'package:fishpi_app/pages/chat/chat_binding.dart';
 import 'package:fishpi_app/pages/chat/chat_view.dart';
+import 'package:fishpi_app/pages/chat/user_panel/user_panel_binding.dart';
+import 'package:fishpi_app/pages/chat/user_panel/user_panel_view.dart';
 import 'package:fishpi_app/pages/conversation/conversation_binding.dart';
 import 'package:fishpi_app/pages/conversation/conversation_view.dart';
 import 'package:fishpi_app/pages/forum/detail/forum_detail_binding.dart';
@@ -107,6 +109,11 @@ class AppPages {
       name: AppRoutes.about,
       page: () => AboutPage(),
       binding: AboutBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.userPanel,
+      page: () => UserPanelPage(),
+      binding: UserPanelBinding(),
     ),
   ];
 }
