@@ -166,7 +166,7 @@ class ChatPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRight(chat) {
+  Widget _buildRight(ChatRoomMessage chat) {
     return Container(
       width: 0.8.sw,
       margin: EdgeInsets.only(bottom: 5.h, top: 5.h),
@@ -235,7 +235,7 @@ class ChatPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLeft(chat) {
+  Widget _buildLeft(ChatRoomMessage chat) {
     return Container(
       width: 0.8.sw,
       margin: EdgeInsets.only(bottom: 5.h, top: 5.h),
@@ -243,11 +243,16 @@ class ChatPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PiAvatar(
-            avatarURL: chat.avatarURL,
-            userName: chat.userName,
-            width: 48.w,
-            height: 48.w,
+          GestureDetector(
+            onTap: () {
+              logic.clickUserAvatar(chat.userOId);
+            },
+            child: PiAvatar(
+              avatarURL: chat.avatarURL,
+              userName: chat.userName,
+              width: 48.w,
+              height: 48.w,
+            ),
           ),
           10.horizontalSpace,
           Expanded(

@@ -2,6 +2,7 @@ import 'package:fishpi/fishpi.dart';
 import 'package:fishpi/types/chat.dart';
 import 'package:fishpi/types/chatroom.dart';
 import 'package:fishpi_app/pages/conversation/conversation_logic.dart';
+import 'package:fishpi_app/routers/navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -104,6 +105,10 @@ class ChatLogic extends GetxController {
     emojiList.refresh();
     diyEmojiList.refresh();
     print(diyEmojiList.toJson());
+  }
+
+  void clickUserAvatar(int userID) {
+    AppNavigator.toUserPanel(userID: userID);
   }
 
   focus() => FocusScope.of(Get.context!).requestFocus(chatRoomFocusNode);

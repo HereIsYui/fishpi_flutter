@@ -1,3 +1,4 @@
+import 'package:fishpi_app/widgets/pi_title_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,10 @@ class UserPanelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: PiTitleBar.back(
+        title: '用户信息',
+      ),
+    );
   }
 }
