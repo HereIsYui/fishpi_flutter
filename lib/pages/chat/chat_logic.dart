@@ -1,6 +1,7 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:fishpi/types/chat.dart';
 import 'package:fishpi/types/chatroom.dart';
+import 'package:fishpi_app/core/manager/toast.dart';
 import 'package:fishpi_app/pages/conversation/conversation_logic.dart';
 import 'package:fishpi_app/routers/navigator.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +21,7 @@ class ChatLogic extends GetxController {
   final userID = ''.obs;
   final isClose = true.obs;
   final isShowEmoji = false.obs;
+  final isShowTools = false.obs;
 
   ScrollController chatRoomController = ScrollController();
   TextEditingController chatRoomControllerText = TextEditingController();
@@ -80,22 +82,36 @@ class ChatLogic extends GetxController {
     content.value = text;
   }
 
-  void showTools() {}
+  void toggleTools() {
+    isShowTools.value = !isShowTools.value;
+    isShowEmoji.value = false;
+    isShowTools.value ? unFocus() : focus();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      scrollToBottom();
+    });
+  }
 
-  void clickSend() {
+  void clickSend() async {
+    ToastManager.show(content: '发送中...');
     print('发送消息：${content.value}');
-    imController.fishpi.chatroom.send(content.value);
+    await imController.fishpi.chatroom.send(content.value);
     content.value = '';
     chatRoomControllerText.text = '';
+    ToastManager.dismiss();
   }
 
   void toggleEmoji() {
     isShowEmoji.value = !isShowEmoji.value;
-    unFocus();
+    isShowTools.value = false;
+    isShowEmoji.value ? unFocus() : focus();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      scrollToBottom();
+    });
   }
 
   void closeAllTools() {
     isShowEmoji.value = false;
+    isShowTools.value = false;
     unFocus();
   }
 

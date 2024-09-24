@@ -57,10 +57,6 @@ class ChatPage extends StatelessWidget {
                 ),
                 Container(
                   width: 1.sw,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 10.h,
-                  ),
                   decoration: BoxDecoration(
                     border: Border(
                       top: BorderSide(
@@ -71,78 +67,91 @@ class ChatPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              width: 24.w,
-                              height: 24.w,
-                              child: Icon(
-                                Icons.keyboard_voice_outlined,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 220.w,
-                            height: 34.h,
-                            child: PiInput(
-                              controller: logic.chatRoomControllerText,
-                              textAlign: TextAlign.left,
-                              hintText: '说点什么...',
-                              focusNode: logic.chatRoomFocusNode,
-                              onInputChanged: (text) {
-                                logic.onInput(text);
-                              },
-                              onEditingComplete: () {
-                                logic.clickSend();
-                              },
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              logic.toggleEmoji();
-                            },
-                            child: SizedBox(
-                              width: 24.w,
-                              height: 24.w,
-                              child: Image.asset(
-                                'assets/images/face.png',
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16.w,
+                          vertical: 10.h,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
                                 width: 24.w,
                                 height: 24.w,
+                                child: Icon(
+                                  Icons.keyboard_voice_outlined,
+                                ),
                               ),
                             ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              if (logic.content.value == '') {
-                                logic.showTools();
-                              } else {
-                                logic.clickSend();
-                              }
-                            },
-                            child: Container(
-                              width: 28.w,
-                              height: 28.w,
-                              alignment: Alignment.center,
-                              child: Image.asset(
-                                logic.content.value == ''
-                                    ? 'assets/images/more_feature.png'
-                                    : 'assets/images/send.png',
+                            SizedBox(
+                              width: 220.w,
+                              height: 34.h,
+                              child: PiInput(
+                                controller: logic.chatRoomControllerText,
+                                textAlign: TextAlign.left,
+                                hintText: '说点什么...',
+                                focusNode: logic.chatRoomFocusNode,
+                                onInputChanged: (text) {
+                                  logic.onInput(text);
+                                },
+                                onEditingComplete: () {
+                                  logic.clickSend();
+                                },
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                logic.toggleEmoji();
+                              },
+                              child: SizedBox(
+                                width: 24.w,
+                                height: 24.w,
+                                child: Image.asset(
+                                  'assets/images/face.png',
+                                  width: 24.w,
+                                  height: 24.w,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (logic.content.value == '') {
+                                  logic.toggleTools();
+                                } else {
+                                  logic.clickSend();
+                                }
+                              },
+                              child: Container(
                                 width: 28.w,
                                 height: 28.w,
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  logic.content.value == ''
+                                      ? 'assets/images/more_feature.png'
+                                      : 'assets/images/send.png',
+                                  width: 28.w,
+                                  height: 28.w,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Visibility(
                         visible: logic.isShowEmoji.value,
                         child: FadeIn(
                           duration: const Duration(milliseconds: 200),
                           child: _buildEmojiBox(),
+                        ),
+                      ),
+                      Visibility(
+                        visible: logic.isShowTools.value,
+                        child: FadeIn(
+                          duration: const Duration(milliseconds: 200),
+                          child: _buildToolsBox(),
                         ),
                       )
                     ],
@@ -325,14 +334,18 @@ class ChatPage extends StatelessWidget {
                   onTap: () {
                     logic.emojiIndex.value = 0;
                   },
-                  child: Container(
-                    width: 30.w,
-                    height: 30.w,
-                    margin: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Image.asset(
-                      'assets/images/face.png',
+                  child: AnimatedOpacity(
+                    opacity: logic.emojiIndex.value == 0 ? 1 : 0.3,
+                    duration: const Duration(milliseconds: 200),
+                    child: Container(
                       width: 24.w,
                       height: 24.w,
+                      margin: EdgeInsets.symmetric(horizontal: 5.w),
+                      child: Image.asset(
+                        'assets/images/face.png',
+                        width: 24.w,
+                        height: 24.w,
+                      ),
                     ),
                   ),
                 ),
@@ -340,13 +353,17 @@ class ChatPage extends StatelessWidget {
                   onTap: () {
                     logic.emojiIndex.value = 1;
                   },
-                  child: Container(
-                    width: 30.w,
-                    height: 30.w,
-                    margin: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Icon(
-                      Icons.photo,
-                      size: 30.w,
+                  child: AnimatedOpacity(
+                    opacity: logic.emojiIndex.value == 1 ? 1 : 0.3,
+                    duration: const Duration(milliseconds: 200),
+                    child: Container(
+                      width: 30.w,
+                      height: 30.w,
+                      margin: EdgeInsets.symmetric(horizontal: 5.w),
+                      child: Icon(
+                        Icons.photo,
+                        size: 30.w,
+                      ),
                     ),
                   ),
                 ),
@@ -370,22 +387,25 @@ class ChatPage extends StatelessWidget {
   Widget _buildDefaultEmojiBox() {
     List<Widget> list = [];
     logic.emojiList.forEach((key, value) {
-      list.add(GestureDetector(
-        onTap: () {
-          logic.chatRoomControllerText.text += ':$key:';
-          logic.onInput(':$key:');
-        },
-        child: Container(
-          width: 24.w,
-          height: 24.w,
-          alignment: Alignment.center,
-          child: Image.network(
-            value,
+      list.add(
+        GestureDetector(
+          onTap: () {
+            logic.chatRoomControllerText.text = ':$key:';
+            logic.onInput(':$key:');
+            logic.clickSend();
+          },
+          child: Container(
             width: 24.w,
             height: 24.w,
+            alignment: Alignment.center,
+            child: Image.network(
+              value,
+              width: 24.w,
+              height: 24.w,
+            ),
           ),
         ),
-      ));
+      );
     });
     // 返回一个GridView
     return GridView.count(
@@ -402,11 +422,25 @@ class ChatPage extends StatelessWidget {
   Widget _buildDiyEmojiBox() {
     List<Widget> list = [];
     for (var item in logic.diyEmojiList) {
-      list.add(Image.network(
-        item,
-        width: 80.w,
-        height: 80.w,
-      ));
+      list.add(
+        GestureDetector(
+          onTap: () {
+            logic.chatRoomControllerText.text = '![图片表情]($item)';
+            logic.onInput('![图片表情]($item)');
+            logic.clickSend();
+          },
+          child: Container(
+            width: 24.w,
+            height: 24.w,
+            alignment: Alignment.center,
+            child: Image.network(
+              item,
+              width: 80.w,
+              height: 80.w,
+            ),
+          ),
+        ),
+      );
     }
     return GridView.count(
       crossAxisCount: 4,
@@ -416,6 +450,50 @@ class ChatPage extends StatelessWidget {
       //设置主轴间距
       mainAxisSpacing: 4.w,
       children: list,
+    );
+  }
+
+  Widget _buildToolsBox() {
+    List<Widget> list = [];
+    list.add(
+      Container(
+        width: 80.w,
+        height: 80.w,
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.photo,
+              size: 40.w,
+            ),
+            Text(
+              '图片',
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Styles.primaryTextColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    return Container(
+      width: 1.sw,
+      height: 224.h,
+      padding: EdgeInsets.all(10.w),
+      color: Styles.c4Color,
+      child: GridView.count(
+        crossAxisCount: 4,
+        scrollDirection: Axis.vertical,
+        //设置横向间距
+        crossAxisSpacing: 4.w,
+        //设置主轴间距
+        mainAxisSpacing: 4.w,
+        children: list,
+      ),
     );
   }
 }
