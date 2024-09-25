@@ -137,8 +137,8 @@ class ChatLogic extends GetxController {
     print(diyEmojiList.toJson());
   }
 
-  void clickUserAvatar(int userID) {
-    AppNavigator.toUserPanel(userID: userID);
+  void clickUserAvatar(String userName) {
+    AppNavigator.toUserPanel(userName: userName);
   }
 
   focus() => FocusScope.of(Get.context!).requestFocus(chatRoomFocusNode);

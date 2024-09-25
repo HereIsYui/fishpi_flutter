@@ -304,7 +304,7 @@ class ChatPage extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              logic.clickUserAvatar(chat.userOId);
+              logic.clickUserAvatar(chat.userName);
             },
             child: PiAvatar(
               avatarURL: chat.avatarURL,

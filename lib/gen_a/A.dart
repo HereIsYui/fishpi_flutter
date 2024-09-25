@@ -1,5 +1,5 @@
 class A{
- //auto gen ,do not edit!
+ //auto gen ,do not edit! 
 static  final String assets_images_breezemoon="assets/images/breezemoon.png";
 static  final String assets_images_face="assets/images/face.png";
 static  final String assets_images_more_feature="assets/images/more_feature.png";
@@ -20,10 +20,13 @@ static  final String assets_images_Union="assets/images/Union.png";
 static  final String assets_images_commented="assets/images/commented.png";
 static  final String assets_images_send="assets/images/send.png";
 static  final String assets_images_setting="assets/images/setting.png";
+static  final String assets_images_coin_line="assets/images/coin_line.png";
+static  final String assets_images_star="assets/images/star.png";
 static  final String assets_images_perfact="assets/images/perfact.png";
 static  final String assets_images_Location="assets/images/Location.png";
 static  final String assets_images_unlike="assets/images/unlike.png";
 static  final String assets_images_unthank="assets/images/unthank.png";
+static  final String assets_images_star_no="assets/images/star_no.png";
 static  final String assets_images_thank="assets/images/thank.png";
 static  final String assets_images_image_send="assets/images/image-send.png";
 static  final String assets_images_coin="assets/images/coin.png";

@@ -35,8 +35,8 @@ class AppNavigator {
   static void toAboutUs() => Get.toNamed(AppRoutes.about);
 
   /// Ta人主页
-  static void toUserPanel({int? userID}) =>
+  static void toUserPanel({String? userName}) =>
       Get.toNamed(AppRoutes.userPanel, arguments: {
-        "userID": userID,
+        "userName": userName,
       });
 }

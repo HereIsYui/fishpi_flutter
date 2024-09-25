@@ -98,6 +98,7 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget {
   PiTitleBar.back({
     super.key,
     String? title,
+    bool? showUnderline,
   })  : center = Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +112,7 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         height = 48.h,
-        showUnderline = true,
+        showUnderline = showUnderline ?? true,
         left = GestureDetector(
           onTap: () {
             Get.back();

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fishpi_app/res/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class PiImage extends StatelessWidget {
   final String imgUrl;
@@ -35,25 +35,24 @@ class PiImage extends StatelessWidget {
   Widget _buildLoadingImg() {
     return Container(
       alignment: Alignment.center,
-      child: Text(
-        '图片加载中...',
-        style: TextStyle(
-          color: Styles.primaryTextColor,
-          fontSize: 20.sp,
-        ),
+      child: Lottie.asset(
+        "assets/logo_lottie.json",
+        width: 100.w,
+        height: 100.w,
       ),
     );
   }
 
   Widget _buildErrorImg() {
     return Container(
+      width: width,
+      height: height,
       alignment: Alignment.center,
-      child: Text(
-        '图片加载失败',
-        style: TextStyle(
-          color: Styles.primaryTextColor,
-          fontSize: 20.sp,
-        ),
+      child: Image.network(
+        'https://pwl.stackoverflow.wiki/2021/11/32ceecb7798ea1fa-82bd6ec7.jpg',
+        width: width,
+        height: height,
+        fit: BoxFit.cover,
       ),
     );
   }
