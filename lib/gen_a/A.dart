@@ -1,5 +1,5 @@
 class A{
- //auto gen ,do not edit! 
+ //auto gen ,do not edit!
 static  final String assets_images_breezemoon="assets/images/breezemoon.png";
 static  final String assets_images_face="assets/images/face.png";
 static  final String assets_images_more_feature="assets/images/more_feature.png";
@@ -13,6 +13,7 @@ static  final String assets_images_Location_Colorful="assets/images/Location-Col
 static  final String assets_images_notice="assets/images/notice.png";
 static  final String assets_images_profile_circle="assets/images/profile-circle.png";
 static  final String assets_images_logo="assets/images/logo.png";
+static  final String assets_images_keyboard="assets/images/keyboard.png";
 static  final String assets_images_admin="assets/images/admin.png";
 static  final String assets_images_logo_word="assets/images/logo_word.png";
 static  final String assets_images_Union="assets/images/Union.png";

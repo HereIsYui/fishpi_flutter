@@ -22,6 +22,7 @@ class ChatLogic extends GetxController {
   final isClose = true.obs;
   final isShowEmoji = false.obs;
   final isShowTools = false.obs;
+  final isShowVoice = false.obs;
 
   ScrollController chatRoomController = ScrollController();
   TextEditingController chatRoomControllerText = TextEditingController();
@@ -85,6 +86,7 @@ class ChatLogic extends GetxController {
   void toggleTools() {
     isShowTools.value = !isShowTools.value;
     isShowEmoji.value = false;
+    isShowVoice.value = false;
     isShowTools.value ? unFocus() : focus();
     Future.delayed(const Duration(milliseconds: 100), () {
       scrollToBottom();
@@ -103,7 +105,18 @@ class ChatLogic extends GetxController {
   void toggleEmoji() {
     isShowEmoji.value = !isShowEmoji.value;
     isShowTools.value = false;
+    isShowVoice.value = false;
     isShowEmoji.value ? unFocus() : focus();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      scrollToBottom();
+    });
+  }
+
+  void toggleVoice() {
+    isShowVoice.value = !isShowVoice.value;
+    isShowTools.value = false;
+    isShowEmoji.value = false;
+    isShowVoice.value ? unFocus() : focus();
     Future.delayed(const Duration(milliseconds: 100), () {
       scrollToBottom();
     });
@@ -112,6 +125,7 @@ class ChatLogic extends GetxController {
   void closeAllTools() {
     isShowEmoji.value = false;
     isShowTools.value = false;
+    isShowVoice.value = false;
     unFocus();
   }
 

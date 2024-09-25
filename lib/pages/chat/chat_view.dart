@@ -77,29 +77,79 @@ class ChatPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                logic.toggleVoice();
+                              },
                               child: Container(
                                 width: 24.w,
                                 height: 24.w,
-                                child: Icon(
-                                  Icons.keyboard_voice_outlined,
-                                ),
+                                child: logic.isShowVoice.value
+                                    ? Image.asset('assets/images/keyboard.png')
+                                    : const Icon(
+                                        Icons.keyboard_voice_outlined,
+                                      ),
                               ),
                             ),
                             SizedBox(
                               width: 220.w,
                               height: 34.h,
-                              child: PiInput(
-                                controller: logic.chatRoomControllerText,
-                                textAlign: TextAlign.left,
-                                hintText: '说点什么...',
-                                focusNode: logic.chatRoomFocusNode,
-                                onInputChanged: (text) {
-                                  logic.onInput(text);
-                                },
-                                onEditingComplete: () {
-                                  logic.clickSend();
-                                },
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    child: SizedBox(
+                                      width: 220.w,
+                                      height: 34.h,
+                                      child: PiInput(
+                                        controller:
+                                            logic.chatRoomControllerText,
+                                        textAlign: logic.isShowVoice.value
+                                            ? TextAlign.center
+                                            : TextAlign.left,
+                                        hintText: '说点什么...',
+                                        focusNode: logic.chatRoomFocusNode,
+                                        onInputChanged: (text) {
+                                          logic.onInput(text);
+                                        },
+                                        onEditingComplete: () {
+                                          logic.clickSend();
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  if (logic.isShowVoice.value)
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        behavior: HitTestBehavior.translucent,
+                                        child: Container(
+                                          width: 220.w,
+                                          height: 34.h,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 2.w,
+                                              color: Styles.primaryTextColor,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.white,
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '长按讲话',
+                                            style: TextStyle(
+                                              color: Styles.primaryTextColor,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
                             GestureDetector(
@@ -454,37 +504,118 @@ class ChatPage extends StatelessWidget {
   }
 
   Widget _buildToolsBox() {
-    List<Widget> list = [];
-    list.add(
-      Container(
-        width: 80.w,
-        height: 80.w,
-        decoration: BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.photo,
-              size: 40.w,
-            ),
-            Text(
-              '图片',
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: Styles.primaryTextColor,
+    List<Widget> list = [
+      GestureDetector(
+        onTap: () {},
+        child: Container(
+          width: 80.w,
+          height: 80.w,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 50.w,
+                height: 50.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.w),
+                ),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.photo,
+                  size: 30.w,
+                ),
               ),
-            ),
-          ],
+              5.verticalSpace,
+              Text(
+                '图片',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Styles.primaryTextColor,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    );
+      GestureDetector(
+        onTap: () {},
+        child: Container(
+          width: 80.w,
+          height: 80.w,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 50.w,
+                height: 50.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.w),
+                ),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.camera_alt,
+                  size: 30.w,
+                ),
+              ),
+              5.verticalSpace,
+              Text(
+                '拍摄',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Styles.primaryTextColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      GestureDetector(
+        onTap: () {},
+        child: Container(
+          width: 80.w,
+          height: 80.w,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 50.w,
+                height: 50.w,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.w),
+                ),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.shopping_bag,
+                  size: 30.w,
+                ),
+              ),
+              5.verticalSpace,
+              Text(
+                '红包',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Styles.primaryTextColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ];
     return Container(
       width: 1.sw,
       height: 224.h,
       padding: EdgeInsets.all(10.w),
-      color: Styles.c4Color,
+      color: Color(0xFFF5F7F9),
       child: GridView.count(
         crossAxisCount: 4,
         scrollDirection: Axis.vertical,
