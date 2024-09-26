@@ -1,14 +1,12 @@
-import 'package:fishpi_app/res/styles.dart';
-import 'package:fishpi_app/widgets/pi_avatar.dart';
-import 'package:fishpi_app/widgets/pi_image.dart';
+import 'package:fishpi/types/breezemoon.dart';
 import 'package:fishpi_app/widgets/pi_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../res/view.dart';
+import '../../widgets/pi_breezemoon_item.dart';
 import 'breezemoons_logic.dart';
 
 class BreezemoonsPage extends StatelessWidget {
@@ -79,108 +77,7 @@ class BreezemoonsPage extends StatelessWidget {
         ),
       );
     }
-    final item = logic.list[idx - 1];
-    return Container(
-      margin: EdgeInsets.only(bottom: 20.h),
-      padding: EdgeInsets.all(10.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
-        border: Styles.commonBorder,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              PiAvatar(
-                userName: item.authorName,
-                avatarURL: item.thumbnailURL48,
-                width: 35.w,
-                height: 35.w,
-              ),
-              20.horizontalSpace,
-              Text(
-                item.authorName,
-                style: TextStyle(
-                  color: Styles.primaryTextColor,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Expanded(child: 1.horizontalSpace),
-              Text(
-                item.timeAgo,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: Styles.c4Color,
-                ),
-              ),
-            ],
-          ),
-          handleBreeze(item.content),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/Location.png',
-                width: 24.w,
-                height: 24.w,
-              ),
-              Text(
-                item.city,
-                style: TextStyle(
-                  color: Styles.primaryTextColor,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  /// 清风明月内容处理
-  Widget handleBreeze(content) {
-    var document = parse(content);
-    List<Widget> list = [];
-
-    /// 处理文本
-    document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
-      if (element.text.isEmpty) return;
-      list.add(
-        Text(
-          element.text,
-          style: TextStyle(
-            color: Styles.primaryTextColor,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      );
-    });
-
-    /// 处理图片
-    document.querySelectorAll("img").forEach((element) {
-      if (element.attributes['src']!.isEmpty) return;
-      list.add(
-        PiImage(
-          imgUrl: element.attributes['src']!,
-          width: 1.sw,
-          height: 180.h,
-        ),
-      );
-    });
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-      child: Column(
-        children: list,
-      ),
-    );
+    BreezemoonContent item = logic.list[idx - 1];
+    return PiBreezemoonItem(breezemoon: item);
   }
 }
