@@ -5,13 +5,19 @@ import '../res/styles.dart';
 class PiMenuItem extends StatelessWidget {
   final IconData? icon;
   final Color? iconColor;
+  final Widget? image;
   final String? title;
+  final bool? isShowArrow;
+  final String? rightText;
   final Function()? onTap;
 
   const PiMenuItem({
     this.icon,
     this.iconColor,
+    this.image,
     this.title,
+    this.isShowArrow = true,
+    this.rightText,
     this.onTap,
     super.key,
   });
@@ -29,28 +35,39 @@ class PiMenuItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                icon,
-                color: iconColor,
-                size: 20.w,
-              ),
+              if (icon != null && image == null)
+                Icon(
+                  icon,
+                  color: iconColor,
+                  size: 20.w,
+                ),
+              if (image != null) image!,
               10.horizontalSpace,
-              Expanded(
-                child: Text(
-                  '$title',
-                  style: TextStyle(
-                    color: Styles.primaryTextColor,
-                    fontSize: 17.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Text(
+                '$title',
+                style: TextStyle(
+                  color: Styles.primaryTextColor,
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              10.horizontalSpace,
-              Icon(
-                Icons.keyboard_arrow_right_outlined,
-                color: Styles.primaryTextColor,
-                size: 24.w,
-              )
+              Expanded(
+                child: 1.horizontalSpace,
+              ),
+              if (rightText != null)
+                Text(
+                  '$rightText',
+                  style: TextStyle(
+                    color: Styles.primaryTextColor,
+                    fontSize: 14.sp,
+                  ),
+                ),
+              if (isShowArrow!)
+                Icon(
+                  Icons.keyboard_arrow_right_outlined,
+                  color: Styles.primaryTextColor,
+                  size: 24.w,
+                ),
             ],
           ),
         ),

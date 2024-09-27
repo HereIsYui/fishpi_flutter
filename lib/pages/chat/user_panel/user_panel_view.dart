@@ -1,12 +1,15 @@
 import 'package:fishpi_app/res/styles.dart';
 import 'package:fishpi_app/widgets/loading.dart';
+import 'package:fishpi_app/widgets/pi_article_item.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
+import 'package:fishpi_app/widgets/pi_breezemoon_item.dart';
 import 'package:fishpi_app/widgets/pi_image.dart';
 import 'package:fishpi_app/widgets/pi_title_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../widgets/pi_menu_item.dart';
 import 'user_panel_logic.dart';
 
 class UserPanelPage extends StatelessWidget {
@@ -206,26 +209,218 @@ class UserPanelPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if(logic.userInfo.value.isOnline)
-                        Positioned(
-                          right: 16.w,
-                          bottom: 130.h,
-                          child: Container(
-                            width: 14.w,
-                            height: 14.w,
+                        if (logic.userInfo.value.isOnline)
+                          Positioned(
+                            right: 16.w,
+                            bottom: 130.h,
+                            child: Container(
+                              width: 14.w,
+                              height: 14.w,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14.w),
+                                  color: const Color(0xFF56F92C),
+                                  border: Border.all(
+                                      width: 2.w, color: Colors.white)),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  20.verticalSpace,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            logic.changeTab(0);
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 200),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 8.h,
+                            ),
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.w),
-                              color: const Color(0xFF56F92C),
-                              border: Border.all(width: 2.w,color: Colors.white)
+                              border: Border.all(
+                                width: 2.w,
+                                color: Styles.primaryTextColor,
+                              ),
+                              borderRadius: BorderRadius.circular(50.r),
+                              color: logic.tabIndex.value == 0
+                                  ? const Color(0xFF00C6AE)
+                                  : Colors.white,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Ta 的帖子',
+                              style: TextStyle(
+                                color: Styles.primaryTextColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        10.horizontalSpace,
+                        GestureDetector(
+                          onTap: () {
+                            logic.changeTab(1);
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 200),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 8.h,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 2.w,
+                                color: Styles.primaryTextColor,
+                              ),
+                              borderRadius: BorderRadius.circular(50.r),
+                              color: logic.tabIndex.value == 1
+                                  ? const Color(0xFF00C6AE)
+                                  : Colors.white,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Ta 的清风明月',
+                              style: TextStyle(
+                                color: Styles.primaryTextColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        10.horizontalSpace,
+                        GestureDetector(
+                          onTap: () {
+                            logic.changeTab(2);
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 200),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 8.h,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 2.w,
+                                color: Styles.primaryTextColor,
+                              ),
+                              borderRadius: BorderRadius.circular(50.r),
+                              color: logic.tabIndex.value == 2
+                                  ? const Color(0xFF00C6AE)
+                                  : Colors.white,
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              '更多',
+                              style: TextStyle(
+                                color: Styles.primaryTextColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
-                  )
+                  ),
+                  if (logic.tabIndex.value == 0)
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 10.h,
+                      ),
+                      itemBuilder: _buildArticleItem,
+                      itemCount: logic.userArticles.length,
+                    ),
+                  if (logic.tabIndex.value == 1)
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 10.h,
+                      ),
+                      itemBuilder: _buildBreezemoonItem,
+                      itemCount: logic.userBreezemoons.length,
+                    ),
+                  if (logic.tabIndex.value == 2)
+                    Container(
+                      width: 1.sw - 32.w,
+                      padding: EdgeInsets.all(10.w),
+                      margin: EdgeInsets.symmetric(
+                          horizontal: 16.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r),
+                        border: Styles.commonBorder,
+                        color: Colors.white,
+                      ),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          PiMenuItem(
+                            title: '转账',
+                            image: Image.asset(
+                              'assets/images/menu_transfer.png',
+                              width: 24.w,
+                              height: 24.w,
+                            ),
+                            onTap: logic.toTransfer,
+                          ),
+                          PiMenuItem(
+                            title: '私聊',
+                            image: Image.asset(
+                              'assets/images/menu_chat.png',
+                              width: 24.w,
+                              height: 24.w,
+                            ),
+                            onTap: logic.toChat,
+                          ),
+                          PiMenuItem(
+                            title: '标签',
+                            image: Image.asset(
+                              'assets/images/menu_label.png',
+                              width: 24.w,
+                              height: 24.w,
+                            ),
+                            isShowArrow: false,
+                            onTap: logic.toSetLabel,
+                          ),
+                          PiMenuItem(
+                            title: '在线时长',
+                            image: Image.asset(
+                              'assets/images/logo.png',
+                              width: 24.w,
+                              height: 24.w,
+                            ),
+                            isShowArrow: false,
+                            rightText: '累计已摸鱼${logic.userInfo.value.onlineMinute}分钟',
+                            onTap: logic.toSetLabel,
+                          ),
+                        ],
+                      ),
+                    )
                 ],
               ),
       ),
     );
+  }
+
+  Widget _buildArticleItem(BuildContext context, int index) {
+    return PiArticleItem(article: logic.userArticles[index]);
+  }
+
+  Widget _buildBreezemoonItem(BuildContext context, int index) {
+    return PiBreezemoonItem(breezemoon: logic.userBreezemoons[index]);
   }
 }

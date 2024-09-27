@@ -178,10 +178,11 @@ class MinePage extends StatelessWidget {
                       onTap: logic.toCollectionPage,
                     ),
                     PiMenuItem(
-                        title: '设置',
-                        iconColor: Styles.primaryColor,
-                        icon: Icons.settings,
-                        onTap: logic.toSetUpPage),
+                      title: '设置',
+                      iconColor: Styles.primaryColor,
+                      icon: Icons.settings,
+                      onTap: logic.toSetUpPage,
+                    ),
                   ],
                 ),
               )

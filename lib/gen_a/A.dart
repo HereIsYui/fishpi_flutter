@@ -24,13 +24,16 @@ static  final String assets_images_coin_line="assets/images/coin_line.png";
 static  final String assets_images_star="assets/images/star.png";
 static  final String assets_images_perfact="assets/images/perfact.png";
 static  final String assets_images_Location="assets/images/Location.png";
+static  final String assets_images_menu_chat="assets/images/menu_chat.png";
 static  final String assets_images_unlike="assets/images/unlike.png";
 static  final String assets_images_unthank="assets/images/unthank.png";
 static  final String assets_images_star_no="assets/images/star_no.png";
 static  final String assets_images_thank="assets/images/thank.png";
+static  final String assets_images_menu_label="assets/images/menu_label.png";
 static  final String assets_images_image_send="assets/images/image-send.png";
 static  final String assets_images_coin="assets/images/coin.png";
 static  final String assets_images_red_packet="assets/images/red-packet.png";
 static  final String assets_images_scan="assets/images/scan.png";
 static  final String assets_images_comment="assets/images/comment.png";
+static  final String assets_images_menu_tr="assets/images/menu_transfer.png";
 }
