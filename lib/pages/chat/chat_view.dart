@@ -448,8 +448,8 @@ class ChatPage extends StatelessWidget {
             width: 24.w,
             height: 24.w,
             alignment: Alignment.center,
-            child: Image.network(
-              value,
+            child: PiImage(
+              imgUrl: value,
               width: 24.w,
               height: 24.w,
             ),
@@ -483,8 +483,8 @@ class ChatPage extends StatelessWidget {
             width: 24.w,
             height: 24.w,
             alignment: Alignment.center,
-            child: Image.network(
-              item,
+            child: PiImage(
+              imgUrl: item,
               width: 80.w,
               height: 80.w,
             ),
