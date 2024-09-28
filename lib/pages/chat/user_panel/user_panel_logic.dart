@@ -47,6 +47,15 @@ class UserPanelLogic extends GetxController {
     userBreezemoons.value = res;
   }
 
+  void toFollow() {
+    if(userInfo.value.canFollow == 'yes'){
+      userInfo.value.canFollow = 'no';
+    }else{
+      userInfo.value.canFollow = 'yes';
+    };
+    // 本来想写关注来着，发现好像没有关注接口
+  }
+
   void toTransfer() {}
 
   void toChat() {}

@@ -67,7 +67,9 @@ class UserPanelPage extends StatelessWidget {
                             top: 16.h,
                             left: 16.w,
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                logic.toFollow();
+                              },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 12.w, vertical: 10.h),
