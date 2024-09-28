@@ -13,9 +13,9 @@ import '../../../widgets/pi_menu_item.dart';
 import 'user_panel_logic.dart';
 
 class UserPanelPage extends StatelessWidget {
-  final UserPanelLogic logic = Get.put(UserPanelLogic());
+  final UserPanelLogic logic = Get.find();
 
-  UserPanelPage({Key? key}) : super(key: key);
+  UserPanelPage({super.key});
 
   @override
   Widget build(BuildContext context) {

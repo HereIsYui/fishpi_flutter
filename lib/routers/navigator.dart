@@ -22,11 +22,14 @@ class AppNavigator {
     String? userName,
     String? userID,
   }) =>
-      Get.toNamed(AppRoutes.chat, arguments: {
-        "isGroup": isGroup,
-        "userName": userName,
-        "userID": userID,
-      });
+      Get.toNamed(
+        AppRoutes.chat,
+        arguments: {
+          "isGroup": isGroup,
+          "userName": userName,
+          "userID": userID,
+        },
+      );
 
   /// 设置页面
   static void toSetting() => Get.toNamed(AppRoutes.setUp);
@@ -35,8 +38,11 @@ class AppNavigator {
   static void toAboutUs() => Get.toNamed(AppRoutes.about);
 
   /// Ta人主页
-  static void toUserPanel({String? userName}) =>
-      Get.toNamed(AppRoutes.userPanel, arguments: {
-        "userName": userName,
-      });
+  static void toUserPanel({String? userName}) => Get.toNamed(
+        AppRoutes.userPanel,
+        arguments: {
+          "userName": userName,
+        },
+        preventDuplicates: false,
+      );
 }
