@@ -12,10 +12,13 @@ class AppNavigator {
     Get.offAllNamed(AppRoutes.home);
   }
 
-  static void toForumDetail({String? oId}) =>
-      Get.toNamed(AppRoutes.forumDetail, arguments: {
-        "oId": oId,
-      });
+  static void toForumDetail({String? oId}) => Get.toNamed(
+        AppRoutes.forumDetail,
+        arguments: {
+          "oId": oId,
+        },
+        preventDuplicates: false,
+      );
 
   static void toChat({
     isGroup = false,

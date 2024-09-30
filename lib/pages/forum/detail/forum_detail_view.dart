@@ -1,5 +1,6 @@
 import 'package:fishpi/types/article.dart';
 import 'package:fishpi_app/res/styles.dart';
+import 'package:fishpi_app/routers/navigator.dart';
 import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:fishpi_app/widgets/loading.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
@@ -13,7 +14,7 @@ import '../../../widgets/pi_sm.dart';
 import 'forum_detail_logic.dart';
 
 class ForumDetailPage extends StatelessWidget {
-  final ForumDetailLogic logic = Get.put(ForumDetailLogic());
+  final ForumDetailLogic logic = Get.find();
 
   ForumDetailPage({super.key});
 
@@ -228,11 +229,16 @@ class ForumDetailPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PiAvatar(
-            userName: item.author,
-            avatarURL: item.thumbnailURL,
-            width: 30.w,
-            height: 30.w,
+          GestureDetector(
+            onTap: (){
+              AppNavigator.toUserPanel(userName: item.author);
+            },
+            child: PiAvatar(
+              userName: item.author,
+              avatarURL: item.thumbnailURL,
+              width: 30.w,
+              height: 30.w,
+            ),
           ),
           10.horizontalSpace,
           Expanded(
