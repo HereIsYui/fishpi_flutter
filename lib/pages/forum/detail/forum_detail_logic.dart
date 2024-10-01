@@ -1,5 +1,7 @@
 import 'package:fishpi/types/article.dart';
+import 'package:fishpi/types/types.dart';
 import 'package:fishpi_app/core/controller/im.dart';
+import 'package:fishpi_app/core/manager/toast.dart';
 import 'package:get/get.dart';
 
 class ForumDetailLogic extends GetxController {
@@ -23,5 +25,15 @@ class ForumDetailLogic extends GetxController {
     isLoading.value = false;
     article.value = res;
     print(article.value.toJson());
+  }
+
+  void toReward() async {
+    ResponseResult res =
+        await imController.fishpi.article.reward(article.value.oId);
+    if (res.success) {
+      initArticleInfo();
+    }else{
+      ToastManager.showToast(res.msg);
+    }
   }
 }

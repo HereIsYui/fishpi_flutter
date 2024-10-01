@@ -86,14 +86,6 @@ class ForumDetailPage extends StatelessWidget {
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
-                                            Text(
-                                              '${logic.article.value.rewardedCnt}人打赏',
-                                              style: TextStyle(
-                                                color: Styles.primaryTextColor,
-                                                fontSize: 16.sp,
-                                              ),
-                                              textAlign: TextAlign.right,
-                                            ),
                                           ],
                                         ),
                                       ),
