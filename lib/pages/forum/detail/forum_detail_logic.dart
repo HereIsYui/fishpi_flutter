@@ -2,7 +2,11 @@ import 'package:fishpi/types/article.dart';
 import 'package:fishpi/types/types.dart';
 import 'package:fishpi_app/core/controller/im.dart';
 import 'package:fishpi_app/core/manager/toast.dart';
+import 'package:fishpi_app/widgets/pi_editer.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../widgets/pop_route.dart';
 
 class ForumDetailLogic extends GetxController {
   final imController = Get.find<IMController>();
@@ -35,5 +39,24 @@ class ForumDetailLogic extends GetxController {
     }else{
       ToastManager.showToast(res.msg);
     }
+  }
+
+  void showEdit() async{
+    Navigator.push(
+      Get.context!,
+      PopRoute(
+        child: PiEditWidget(
+          onEditingCompleteText: (text) {
+            String tag = text;
+            if (tag.trim() == '') {
+              return;
+            } else {
+
+            }
+          },
+        ),
+      ),
+    );
+
   }
 }

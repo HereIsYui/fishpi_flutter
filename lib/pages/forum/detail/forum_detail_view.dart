@@ -164,7 +164,9 @@ class ForumDetailPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            logic.showEdit();
+                          },
                           child: Text(
                             '写评论',
                             style: TextStyle(
