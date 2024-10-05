@@ -46,12 +46,16 @@ class ForumDetailLogic extends GetxController {
       Get.context!,
       PopRoute(
         child: PiEditWidget(
-          onEditingCompleteText: (text) {
-            String tag = text;
-            if (tag.trim() == '') {
+          onEditingCompleteText: (text) async{
+            String context = text;
+            if (context.trim() == '') {
               return;
             } else {
-
+              CommentPost data = CommentPost(
+                content: context,
+                articleId: article.value.oId,
+              );
+              await imController.fishpi.comment.send(data);
             }
           },
         ),
