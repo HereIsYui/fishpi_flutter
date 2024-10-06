@@ -55,7 +55,12 @@ class ForumDetailLogic extends GetxController {
                 content: context,
                 articleId: article.value.oId,
               );
-              await imController.fishpi.comment.send(data);
+              ResponseResult res = await imController.fishpi.comment.send(data);
+              if(res.success){
+                ToastManager.showToast('提交成功');
+              }else{
+                ToastManager.showToast(res.msg);
+              }
             }
           },
         ),
