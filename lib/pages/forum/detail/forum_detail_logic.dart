@@ -58,6 +58,7 @@ class ForumDetailLogic extends GetxController {
               ResponseResult res = await imController.fishpi.comment.send(data);
               if(res.success){
                 ToastManager.showToast('提交成功');
+                initArticleInfo();
               }else{
                 ToastManager.showToast(res.msg);
               }
