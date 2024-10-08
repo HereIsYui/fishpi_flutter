@@ -73,25 +73,26 @@ class MinePage extends StatelessWidget {
                                     ),
                                   ),
                                   10.horizontalSpace,
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/admin.png',
-                                        width: 20.w,
-                                        height: 20.w,
-                                      ),
-                                      2.horizontalSpace,
-                                      Text(
-                                        logic.userInfo.value.role,
-                                        style: TextStyle(
-                                          color: const Color(0xFFEFEFEF),
-                                          fontSize: 17.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                  _buildRoleWidget(logic.userInfo.value.role),
+                                  // Row(
+                                  //   mainAxisSize: MainAxisSize.min,
+                                  //   children: [
+                                  //     Image.asset(
+                                  //       'assets/images/admin.png',
+                                  //       width: 20.w,
+                                  //       height: 20.w,
+                                  //     ),
+                                  //     2.horizontalSpace,
+                                  //     Text(
+                                  //       logic.userInfo.value.role,
+                                  //       style: TextStyle(
+                                  //         color: const Color(0xFFEFEFEF),
+                                  //         fontSize: 17.sp,
+                                  //         fontWeight: FontWeight.bold,
+                                  //       ),
+                                  //     )
+                                  //   ],
+                                  // ),
                                 ],
                               ),
                             ],
@@ -189,6 +190,44 @@ class MinePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildRoleWidget(String role) {
+    String src = '';
+    switch (role) {
+      case '管理员':
+        src = 'assets/images/role_admin.png';
+        break;
+      case 'OP':
+        src = 'assets/images/role_op.png';
+        break;
+      case '纪律委员':
+        src = 'assets/images/role_manage.png';
+        break;
+      case '超级会员':
+        src = 'assets/images/role_svip.png';
+        break;
+      case '成员':
+        src = 'assets/images/role_user.png';
+        break;
+      case '新手':
+        src = 'assets/images/role_new_user.png';
+        break;
+      default:
+        src = 'assets/images/role_new_user.png';
+        break;
+    }
+    return SizedBox(
+      width: 80.w,
+      height: 24.h,
+      child: Image.asset(
+        src,
+        width: 80.w,
+        height: 24.h,
+        fit: BoxFit.contain,
+        alignment: Alignment.centerLeft,
       ),
     );
   }
