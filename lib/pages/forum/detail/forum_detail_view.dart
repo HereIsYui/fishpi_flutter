@@ -184,6 +184,7 @@ class ForumDetailPage extends StatelessWidget {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: buildCommentItem,
+                      reverse: true,
                       itemCount: logic.article.value.comments.length,
                     )
                   ],

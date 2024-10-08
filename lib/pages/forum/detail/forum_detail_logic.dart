@@ -36,17 +36,17 @@ class ForumDetailLogic extends GetxController {
         await imController.fishpi.article.reward(article.value.oId);
     if (res.success) {
       initArticleInfo();
-    }else{
+    } else {
       ToastManager.showToast(res.msg);
     }
   }
 
-  void showEdit() async{
+  void showEdit() async {
     Navigator.push(
       Get.context!,
       PopRoute(
         child: PiEditWidget(
-          onEditingCompleteText: (text) async{
+          onEditingCompleteText: (text) async {
             String context = text;
             if (context.trim() == '') {
               return;
@@ -56,10 +56,19 @@ class ForumDetailLogic extends GetxController {
                 articleId: article.value.oId,
               );
               ResponseResult res = await imController.fishpi.comment.send(data);
-              if(res.success){
+              UserInfo user = await imController.fishpi.user.info();
+              if (res.success) {
                 ToastManager.showToast('提交成功');
-                initArticleInfo();
-              }else{
+                ArticleComment comment = ArticleComment(
+                  content: '<p>$context<\/p>',
+                  author: user.userName,
+                  thumbnailURL: user.avatarURL,
+                  timeAgo: '刚刚',
+                  goodCnt: 0,
+                );
+                article.value.comments.add(comment);
+                article.refresh();
+              } else {
                 ToastManager.showToast(res.msg);
               }
             }
@@ -67,6 +76,5 @@ class ForumDetailLogic extends GetxController {
         ),
       ),
     );
-
   }
 }

@@ -1,11 +1,17 @@
+import 'package:fishpi_app/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PiEditWidget extends StatelessWidget {
   final ValueChanged onEditingCompleteText;
   final TextEditingController controller = TextEditingController();
+  final String? title;
 
-  PiEditWidget({super.key, required this.onEditingCompleteText});
+  PiEditWidget({
+    super.key,
+    required this.onEditingCompleteText,
+    this.title = '发表评论',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,7 @@ class PiEditWidget extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 16.w,
               top: 8.w,
-              bottom: 8.w,
+              bottom: 18.h,
               right: 16.w,
             ),
             child: Row(
@@ -48,7 +54,7 @@ class PiEditWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '回复',
+                  title ?? '发表评论',
                   style: TextStyle(
                     color: const Color(0xFF191722),
                     fontSize: 14.sp,
@@ -72,7 +78,6 @@ class PiEditWidget extends StatelessWidget {
               ],
             ),
           ),
-          10.verticalSpace,
           Container(
               color: const Color(0xFFF3F3F3),
               padding: EdgeInsets.only(
@@ -84,7 +89,7 @@ class PiEditWidget extends StatelessWidget {
                   autofocus: true,
                   style: const TextStyle(
                     fontSize: 16,
-                    color: Color(0x4D000000),
+                    color: Styles.primaryTextColor,
                   ),
                   //设置键盘按钮为发送
                   textInputAction: TextInputAction.done,
@@ -96,7 +101,7 @@ class PiEditWidget extends StatelessWidget {
                   },
                   maxLength: 999,
                   decoration: InputDecoration(
-                    hintText: '说点什么',
+                    hintText: '善语皆善缘,恶言伤人心',
                     hintStyle: const TextStyle(color: Color(0x4D000000)),
                     isDense: true,
                     contentPadding: EdgeInsets.only(
