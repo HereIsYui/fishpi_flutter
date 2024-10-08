@@ -1,4 +1,3 @@
-import 'package:fishpi/types/article.dart';
 import 'package:fishpi/types/types.dart';
 import 'package:fishpi_app/core/controller/im.dart';
 import 'package:fishpi_app/core/manager/toast.dart';

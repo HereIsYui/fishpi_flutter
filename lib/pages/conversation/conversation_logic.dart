@@ -31,6 +31,10 @@ class ConversationLogic extends GetxController {
     imController.onRecvNewMessage = (ChatRoomMessage msg) {
       messageList.add(msg);
       print(msg);
+      // 只保留最近50条消息
+      if(messageList.length > 50){
+        messageList.removeAt(0);
+      }
       messageList.refresh();
     };
   }

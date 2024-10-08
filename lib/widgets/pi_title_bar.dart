@@ -1,3 +1,4 @@
+import 'package:fishpi_app/core/manager/toast.dart';
 import 'package:fishpi_app/res/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,7 +71,9 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget {
         height = 48.h,
         showUnderline = true,
         left = GestureDetector(
-          onTap: () {},
+          onTap: () {
+            ToastManager.showToast('鱼排招聘扫码登录开发人员:https://fishpi.cn/chat');
+          },
           child: SizedBox(
             width: 24.w,
             height: 24.w,

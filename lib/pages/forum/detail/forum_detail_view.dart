@@ -217,6 +217,7 @@ class ForumDetailPage extends StatelessWidget {
 
   Widget buildCommentItem(BuildContext context, int index) {
     ArticleComment item = logic.article.value.comments[index];
+    //ArticleComment reply = logic.article.value.comments.map((e) => e.oId == item.replyId);
     return Container(
       width: 1.sw - 32.w,
       margin: EdgeInsets.only(bottom: 20.h),

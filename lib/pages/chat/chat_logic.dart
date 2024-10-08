@@ -94,12 +94,11 @@ class ChatLogic extends GetxController {
   }
 
   void clickSend() async {
-    ToastManager.show(content: '发送中...');
-    print('发送消息：${content.value}');
-    await imController.fishpi.chatroom.send(content.value);
+    //ToastManager.show(content: '发送中...');
+    imController.fishpi.chatroom.send(content.value);
     content.value = '';
     chatRoomControllerText.text = '';
-    ToastManager.dismiss();
+    //ToastManager.dismiss();
   }
 
   void toggleEmoji() {
