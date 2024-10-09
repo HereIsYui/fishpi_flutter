@@ -285,7 +285,12 @@ class ForumDetailPage extends StatelessWidget {
                     )
                   ],
                 ),
-                PiUtils.getChatPreview(item.content),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: PiUtils.getChatPreview(item.content),
+                ),
               ],
             ),
           ),

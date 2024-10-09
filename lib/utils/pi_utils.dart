@@ -131,38 +131,52 @@ class PiUtils {
 
   /// 处理聊天室预览数据
   /// [content] 消息内容
-  static Widget getChatPreview(String content) {
+  static List<Widget> getChatPreview(String content,{bool? isSelf = false}) {
     var document = parse(content);
     List<Widget> list = [];
 
     /// 处理文本
     document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
-      if (element.text.isEmpty) return;
-      list.add(Container(
-        child: Text(element.text),
-      ));
+      if (element.text.isEmpty || element.text.trim() == '') return;
+      print('element.text: ${element.text}');
+      list.add(Text(element.text));
     });
     document.querySelectorAll("img").forEach((element) {
       if (element.attributes['src']!.isEmpty) return;
       list.add(
         Container(
+          width: 120.w,
+          height: 70.h,
+          alignment: isSelf! ? Alignment.centerRight : Alignment.centerLeft,
           child: PiImage(
             imgUrl: element.attributes['src']!,
-            width: 120.sw,
+            width: 120.w,
             height: 70.h,
             fit: BoxFit.contain,
-            alignment: Alignment.topLeft,
+            alignment: isSelf ? Alignment.centerRight : Alignment.centerLeft,
           ),
         ),
       );
     });
+    document.querySelectorAll("iframe").forEach((element) {
+      if (element.attributes['src']!.isEmpty) return;
+      if (element.attributes['src']!.startsWith('https://fishpi.yuis.cc')) {
+        list.add(Container(
+          child: Text('这是个天气卡片'),
+        ));
+      } else if (element.attributes['src']!
+          .startsWith('https://music.163.com')) {
+        list.add(Container(
+          child: Text('这是个音乐卡片'),
+        ));
+      } else {
+        list.add(Container(
+          child: Text('[不支持的iframe消息,请在web端查看]'),
+        ));
+      }
+    });
 
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: list,
-    );
+    return list;
   }
 
   /// 处理会话列表显示消息
@@ -178,12 +192,23 @@ class PiUtils {
     if (item == null) {
       /// 处理文本
       document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
-        if (element.text.isEmpty) return;
+        if (element.text.isEmpty || element.text == '') return;
         list.add(element.text);
       });
     } else {
       if (item.localName == "img") {
         list.add('[图片]');
+      } else if (item.localName == "video") {
+        list.add('[视频]');
+      } else if (item.localName == 'iframe') {
+        if (item.attributes['src']!.startsWith('https://fishpi.yuis.cc')) {
+          list.add('[天气卡片]');
+        } else if (item.attributes['src']!
+            .startsWith('https://music.163.com')) {
+          list.add('[音乐]');
+        } else {
+          list.add('[不支持的消息,请在web端查看]');
+        }
       }
     }
     return list.join(' ');
