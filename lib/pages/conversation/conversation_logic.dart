@@ -37,5 +37,10 @@ class ConversationLogic extends GetxController {
       }
       messageList.refresh();
     };
+
+    imController.onRecvRedPacketMessage = (ChatRoomMessage msg) {
+      messageList.add(msg);
+      messageList.refresh();
+    };
   }
 }

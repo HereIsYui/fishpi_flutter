@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:fishpi/types/chatroom.dart';
+import 'package:fishpi/types/redpacket.dart';
 import 'package:fishpi_app/res/styles.dart';
 import 'package:fishpi_app/utils/pi_utils.dart';
 import 'package:fishpi_app/widgets/pi_avatar.dart';
@@ -247,56 +248,60 @@ class ChatPage extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                (PiUtils.getChatPreview(chat.content).length == 1 &&
-                        PiUtils.getChatPreview(chat.content).first is! Text)
-                    ? Container(
-                        width: 0.8.sw - 58.w,
-                        padding: EdgeInsets.all(10.w),
-                        alignment: Alignment.centerRight,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: PiUtils.getChatPreview(chat.content,isSelf: true),
-                        ),
-                      )
-                    : Container(
-                        width: 0.8.sw - 58.w,
-                        padding: EdgeInsets.all(10.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16.w),
-                            bottomRight: Radius.circular(16.w),
-                            bottomLeft: Radius.circular(16.w),
-                          ),
-                          border: Styles.commonBorder,
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
+                chat.isRedpacket
+                    ? _buildRedpacket(chat.redpacket!)
+                    : (PiUtils.getChatPreview(chat.content).length == 1 &&
+                            PiUtils.getChatPreview(chat.content).first is! Text)
+                        ? Container(
+                            width: 0.8.sw - 58.w,
+                            padding: EdgeInsets.all(10.w),
+                            alignment: Alignment.centerRight,
+                            child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: PiUtils.getChatPreview(chat.content),
+                              children: PiUtils.getChatPreview(chat.content,
+                                  isSelf: true),
                             ),
-                            SizedBox(
-                              width: 0.8.sw - 58.w,
-                              child: Text(
-                                chat.time,
-                                style: TextStyle(
-                                  color: const Color(0xFF9FA4B4),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11.sp,
-                                ),
-                                textAlign: TextAlign.right,
+                          )
+                        : Container(
+                            width: 0.8.sw - 58.w,
+                            padding: EdgeInsets.all(10.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16.w),
+                                bottomRight: Radius.circular(16.w),
+                                bottomLeft: Radius.circular(16.w),
                               ),
+                              border: Styles.commonBorder,
+                              color: Colors.white,
                             ),
-                          ],
-                        ),
-                      ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:
+                                      PiUtils.getChatPreview(chat.content),
+                                ),
+                                SizedBox(
+                                  width: 0.8.sw - 58.w,
+                                  child: Text(
+                                    chat.time,
+                                    style: TextStyle(
+                                      color: const Color(0xFF9FA4B4),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11.sp,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
               ],
             ),
           ),
@@ -346,55 +351,58 @@ class ChatPage extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                (PiUtils.getChatPreview(chat.content).length == 1 &&
-                        PiUtils.getChatPreview(chat.content).first is! Text)
-                    ? Container(
-                        width: 0.8.sw - 58.w,
-                        padding: EdgeInsets.all(10.w),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: PiUtils.getChatPreview(chat.content),
-                        ),
-                      )
-                    : Container(
-                        width: 0.8.sw - 58.w,
-                        padding: EdgeInsets.all(10.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(16.w),
-                            bottomRight: Radius.circular(16.w),
-                            bottomLeft: Radius.circular(16.w),
-                          ),
-                          border: Styles.commonBorder,
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
+                chat.isRedpacket
+                    ? _buildRedpacket(chat.redpacket!)
+                    : (PiUtils.getChatPreview(chat.content).length == 1 &&
+                            PiUtils.getChatPreview(chat.content).first is! Text)
+                        ? Container(
+                            width: 0.8.sw - 58.w,
+                            padding: EdgeInsets.all(10.w),
+                            child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: PiUtils.getChatPreview(chat.content),
                             ),
-                            SizedBox(
-                              width: 0.8.sw - 58.w,
-                              child: Text(
-                                chat.time,
-                                style: TextStyle(
-                                  color: const Color(0xFF9FA4B4),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11.sp,
-                                ),
-                                textAlign: TextAlign.right,
+                          )
+                        : Container(
+                            width: 0.8.sw - 58.w,
+                            padding: EdgeInsets.all(10.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(16.w),
+                                bottomRight: Radius.circular(16.w),
+                                bottomLeft: Radius.circular(16.w),
                               ),
+                              border: Styles.commonBorder,
+                              color: Colors.white,
                             ),
-                          ],
-                        ),
-                      ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:
+                                      PiUtils.getChatPreview(chat.content),
+                                ),
+                                SizedBox(
+                                  width: 0.8.sw - 58.w,
+                                  child: Text(
+                                    chat.time,
+                                    style: TextStyle(
+                                      color: const Color(0xFF9FA4B4),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 11.sp,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
               ],
             ),
           )
@@ -659,6 +667,30 @@ class ChatPage extends StatelessWidget {
         //设置主轴间距
         mainAxisSpacing: 4.w,
         children: list,
+      ),
+    );
+  }
+
+  Widget _buildRedpacket(RedPacketMessage redpacket) {
+    return Container(
+      width: 0.8.sw - 58.w,
+      alignment: Alignment.centerLeft,
+      child: Container(
+        width: 200.w,
+        height: 76.w,
+        padding: EdgeInsets.all(10.w),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFF9900),
+          borderRadius: BorderRadius.circular(8.w),
+          border: Styles.redpacketBorder,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(redpacket.msg,style: TextStyle(fontSize: 16.sp,color: Colors.white),),
+            Text('${redpacket.money}'),
+          ],
+        ),
       ),
     );
   }

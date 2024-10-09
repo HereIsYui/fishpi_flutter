@@ -9,6 +9,7 @@ class Styles {
   static const secondaryTextColor = Color(0xFF474A57);
   static const titleBarColor = Color(0xFFEEEFF4);
   static const c4Color = Color(0xFFC4C4C4);
+  static const redpacketBorderColor = Color(0xFFF95A2C);
   static TextStyle titleBarStyle = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.bold,
@@ -19,6 +20,12 @@ class Styles {
     bottom: BorderSide(color: primaryTextColor, width: 4, style: BorderStyle.solid),
     left: BorderSide(color: primaryTextColor, width: 2, style: BorderStyle.solid),
     right: BorderSide(color: primaryTextColor, width: 2, style: BorderStyle.solid),
+  );
+  static const redpacketBorder = Border(
+    top: BorderSide(color: redpacketBorderColor, width: 2, style: BorderStyle.solid),
+    bottom: BorderSide(color: redpacketBorderColor, width: 4, style: BorderStyle.solid),
+    left: BorderSide(color: redpacketBorderColor, width: 2, style: BorderStyle.solid),
+    right: BorderSide(color: redpacketBorderColor, width: 2, style: BorderStyle.solid),
   );
   static TextStyle bottomTextStyle = TextStyle(
     fontSize: 12.sp,
