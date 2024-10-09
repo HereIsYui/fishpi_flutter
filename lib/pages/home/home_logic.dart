@@ -27,10 +27,6 @@ class HomeLogic extends GetxController {
 
   void changeIndex(int idx) {
     index.value = idx;
-    pageController.animateToPage(
-      idx,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeInOut,
-    );
+    pageController.jumpToPage(idx);
   }
 }

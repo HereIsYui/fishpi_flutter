@@ -61,11 +61,6 @@ class ChatLogic extends GetxController {
       messageList.refresh();
       scrollToBottom();
     });
-    // imController.onRecvNewMessage = (ChatRoomMessage msg) {
-    //   messageList.add(msg);
-    //   messageList.refresh();
-    //   scrollToBottom();
-    // };
   }
 
   void scrollToBottom() {

@@ -138,7 +138,6 @@ class PiUtils {
     /// 处理文本
     document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
       if (element.text.isEmpty || element.text.trim() == '') return;
-      print('element.text: ${element.text}');
       list.add(Text(element.text));
     });
     document.querySelectorAll("img").forEach((element) {

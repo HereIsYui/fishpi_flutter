@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
         body: PageView(
           controller: logic.pageController,
           onPageChanged: logic.onPageChanged,
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             ConversationPage(),
             ForumPage(),
