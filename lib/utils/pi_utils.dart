@@ -2,8 +2,11 @@ import 'package:fishpi_app/widgets/pi_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../widgets/pi_hero.dart';
 
 class PiUtils {
   static SharedPreferences? _prefs;
@@ -131,7 +134,7 @@ class PiUtils {
 
   /// 处理聊天室预览数据
   /// [content] 消息内容
-  static List<Widget> getChatPreview(String content,{bool? isSelf = false}) {
+  static List<Widget> getChatPreview(String content, {bool? isSelf = false}) {
     var document = parse(content);
     List<Widget> list = [];
 
@@ -143,16 +146,33 @@ class PiUtils {
     document.querySelectorAll("img").forEach((element) {
       if (element.attributes['src']!.isEmpty) return;
       list.add(
-        Container(
-          width: 120.w,
-          height: 70.h,
-          alignment: isSelf! ? Alignment.centerRight : Alignment.centerLeft,
-          child: PiImage(
-            imgUrl: element.attributes['src']!,
-            width: 120.w,
-            height: 70.h,
-            fit: BoxFit.contain,
-            alignment: isSelf ? Alignment.centerRight : Alignment.centerLeft,
+        GestureDetector(
+          onTap: () {
+            print(element.attributes['src']);
+            Navigator.push(
+              Get.context!,
+              MaterialPageRoute(
+                builder: (context) => PiHero(
+                  arguments: {"imageUrl": element.attributes['src']!},
+                ),
+              ),
+            );
+          },
+          child: Hero(
+            tag: element.attributes['src']!,
+            child: Container(
+              width: 120.w,
+              height: 70.h,
+              alignment: isSelf! ? Alignment.centerRight : Alignment.centerLeft,
+              child: PiImage(
+                imgUrl: element.attributes['src']!,
+                width: 120.w,
+                height: 70.h,
+                fit: BoxFit.contain,
+                alignment:
+                    isSelf ? Alignment.centerRight : Alignment.centerLeft,
+              ),
+            ),
           ),
         ),
       );

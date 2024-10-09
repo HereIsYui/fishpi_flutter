@@ -696,6 +696,7 @@ class ChatPage extends StatelessWidget {
                   width: 30.w,
                   height: 30.h,
                 ),
+                5.horizontalSpace,
                 Expanded(
                   child: Text(
                     redpacket.msg,
