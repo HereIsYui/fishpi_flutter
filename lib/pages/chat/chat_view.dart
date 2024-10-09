@@ -676,8 +676,8 @@ class ChatPage extends StatelessWidget {
       width: 0.8.sw - 58.w,
       alignment: Alignment.centerLeft,
       child: Container(
-        width: 200.w,
-        height: 76.w,
+        width: 210.w,
+        height: 88.w,
         padding: EdgeInsets.all(10.w),
         decoration: BoxDecoration(
           color: const Color(0xFFFF9900),
@@ -686,9 +686,63 @@ class ChatPage extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(redpacket.msg,style: TextStyle(fontSize: 16.sp,color: Colors.white),),
-            Text('${redpacket.money}'),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/redpack_icon.png',
+                  width: 30.w,
+                  height: 30.h,
+                ),
+                Expanded(
+                  child: Text(
+                    redpacket.msg,
+                    style: TextStyle(fontSize: 21.sp, color: Colors.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+              ],
+            ),
+            Container(
+              height: 2.h,
+              margin: EdgeInsets.symmetric(vertical: 5.h),
+              color: const Color(0xFFF95A2C),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '${RedPacketType.toName(redpacket.type)}',
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: const Color(0xFFF0D35E),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/images/coin_line_white.png',
+                      width: 14.w,
+                      height: 10.w,
+                    ),
+                    5.horizontalSpace,
+                    Text(
+                      '${redpacket.money}',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: const Color(0xFFF0D35E),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ],
         ),
       ),
