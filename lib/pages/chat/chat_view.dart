@@ -45,11 +45,15 @@ class ChatPage extends StatelessWidget {
                             child: logic.isGroup.value
                                 ? ListView.builder(
                                     controller: logic.chatRoomController,
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 20.h),
                                     itemBuilder: _buildChatItem,
                                     itemCount: logic.messageList.length,
                                   )
                                 : ListView.builder(
                                     controller: logic.chatRoomController,
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 20.h),
                                     itemBuilder: _buildChatItem,
                                     itemCount: logic.messageList.length,
                                   ),

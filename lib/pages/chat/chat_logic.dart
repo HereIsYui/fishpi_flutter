@@ -49,6 +49,7 @@ class ChatLogic extends GetxController {
     chatRoomFocusNode.addListener(() {
       if (chatRoomFocusNode.hasFocus) {
         isShowEmoji.value = false;
+        scrollToBottom(delay: 300);
       }
     });
     scrollToBottom();
@@ -63,9 +64,9 @@ class ChatLogic extends GetxController {
     });
   }
 
-  void scrollToBottom() {
+  void scrollToBottom({int? delay}) {
     if (isClose.value) return;
-    Future.delayed(const Duration(milliseconds: 100), () {
+    Future.delayed(Duration(milliseconds: delay ?? 100), () {
       chatRoomController.animateTo(
         chatRoomController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 200),
