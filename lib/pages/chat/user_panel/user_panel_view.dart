@@ -154,7 +154,7 @@ class UserPanelPage extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Image.asset(
-                                          'assets/images/Location.png',
+                                          'assets/images/location.png',
                                           width: 24.w,
                                           height: 24.w,
                                         ),
@@ -406,7 +406,8 @@ class UserPanelPage extends StatelessWidget {
                               height: 24.w,
                             ),
                             isShowArrow: false,
-                            rightText: '累计已摸鱼${logic.userInfo.value.onlineMinute}分钟',
+                            rightText:
+                                '累计已摸鱼${logic.userInfo.value.onlineMinute}分钟',
                             onTap: logic.toSetLabel,
                           ),
                         ],

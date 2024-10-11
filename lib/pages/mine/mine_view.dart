@@ -132,7 +132,7 @@ class MinePage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Image.asset(
-                              'assets/images/Location-Colorful.png',
+                              'assets/images/location_red.png',
                               width: 24.w,
                               height: 24.w,
                             ),

@@ -278,7 +278,7 @@ class ChatPage extends StatelessWidget {
                                 bottomLeft: Radius.circular(16.w),
                               ),
                               border: Styles.commonBorder,
-                              color: Colors.white,
+                              color: Styles.primaryColor,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -7,10 +7,10 @@ import 'package:html/parser.dart';
 
 import '../res/styles.dart';
 
-class PiBreezemoonItem extends StatelessWidget{
+class PiBreezemoonItem extends StatelessWidget {
   final BreezemoonContent breezemoon;
 
-  const PiBreezemoonItem({required this.breezemoon,super.key});
+  const PiBreezemoonItem({required this.breezemoon, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class PiBreezemoonItem extends StatelessWidget{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/Location.png',
+                'assets/images/location.png',
                 width: 24.w,
                 height: 24.w,
               ),

@@ -64,7 +64,7 @@ class PiBottomBar extends StatelessWidget {
           ),
           _buildItem(
             icon: Image.asset(
-              'assets/images/profile-circle.png',
+              'assets/images/profile_circle.png',
               width: 24.w,
               height: 24.w,
             ),
