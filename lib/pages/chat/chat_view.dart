@@ -254,8 +254,8 @@ class ChatPage extends StatelessWidget {
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat.content).length == 1 &&
-                            PiUtils.getChatPreview(chat.content).first is! Text)
+                    : (PiUtils.getChatPreview(chat).length == 1 &&
+                            PiUtils.getChatPreview(chat).first is! Text)
                         ? Container(
                             width: 0.8.sw - 58.w,
                             padding: EdgeInsets.all(10.w),
@@ -264,7 +264,7 @@ class ChatPage extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: PiUtils.getChatPreview(chat.content,
+                              children: PiUtils.getChatPreview(chat,
                                   isSelf: true),
                             ),
                           )
@@ -289,7 +289,7 @@ class ChatPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children:
-                                      PiUtils.getChatPreview(chat.content),
+                                      PiUtils.getChatPreview(chat),
                                 ),
                                 SizedBox(
                                   width: 0.8.sw - 58.w,
@@ -357,8 +357,8 @@ class ChatPage extends StatelessWidget {
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat.content).length == 1 &&
-                            PiUtils.getChatPreview(chat.content).first is! Text)
+                    : (PiUtils.getChatPreview(chat).length == 1 &&
+                            PiUtils.getChatPreview(chat).first is! Text)
                         ? Container(
                             width: 0.8.sw - 58.w,
                             padding: EdgeInsets.all(10.w),
@@ -366,7 +366,7 @@ class ChatPage extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: PiUtils.getChatPreview(chat.content),
+                              children: PiUtils.getChatPreview(chat),
                             ),
                           )
                         : Container(
@@ -390,7 +390,7 @@ class ChatPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children:
-                                      PiUtils.getChatPreview(chat.content),
+                                      PiUtils.getChatPreview(chat),
                                 ),
                                 SizedBox(
                                   width: 0.8.sw - 58.w,

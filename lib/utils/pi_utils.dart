@@ -1,3 +1,4 @@
+import 'package:fishpi/types/chatroom.dart';
 import 'package:fishpi_app/widgets/pi_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +135,8 @@ class PiUtils {
 
   /// 处理聊天室预览数据
   /// [content] 消息内容
-  static List<Widget> getChatPreview(String content, {bool? isSelf = false}) {
+  static List<Widget> getChatPreview(chat, {bool? isSelf = false}) {
+    String content = chat.content;
     var document = parse(content);
     List<Widget> list = [];
 
@@ -153,13 +155,16 @@ class PiUtils {
               Get.context!,
               MaterialPageRoute(
                 builder: (context) => PiHero(
-                  arguments: {"imageUrl": element.attributes['src']!},
+                  arguments: {
+                    "imageUrl": element.attributes['src']!,
+                    "oId": chat.oId,
+                  },
                 ),
               ),
             );
           },
           child: Hero(
-            tag: element.attributes['src']!,
+            tag: "${chat.oId}",
             child: Container(
               width: 120.w,
               height: 70.h,

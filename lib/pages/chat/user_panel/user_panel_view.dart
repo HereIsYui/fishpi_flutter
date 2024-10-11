@@ -22,7 +22,7 @@ class UserPanelPage extends StatelessWidget {
     return Obx(
       () => Scaffold(
         appBar: PiTitleBar.back(
-          title: '${logic.userName.value ?? '用户信息'}',
+          title: logic.userName.value ?? '用户信息',
           showUnderline: false,
         ),
         body: logic.isLoading.value

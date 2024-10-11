@@ -21,7 +21,7 @@ class _HeroPageState extends State<PiHero> {
           Navigator.pop(context);
         },
         child: Hero(
-          tag: widget.arguments["imageUrl"],
+          tag: widget.arguments["oId"],
           child: Scaffold(
             backgroundColor: Colors.white,
             body: Center(

@@ -1,6 +1,11 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:fishpi_app/core/controller/im.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../core/manager/toast.dart';
+import '../../../widgets/pi_transfer.dart';
+import '../../../widgets/pop_route.dart';
 
 class UserPanelLogic extends GetxController {
   final imController = Get.find<IMController>();
@@ -23,6 +28,7 @@ class UserPanelLogic extends GetxController {
   void getUserInfo() async {
     isLoading.value = true;
     userInfo.value = await imController.fishpi.getUser(userName.value);
+    print(userInfo.toJson());
     isLoading.value = false;
     getUserArticles();
     getUserBreezemoons();
@@ -47,16 +53,53 @@ class UserPanelLogic extends GetxController {
     userBreezemoons.value = res;
   }
 
-  void toFollow() {
-    if(userInfo.value.canFollow == 'yes'){
+  void toFollow() async {
+    ResponseResult res = await imController.fishpi.user.follow(
+      userInfo.value.oId,
+      follow: userInfo.value.canFollow == 'yes',
+    );
+    if (userInfo.value.canFollow == 'yes') {
       userInfo.value.canFollow = 'no';
-    }else{
+    } else {
       userInfo.value.canFollow = 'yes';
-    };
-    // 本来想写关注来着，发现好像没有关注接口
+    }
+    print('success: ${res.success},msg: ${res.msg}');
+    userInfo.refresh();
   }
 
-  void toTransfer() {}
+  void toTransfer() {
+    Navigator.push(
+      Get.context!,
+      PopRoute(
+        child: PiTransferPage(
+            user: userInfo.value.userName,
+            onEditingCompleteText: (text) async {
+              String context = text;
+              if (context.trim() == '') {
+                return;
+              } else {
+                int point;
+                try {
+                  point = int.parse(context);
+                } catch (e) {
+                  ToastManager.showToast('请输入数字');
+                  return;
+                }
+                ResponseResult res = await imController.fishpi.user.transfer(
+                  userInfo.value.userName,
+                  point,
+                  '',
+                );
+                if (res.success) {
+                  ToastManager.showToast('转账成功');
+                } else {
+                  ToastManager.showToast(res.msg);
+                }
+              }
+            }),
+      ),
+    );
+  }
 
   void toChat() {}
 
