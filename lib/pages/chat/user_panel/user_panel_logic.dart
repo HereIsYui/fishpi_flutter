@@ -1,5 +1,6 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:fishpi_app/core/controller/im.dart';
+import 'package:fishpi_app/widgets/pi_editer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -28,7 +29,6 @@ class UserPanelLogic extends GetxController {
   void getUserInfo() async {
     isLoading.value = true;
     userInfo.value = await imController.fishpi.getUser(userName.value);
-    print(userInfo.toJson());
     isLoading.value = false;
     getUserArticles();
     getUserBreezemoons();
@@ -41,7 +41,6 @@ class UserPanelLogic extends GetxController {
       size: 15,
     );
     userArticles.value = res.list;
-    print(res);
   }
 
   void getUserBreezemoons() async {
@@ -63,7 +62,6 @@ class UserPanelLogic extends GetxController {
     } else {
       userInfo.value.canFollow = 'yes';
     }
-    print('success: ${res.success},msg: ${res.msg}');
     userInfo.refresh();
   }
 
@@ -103,7 +101,26 @@ class UserPanelLogic extends GetxController {
 
   void toChat() {}
 
-  void toSetLabel() {}
+  void toSetLabel() {
+    Navigator.push(
+      Get.context!,
+      PopRoute(
+        child: PiEditWidget(
+          title: '设置备注',
+          hintText: '给${userInfo.value.userName}设置备注',
+          maxLength: 8,
+          onEditingCompleteText: (text) async {
+            String context = text;
+            if (context.trim() == '') {
+              return;
+            } else {
+              // 备注保存到本地
+            }
+          },
+        ),
+      ),
+    );
+  }
 
   void changeTab(int idx) {
     tabIndex.value = idx;

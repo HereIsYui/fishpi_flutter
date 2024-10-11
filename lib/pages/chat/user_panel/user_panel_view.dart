@@ -389,7 +389,7 @@ class UserPanelPage extends StatelessWidget {
                             onTap: logic.toChat,
                           ),
                           PiMenuItem(
-                            title: '标签',
+                            title: '备注',
                             image: Image.asset(
                               'assets/images/menu_label.png',
                               width: 24.w,

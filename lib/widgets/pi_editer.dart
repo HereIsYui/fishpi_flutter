@@ -6,11 +6,15 @@ class PiEditWidget extends StatelessWidget {
   final ValueChanged onEditingCompleteText;
   final TextEditingController controller = TextEditingController();
   final String? title;
+  final String? hintText;
+  final int? maxLength;
 
   PiEditWidget({
     super.key,
     required this.onEditingCompleteText,
     this.title = '发表评论',
+    this.hintText = '善语皆善缘,恶言伤人心',
+    this.maxLength = 999,
   });
 
   @override
@@ -99,11 +103,12 @@ class PiEditWidget extends StatelessWidget {
                     onEditingCompleteText(controller.text);
                     Navigator.pop(context);
                   },
-                  maxLength: 999,
+                  maxLength: maxLength,
                   decoration: InputDecoration(
-                    hintText: '善语皆善缘,恶言伤人心',
+                    hintText: hintText,
                     hintStyle: const TextStyle(color: Color(0x4D000000)),
                     isDense: true,
+                    counterText: '',
                     contentPadding: EdgeInsets.only(
                         left: 10.w, top: 5.w, bottom: 5.w, right: 10.w),
                     border: const OutlineInputBorder(
