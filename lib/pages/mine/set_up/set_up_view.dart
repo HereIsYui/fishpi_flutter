@@ -37,13 +37,13 @@ class SetUpPage extends StatelessWidget {
                       title: '黑名单',
                       iconColor: Colors.black,
                       icon: Icons.people_alt_outlined,
-                      onTap: logic.toAboutPage,
+                      onTap: logic.toBlackPage,
                     ),
                     PiMenuItem(
                       title: '意见反馈',
                       iconColor: Colors.greenAccent,
                       icon: Icons.messenger_outline,
-                      onTap: logic.toAboutPage,
+                      onTap: logic.toFeedBackPage,
                     ),
                     PiMenuItem(
                       title: '投诉举报',
