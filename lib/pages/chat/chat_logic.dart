@@ -1,7 +1,6 @@
 import 'package:fishpi/fishpi.dart';
 import 'package:fishpi/types/chat.dart';
 import 'package:fishpi/types/chatroom.dart';
-import 'package:fishpi_app/core/manager/toast.dart';
 import 'package:fishpi_app/pages/conversation/conversation_logic.dart';
 import 'package:fishpi_app/routers/navigator.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,7 +48,7 @@ class ChatLogic extends GetxController {
     chatRoomFocusNode.addListener(() {
       if (chatRoomFocusNode.hasFocus) {
         isShowEmoji.value = false;
-        scrollToBottom(delay: 300);
+        scrollToBottom(delay: 100);
       }
     });
     scrollToBottom();
@@ -66,10 +65,10 @@ class ChatLogic extends GetxController {
 
   void scrollToBottom({int? delay}) {
     if (isClose.value) return;
-    Future.delayed(Duration(milliseconds: delay ?? 100), () {
+    Future.delayed(Duration(milliseconds: delay ?? 10), () {
       chatRoomController.animateTo(
         chatRoomController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 10),
         curve: Curves.easeInOut,
       );
     });

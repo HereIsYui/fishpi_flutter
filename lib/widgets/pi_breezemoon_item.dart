@@ -15,7 +15,7 @@ class PiBreezemoonItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20.h),
+      margin: EdgeInsets.only(bottom: 10.h),
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
@@ -37,7 +37,7 @@ class PiBreezemoonItem extends StatelessWidget {
                 breezemoon.authorName,
                 style: TextStyle(
                   color: Styles.primaryTextColor,
-                  fontSize: 20.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 maxLines: 1,
@@ -59,7 +59,7 @@ class PiBreezemoonItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/location.png',
+                'assets/images/Location.png',
                 width: 24.w,
                 height: 24.w,
               ),
@@ -91,7 +91,7 @@ class PiBreezemoonItem extends StatelessWidget {
           element.text,
           style: TextStyle(
             color: Styles.primaryTextColor,
-            fontSize: 20.sp,
+            fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),
         ),

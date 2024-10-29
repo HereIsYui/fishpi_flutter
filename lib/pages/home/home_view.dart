@@ -1,5 +1,6 @@
 import 'package:fishpi_app/pages/breezemoons/breezemoons_view.dart';
 import 'package:fishpi_app/pages/mine/mine_view.dart';
+import 'package:fishpi_app/res/styles.dart';
 import 'package:fishpi_app/widgets/pi_title_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,9 +38,14 @@ class HomePage extends StatelessWidget {
             MinePage(),
           ],
         ),
-        bottomNavigationBar: PiBottomBar(
-          callback: logic.changeIndex,
-          index: logic.index.value,
+        bottomNavigationBar: Container(
+          color: Styles.primaryColor,
+          child: SafeArea(
+            child: PiBottomBar(
+              callback: logic.changeIndex,
+              index: logic.index.value,
+            ),
+          ),
         ),
       ),
     );

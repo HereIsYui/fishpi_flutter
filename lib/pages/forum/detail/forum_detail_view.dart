@@ -31,18 +31,17 @@ class ForumDetailPage extends StatelessWidget {
           child: logic.isLoading.value
               ? const Loading()
               : ListView(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
+                  padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
                   children: [
                     Text(
                       logic.article.value.titleEmojUnicode,
                       style: TextStyle(
-                        fontSize: 36.sp,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      '${logic.article.value.authorName}·${logic.article.value.timeAgo}·${logic.article.value.viewCnt}人看过',
+                      '${logic.article.value.authorName} · ${logic.article.value.timeAgo} · ${logic.article.value.viewCnt}人看过',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
@@ -53,103 +52,81 @@ class ForumDetailPage extends StatelessWidget {
                     const Divider(),
                     ...buildMarkdown(),
                     if (logic.article.value.rewardPoint != 0)
-                      SizedBox(
-                        width: 1.sw - 32.w,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              child: PiZebraStripesBack(
-                                width: 1.sw - 32.w,
-                                height: 88.h,
-                                lineWidth: 10.w,
-                                lineColor: Styles.c4Color,
-                                spacing: 10.w,
-                              ),
-                            ),
-                            logic.article.value.rewarded
-                                ? Positioned(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        // 打赏
-                                      },
-                                      child: Container(
-                                        width: 1.sw - 32.w,
-                                        padding: EdgeInsets.all(10.w),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              logic.article.value.rewardContent,
-                                              style: TextStyle(
-                                                color: Styles.primaryTextColor,
-                                                fontSize: 16.sp,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ],
+                      PiZebraStripesBack(
+                        child: logic.article.value.rewarded // 已经打赏
+                            ? GestureDetector(
+                                onTap: () {
+                                  // 打赏
+                                },
+                                child: Container(
+                                  width: 1.sw - 32.w,
+                                  padding: EdgeInsets.all(10.w),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        logic.article.value.rewardContent,
+                                        style: TextStyle(
+                                          color: Styles.primaryTextColor,
+                                          fontSize: 14.sp,
                                         ),
+                                        textAlign: TextAlign.left,
                                       ),
-                                    ),
-                                  )
-                                : Positioned(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        // 打赏
-                                      },
-                                      child: Container(
-                                        width: 1.sw - 32.w,
-                                        height: 88.h,
-                                        padding: EdgeInsets.all(10.w),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            SizedBox(
-                                              width: 1.sw - 32.w,
-                                              child: RichText(
-                                                text: TextSpan(
-                                                  text: '打赏',
-                                                  style: TextStyle(
-                                                    color:
-                                                        const Color(0xFFED8F26),
-                                                    fontSize: 16.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  children: [
-                                                    TextSpan(
-                                                      text:
-                                                          '${logic.article.value.rewardPoint}积分后可见',
-                                                      style: TextStyle(
-                                                        fontSize: 16.sp,
-                                                        color: Styles
-                                                            .primaryTextColor,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 1.sw - 32.w,
-                                              child: Text(
-                                                '${logic.article.value.rewardedCnt}人打赏',
-                                                style: TextStyle(
-                                                  color:
-                                                      const Color(0xFFED8F26),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 12.sp,
-                                                ),
-                                                textAlign: TextAlign.right,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                    ],
                                   ),
-                          ],
-                        ),
+                                ),
+                              )
+                            : GestureDetector(
+                                // 还没打赏
+                                onTap: () {
+                                  // 打赏
+                                },
+                                child: Container(
+                                  width: 1.sw - 32.w,
+                                  height: 88.h,
+                                  padding: EdgeInsets.all(10.w),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                        width: 1.sw - 32.w,
+                                        child: RichText(
+                                          text: TextSpan(
+                                            text: '打赏',
+                                            style: TextStyle(
+                                              color: const Color(0xFFED8F26),
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: '${logic.article.value.rewardPoint}积分后可见',
+                                                style: TextStyle(
+                                                  fontSize: 16.sp,
+                                                  color: Styles.primaryTextColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 1.sw - 32.w,
+                                        child: Text(
+                                          '${logic.article.value.rewardedCnt}人打赏',
+                                          style: TextStyle(
+                                            color: const Color(0xFFED8F26),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12.sp,
+                                          ),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                       ),
                     const Divider(),
                     10.verticalSpace,
@@ -164,7 +141,7 @@ class ForumDetailPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             logic.showEdit();
                           },
                           child: Text(
@@ -226,7 +203,7 @@ class ForumDetailPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               AppNavigator.toUserPanel(userName: item.author);
             },
             child: PiAvatar(

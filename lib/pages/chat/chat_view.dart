@@ -25,93 +25,106 @@ class ChatPage extends StatelessWidget {
         appBar: PiTitleBar.back(
           title: logic.isGroup.value ? '聊天室' : logic.userName.value,
         ),
-        body: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.expand,
+        body: Column(
           children: [
-            Column(
-              children: [
-                Expanded(
-                  child: logic.messageList.isEmpty
-                      ? Container()
-                      : GestureDetector(
-                          onTap: logic.closeAllTools,
-                          child: Container(
-                            width: 1.sw,
-                            height: 1.sh,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16.w,
-                            ),
-                            child: logic.isGroup.value
-                                ? ListView.builder(
-                                    controller: logic.chatRoomController,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 20.h),
-                                    itemBuilder: _buildChatItem,
-                                    itemCount: logic.messageList.length,
-                                  )
-                                : ListView.builder(
-                                    controller: logic.chatRoomController,
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 20.h),
-                                    itemBuilder: _buildChatItem,
-                                    itemCount: logic.messageList.length,
-                                  ),
-                          ),
-                        ),
-                ),
-                Container(
-                  width: 1.sw,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        width: 2.w,
-                        color: Styles.primaryTextColor,
-                      ),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
+            Expanded(
+              child: logic.messageList.isEmpty
+                  ? Container()
+                  : GestureDetector(
+                      onTap: logic.closeAllTools,
+                      child: Container(
+                        width: 1.sw,
+                        height: 1.sh,
                         padding: EdgeInsets.symmetric(
                           horizontal: 16.w,
-                          vertical: 10.h,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                logic.toggleVoice();
-                              },
-                              child: Container(
-                                width: 24.w,
-                                height: 24.w,
-                                child: logic.isShowVoice.value
-                                    ? Image.asset('assets/images/keyboard.png')
-                                    : const Icon(
-                                        Icons.keyboard_voice_outlined,
-                                      ),
+                        child: logic.isGroup.value
+                            ? ListView.builder(
+                                controller: logic.chatRoomController,
+                                padding: EdgeInsets.symmetric(vertical: 20.h),
+                                itemBuilder: _buildChatItem,
+                                itemCount: logic.messageList.length,
+                              )
+                            : ListView.builder(
+                                controller: logic.chatRoomController,
+                                padding: EdgeInsets.symmetric(vertical: 20.h),
+                                itemBuilder: _buildChatItem,
+                                itemCount: logic.messageList.length,
                               ),
+                      ),
+                    ),
+            ),
+            Container(
+              width: 1.sw,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    width: 2.w,
+                    color: Styles.primaryTextColor,
+                  ),
+                ),
+              ),
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.w,
+                        vertical: 10.h,
+                      ),
+                      // height: 35.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              logic.toggleVoice();
+                            },
+                            child: Container(
+                              width: 24.w,
+                              height: 24.w,
+                              child: logic.isShowVoice.value
+                                  ? Image.asset('assets/images/keyboard.png')
+                                  : const Icon(
+                                      Icons.keyboard_voice_outlined,
+                                    ),
                             ),
-                            SizedBox(
+                          ),
+                          SizedBox(
                               width: 220.w,
-                              height: 34.h,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    child: SizedBox(
+                              child: logic.isShowVoice.value
+                                  ? GestureDetector(
+                                      onTap: () {},
+                                      behavior: HitTestBehavior.translucent,
+                                      child: Container(
+                                        width: 220.w,
+                                        height: 34.h,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 2.w,
+                                            color: Styles.primaryTextColor,
+                                          ),
+                                          borderRadius: BorderRadius.circular(10),
+                                          color: Colors.white,
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          '长按讲话',
+                                          style: TextStyle(
+                                            color: Styles.primaryTextColor,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(
                                       width: 220.w,
                                       height: 34.h,
                                       child: PiInput(
-                                        controller:
-                                            logic.chatRoomControllerText,
-                                        textAlign: logic.isShowVoice.value
-                                            ? TextAlign.center
-                                            : TextAlign.left,
+                                        controller: logic.chatRoomControllerText,
+                                        textAlign: logic.isShowVoice.value ? TextAlign.center : TextAlign.left,
                                         hintText: '说点什么...',
                                         focusNode: logic.chatRoomFocusNode,
                                         onInputChanged: (text) {
@@ -121,99 +134,61 @@ class ChatPage extends StatelessWidget {
                                           logic.clickSend();
                                         },
                                       ),
-                                    ),
-                                  ),
-                                  if (logic.isShowVoice.value)
-                                    Positioned(
-                                      top: 0,
-                                      left: 0,
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        behavior: HitTestBehavior.translucent,
-                                        child: Container(
-                                          width: 220.w,
-                                          height: 34.h,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 2.w,
-                                              color: Styles.primaryTextColor,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Colors.white,
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            '长按讲话',
-                                            style: TextStyle(
-                                              color: Styles.primaryTextColor,
-                                              fontSize: 14.sp,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                logic.toggleEmoji();
-                              },
-                              child: SizedBox(
+                                    )),
+                          GestureDetector(
+                            onTap: () {
+                              logic.toggleEmoji();
+                            },
+                            child: SizedBox(
+                              width: 24.w,
+                              height: 24.w,
+                              child: Image.asset(
+                                'assets/images/face.png',
                                 width: 24.w,
                                 height: 24.w,
-                                child: Image.asset(
-                                  'assets/images/face.png',
-                                  width: 24.w,
-                                  height: 24.w,
-                                ),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                if (logic.content.value == '') {
-                                  logic.toggleTools();
-                                } else {
-                                  logic.clickSend();
-                                }
-                              },
-                              child: Container(
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if (logic.content.value == '') {
+                                logic.toggleTools();
+                              } else {
+                                logic.clickSend();
+                              }
+                            },
+                            child: Container(
+                              width: 28.w,
+                              height: 28.w,
+                              alignment: Alignment.center,
+                              child: Image.asset(
+                                logic.content.value == '' ? 'assets/images/more_feature.png' : 'assets/images/send.png',
                                 width: 28.w,
                                 height: 28.w,
-                                alignment: Alignment.center,
-                                child: Image.asset(
-                                  logic.content.value == ''
-                                      ? 'assets/images/more_feature.png'
-                                      : 'assets/images/send.png',
-                                  width: 28.w,
-                                  height: 28.w,
-                                ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Visibility(
-                        visible: logic.isShowEmoji.value,
-                        child: FadeIn(
-                          duration: const Duration(milliseconds: 200),
-                          child: _buildEmojiBox(),
-                        ),
+                    ),
+                    Visibility(
+                      visible: logic.isShowEmoji.value,
+                      child: FadeIn(
+                        duration: const Duration(milliseconds: 200),
+                        child: _buildEmojiBox(),
                       ),
-                      Visibility(
-                        visible: logic.isShowTools.value,
-                        child: FadeIn(
-                          duration: const Duration(milliseconds: 200),
-                          child: _buildToolsBox(),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    Visibility(
+                      visible: logic.isShowTools.value,
+                      child: FadeIn(
+                        duration: const Duration(milliseconds: 200),
+                        child: _buildToolsBox(),
+                      ),
+                    )
+                  ],
                 ),
-              ],
-            )
+              ),
+            ),
           ],
         ),
       ),
@@ -224,9 +199,7 @@ class ChatPage extends StatelessWidget {
     ChatRoomMessage chat = logic.messageList[index];
     return GestureDetector(
       onTap: () {},
-      child: chat.userName == logic.userInfo.value.userName
-          ? _buildRight(chat)
-          : _buildLeft(chat),
+      child: chat.userName == logic.userInfo.value.userName ? _buildRight(chat) : _buildLeft(chat),
     );
   }
 
@@ -247,15 +220,14 @@ class ChatPage extends StatelessWidget {
                   style: TextStyle(
                     color: Styles.primaryTextColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 21.sp,
+                    fontSize: 16.sp,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat).length == 1 &&
-                            PiUtils.getChatPreview(chat).first is! Text)
+                    : (PiUtils.getChatPreview(chat).length == 1 && PiUtils.getChatPreview(chat).first is! Text)
                         ? Container(
                             width: 0.8.sw - 58.w,
                             padding: EdgeInsets.all(10.w),
@@ -264,8 +236,7 @@ class ChatPage extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: PiUtils.getChatPreview(chat,
-                                  isSelf: true),
+                              children: PiUtils.getChatPreview(chat, isSelf: true),
                             ),
                           )
                         : Container(
@@ -288,8 +259,7 @@ class ChatPage extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      PiUtils.getChatPreview(chat),
+                                  children: PiUtils.getChatPreview(chat),
                                 ),
                                 SizedBox(
                                   width: 0.8.sw - 58.w,
@@ -350,15 +320,14 @@ class ChatPage extends StatelessWidget {
                   style: TextStyle(
                     color: Styles.primaryTextColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 21.sp,
+                    fontSize: 14.sp,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat).length == 1 &&
-                            PiUtils.getChatPreview(chat).first is! Text)
+                    : (PiUtils.getChatPreview(chat).length == 1 && PiUtils.getChatPreview(chat).first is! Text)
                         ? Container(
                             width: 0.8.sw - 58.w,
                             padding: EdgeInsets.all(10.w),
@@ -389,8 +358,7 @@ class ChatPage extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children:
-                                      PiUtils.getChatPreview(chat),
+                                  children: PiUtils.getChatPreview(chat),
                                 ),
                                 SizedBox(
                                   width: 0.8.sw - 58.w,
@@ -470,10 +438,7 @@ class ChatPage extends StatelessWidget {
           Expanded(
             child: Container(
               width: 1.sw,
-              child: [
-                _buildDefaultEmojiBox(),
-                _buildDiyEmojiBox()
-              ][logic.emojiIndex.value],
+              child: [_buildDefaultEmojiBox(), _buildDiyEmojiBox()][logic.emojiIndex.value],
             ),
           )
         ],
@@ -662,7 +627,7 @@ class ChatPage extends StatelessWidget {
       width: 1.sw,
       height: 224.h,
       padding: EdgeInsets.all(10.w),
-      color: Color(0xFFF5F7F9),
+      color: const Color(0xFFF5F7F9),
       child: GridView.count(
         crossAxisCount: 4,
         scrollDirection: Axis.vertical,

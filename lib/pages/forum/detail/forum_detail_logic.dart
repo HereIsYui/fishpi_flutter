@@ -31,8 +31,7 @@ class ForumDetailLogic extends GetxController {
   }
 
   void toReward() async {
-    ResponseResult res =
-        await imController.fishpi.article.reward(article.value.oId);
+    ResponseResult res = await imController.fishpi.article.reward(article.value.oId);
     if (res.success) {
       initArticleInfo();
     } else {

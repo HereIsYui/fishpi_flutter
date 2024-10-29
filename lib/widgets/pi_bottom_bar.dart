@@ -15,10 +15,10 @@ class PiBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 88.h + MediaQuery.of(context).padding.bottom,
+      height: 70.h,
       padding: EdgeInsets.only(
-        top: 10.h,
-        bottom: MediaQuery.of(context).padding.bottom,
+        top: 5.h,
+        // bottom: MediaQuery.of(context).padding.bottom,
       ),
       decoration: const BoxDecoration(
         border: BorderDirectional(
@@ -27,10 +27,10 @@ class PiBottomBar extends StatelessWidget {
             width: 2,
           ),
         ),
-        color: Styles.primaryColor,
+        // color: Styles.primaryColor,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildItem(
             icon: Image.asset(
@@ -87,7 +87,7 @@ class PiBottomBar extends StatelessWidget {
       onTap: () => cb(idx),
       behavior: HitTestBehavior.translucent,
       child: SizedBox(
-        width: (1.sw - 32.w) / 4,
+        width: 60.w,
         child: Opacity(
           opacity: index == idx ? 1 : 0.7,
           child: Column(
@@ -100,8 +100,8 @@ class PiBottomBar extends StatelessWidget {
               ),
               Icon(
                 Icons.arrow_drop_up_outlined,
-                color:
-                    index == idx ? Styles.primaryTextColor : Colors.transparent,
+                color: index == idx ? Styles.primaryTextColor : Colors.transparent,
+                size: 15.h,
               )
             ],
           ),

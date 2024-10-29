@@ -19,15 +19,14 @@ class ConversationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        body: ListView(
+        body: Column(
           children: [
             _buildItem(),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: logic.chatList.length,
-              itemBuilder: (_, index) =>
-                  _buildItem(chat: logic.chatList[index]),
+            Expanded(
+              child: ListView.builder(
+                itemCount: logic.chatList.length,
+                itemBuilder: (_, index) => _buildItem(chat: logic.chatList[index]),
+              ),
             ),
           ],
         ),
@@ -91,7 +90,7 @@ class ConversationPage extends StatelessWidget {
                             child: Text(
                               chat != null ? chat.receiverUserName : '聊天室',
                               style: TextStyle(
-                                fontSize: 21.sp,
+                                fontSize: 16.sp,
                                 color: Styles.primaryTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -99,12 +98,10 @@ class ConversationPage extends StatelessWidget {
                           ),
                           Text(
                             PiUtils.getChatTime(
-                              chat != null
-                                  ? chat.time
-                                  : '${logic.messageList.lastOrNull?.time}',
+                              chat != null ? chat.time : '${logic.messageList.lastOrNull?.time}',
                             ),
                             style: TextStyle(
-                              fontSize: 11.sp,
+                              fontSize: 10.sp,
                               color: const Color(0xFF9FA4B4),
                               fontWeight: FontWeight.bold,
                             ),
@@ -116,7 +113,7 @@ class ConversationPage extends StatelessWidget {
                             ? chat.preview
                             : '${logic.messageList.lastOrNull?.userName}:${PiUtils.getConversationPreview(logic.messageList.lastOrNull?.content ?? '')}',
                         style: TextStyle(
-                          fontSize: 15.sp,
+                          fontSize: 12.sp,
                           color: Styles.secondaryTextColor,
                         ),
                         maxLines: 1,
@@ -130,7 +127,7 @@ class ConversationPage extends StatelessWidget {
           ),
           PiDashed(
             dashedWidth: 2.w,
-            color: Styles.c4Color,
+            color: chat == null ? Styles.secondaryTextColor : Styles.c4Color,
           ),
         ],
       ),

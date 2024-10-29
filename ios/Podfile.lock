@@ -49,7 +49,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
-  package_info_plus: 58f0028419748fad15bf008b270aaa8e54380b1c
+  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
@@ -58,4 +58,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.13.0

@@ -58,7 +58,7 @@ class PiArticleItem extends StatelessWidget {
                             Text(
                               article.titleEmojUnicode,
                               style: TextStyle(
-                                fontSize: 27.sp,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Styles.primaryTextColor,
                               ),
@@ -66,7 +66,7 @@ class PiArticleItem extends StatelessWidget {
                             Text(
                               article.previewContent,
                               style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 14.sp,
                                 color: Styles.secondaryTextColor,
                               ),
                               maxLines: 3,

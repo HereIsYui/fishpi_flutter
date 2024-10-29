@@ -15,13 +15,7 @@ class PiTitleBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showUnderline;
 
   const PiTitleBar(
-      {this.left,
-      this.center,
-      this.right,
-      this.height,
-      this.backgroundColor,
-      this.showUnderline = false,
-      super.key});
+      {this.left, this.center, this.right, this.height, this.backgroundColor, this.showUnderline = false, super.key});
 
   @override
   Widget build(BuildContext context) {
