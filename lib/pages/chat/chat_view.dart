@@ -109,8 +109,7 @@ class ChatPage extends StatelessWidget {
                                             width: 2.w,
                                             color: Styles.primaryTextColor,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           color: Colors.white,
                                         ),
                                         alignment: Alignment.center,
@@ -128,11 +127,8 @@ class ChatPage extends StatelessWidget {
                                       width: 220.w,
                                       height: 34.h,
                                       child: PiInput(
-                                        controller:
-                                            logic.chatRoomControllerText,
-                                        textAlign: logic.isShowVoice.value
-                                            ? TextAlign.center
-                                            : TextAlign.left,
+                                        controller: logic.chatRoomControllerText,
+                                        textAlign: logic.isShowVoice.value ? TextAlign.center : TextAlign.left,
                                         hintText: '说点什么...',
                                         focusNode: logic.chatRoomFocusNode,
                                         onInputChanged: (text) {
@@ -170,9 +166,7 @@ class ChatPage extends StatelessWidget {
                               height: 28.w,
                               alignment: Alignment.center,
                               child: Image.asset(
-                                logic.content.value == ''
-                                    ? 'assets/images/more_feature.png'
-                                    : 'assets/images/send.png',
+                                logic.content.value == '' ? 'assets/images/more_feature.png' : 'assets/images/send.png',
                                 width: 28.w,
                                 height: 28.w,
                               ),
@@ -209,9 +203,7 @@ class ChatPage extends StatelessWidget {
     ChatRoomMessage chat = logic.messageList[index];
     return GestureDetector(
       onTap: () {},
-      child: chat.userName == logic.userInfo.value.userName
-          ? _buildRight(chat)
-          : _buildLeft(chat),
+      child: chat.userName == logic.userInfo.value.userName ? _buildRight(chat) : _buildLeft(chat),
     );
   }
 
@@ -239,57 +231,43 @@ class ChatPage extends StatelessWidget {
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat).length == 1 &&
-                            PiUtils.getChatPreview(chat).first is! Text)
-                        ? Container(
-                            width: 0.8.sw - 58.w,
-                            padding: EdgeInsets.all(10.w),
-                            alignment: Alignment.centerRight,
-                            child: Column(
+                    : Container(
+                        width: 0.8.sw - 58.w,
+                        padding: EdgeInsets.all(10.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16.w),
+                            bottomRight: Radius.circular(16.w),
+                            bottomLeft: Radius.circular(16.w),
+                          ),
+                          border: Styles.commonBorder,
+                          color: Styles.primaryColor,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children:
-                                  PiUtils.getChatPreview(chat, isSelf: true),
+                              children: [PiUtils.getChatPreview(chat, isSelf: true)],
                             ),
-                          )
-                        : Container(
-                            width: 0.8.sw - 58.w,
-                            padding: EdgeInsets.all(10.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16.w),
-                                bottomRight: Radius.circular(16.w),
-                                bottomLeft: Radius.circular(16.w),
+                            SizedBox(
+                              width: 0.8.sw - 58.w,
+                              child: Text(
+                                chat.time,
+                                style: TextStyle(
+                                  color: const Color(0xFF9FA4B4),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11.sp,
+                                ),
+                                textAlign: TextAlign.right,
                               ),
-                              border: Styles.commonBorder,
-                              color: Styles.primaryColor,
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: PiUtils.getChatPreview(chat,isSelf: true),
-                                ),
-                                SizedBox(
-                                  width: 0.8.sw - 58.w,
-                                  child: Text(
-                                    chat.time,
-                                    style: TextStyle(
-                                      color: const Color(0xFF9FA4B4),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11.sp,
-                                    ),
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          ],
+                        ),
+                      ),
               ],
             ),
           ),
@@ -341,55 +319,44 @@ class ChatPage extends StatelessWidget {
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat).length == 1 &&
-                            PiUtils.getChatPreview(chat).first is! Text)
-                        ? Container(
-                            width: 0.8.sw - 58.w,
-                            padding: EdgeInsets.all(10.w),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: PiUtils.getChatPreview(chat),
-                            ),
-                          )
-                        : Container(
-                            width: 0.8.sw - 58.w,
-                            padding: EdgeInsets.all(10.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(16.w),
-                                bottomRight: Radius.circular(16.w),
-                                bottomLeft: Radius.circular(16.w),
-                              ),
-                              border: Styles.commonBorder,
-                              color: Colors.white,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: PiUtils.getChatPreview(chat),
-                                ),
-                                SizedBox(
-                                  width: 0.8.sw - 58.w,
-                                  child: Text(
-                                    chat.time,
-                                    style: TextStyle(
-                                      color: const Color(0xFF9FA4B4),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11.sp,
-                                    ),
-                                    textAlign: TextAlign.right,
-                                  ),
-                                ),
-                              ],
-                            ),
+                    : Container(
+                        width: 0.8.sw - 58.w,
+                        padding: EdgeInsets.all(10.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(16.w),
+                            bottomRight: Radius.circular(16.w),
+                            bottomLeft: Radius.circular(16.w),
                           ),
+                          border: Styles.commonBorder,
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PiUtils.getChatPreview(chat),
+                                ]),
+                            SizedBox(
+                              width: 0.8.sw - 58.w,
+                              child: Text(
+                                chat.time,
+                                style: TextStyle(
+                                  color: const Color(0xFF9FA4B4),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11.sp,
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
               ],
             ),
           )
@@ -453,10 +420,7 @@ class ChatPage extends StatelessWidget {
           Expanded(
             child: Container(
               width: 1.sw,
-              child: [
-                _buildDefaultEmojiBox(),
-                _buildDiyEmojiBox()
-              ][logic.emojiIndex.value],
+              child: [_buildDefaultEmojiBox(), _buildDiyEmojiBox()][logic.emojiIndex.value],
             ),
           )
         ],
