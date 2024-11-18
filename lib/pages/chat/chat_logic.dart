@@ -19,6 +19,7 @@ class ChatLogic extends GetxController {
   final userName = ''.obs;
   final userID = ''.obs;
   final isClose = true.obs;
+  final isSeeHistory = false.obs;
   final isShowEmoji = false.obs;
   final isShowTools = false.obs;
   final isShowVoice = false.obs;
@@ -48,8 +49,19 @@ class ChatLogic extends GetxController {
     chatRoomFocusNode.addListener(() {
       if (chatRoomFocusNode.hasFocus) {
         isShowEmoji.value = false;
-        scrollToBottom(delay: 100);
+        scrollToBottom(delay: 0);
       }
+    });
+    chatRoomController.addListener(() {
+      if (chatRoomController.position.maxScrollExtent -
+              chatRoomController.position.pixels >=
+          100) {
+        isSeeHistory.value = true;
+      } else {
+        isSeeHistory.value = false;
+      }
+
+      print(isSeeHistory.value);
     });
     scrollToBottom();
     super.onInit();
@@ -64,11 +76,11 @@ class ChatLogic extends GetxController {
   }
 
   void scrollToBottom({int? delay}) {
-    if (isClose.value) return;
-    Future.delayed(Duration(milliseconds: delay ?? 10), () {
+    if (isClose.value || isSeeHistory.value) return;
+    Future.delayed(Duration(milliseconds: delay ?? 200), () {
       chatRoomController.animateTo(
         chatRoomController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 10),
+        duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
       );
     });

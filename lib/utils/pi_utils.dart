@@ -1,4 +1,3 @@
-import 'package:fishpi/types/chatroom.dart';
 import 'package:fishpi_app/widgets/pi_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -87,17 +86,20 @@ class PiUtils {
       var interval =
           nowTime.millisecondsSinceEpoch - chatTime.millisecondsSinceEpoch;
       var cb =
-          '${_fillZero(chatTime.month.toString(), 2)}月${_fillZero(chatTime.day.toString(), 2)}日';
+          '${_fillZero(chatTime.month.toString(), 2)}月${_fillZero(
+          chatTime.day.toString(), 2)}日';
       if (interval < 5 * 60 * 1000) {
         cb = '刚刚';
       } else if (interval < 24 * 60 * 60 * 1000) {
         cb =
-            '${_fillZero(chatTime.hour.toString(), 2)}:${_fillZero(chatTime.minute.toString(), 2)}';
+        '${_fillZero(chatTime.hour.toString(), 2)}:${_fillZero(
+            chatTime.minute.toString(), 2)}';
       } else if (interval < 48 * 60 * 60 * 1000) {
         cb = '昨天';
       } else {
         cb =
-            '${_fillZero(chatTime.month.toString(), 2)}月${_fillZero(chatTime.day.toString(), 2)}日';
+        '${_fillZero(chatTime.month.toString(), 2)}月${_fillZero(
+            chatTime.day.toString(), 2)}日';
       }
       return cb;
     } catch (e) {
@@ -121,8 +123,7 @@ class PiUtils {
   /// [imgUrl] 原图片链接
   /// [width] 处理后的宽度
   /// [height] 处理后的高度
-  static filterImageWithSize(
-    String imgUrl, {
+  static filterImageWithSize(String imgUrl, {
     int? width,
     int? height,
   }) {
@@ -139,68 +140,68 @@ class PiUtils {
     String content = chat.content;
     var document = parse(content);
     List<Widget> list = [];
-
-    /// 处理文本
-    document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7").forEach((element) {
-      if (element.text.isEmpty || element.text.trim() == '') return;
-      list.add(Text(element.text));
+    print('msg start');
+    document.body?.children.forEach((item) {
+      list.addAll(filterHTML(item,chat,isSelf));
     });
-    document.querySelectorAll("img").forEach((element) {
-      if (element.attributes['src']!.isEmpty) return;
-      list.add(
-        GestureDetector(
-          onTap: () {
-            print(element.attributes['src']);
-            Navigator.push(
-              Get.context!,
-              MaterialPageRoute(
-                builder: (context) => PiHero(
+    print('msg end');
+    return list;
+  }
+
+  static filterHTML(item, chat, isSelf) {
+    List<Widget> list = [];
+    if(item.children.isNotEmpty){
+      item.children.forEach((element) {
+        list.addAll(filterHTML(element, chat, isSelf));
+      });
+    }
+    switch (item.localName) {
+      case 'p':
+        if (item.text.isEmpty || item.text.trim() == '') break;
+        list.add(Text(item.text));
+        break;
+      case 'img':
+        if (item.attributes['src']!.isEmpty) break;
+        list.add(buildImg(item, chat, isSelf));
+        break;
+    }
+    return list;
+  }
+
+  static buildImg(item, chat, isSelf) {
+    return GestureDetector(
+      onTap: () {
+        print(item.attributes['src']);
+        Navigator.push(
+          Get.context!,
+          MaterialPageRoute(
+            builder: (context) =>
+                PiHero(
                   arguments: {
-                    "imageUrl": element.attributes['src']!,
+                    "imageUrl": item.attributes['src']!,
                     "oId": chat.oId,
                   },
                 ),
-              ),
-            );
-          },
-          child: Hero(
-            tag: "${chat.oId}",
-            child: Container(
-              width: 120.w,
-              height: 70.h,
-              alignment: isSelf! ? Alignment.centerRight : Alignment.centerLeft,
-              child: PiImage(
-                imgUrl: element.attributes['src']!,
-                width: 120.w,
-                height: 70.h,
-                fit: BoxFit.contain,
-                alignment:
-                    isSelf ? Alignment.centerRight : Alignment.centerLeft,
-              ),
-            ),
+          ),
+        );
+      },
+      child: Hero(
+        tag: "${chat.oId}",
+        child: Container(
+          width: 120.w,
+          height: 70.h,
+          alignment: isSelf! ? Alignment.centerRight : Alignment.centerLeft,
+          child: PiImage(
+            imgUrl: item.attributes['src']!,
+            width: 120.w,
+            height: 70.h,
+            fit: BoxFit.contain,
+            alignment:
+            isSelf ? Alignment.centerRight : Alignment.centerLeft,
           ),
         ),
-      );
-    });
-    document.querySelectorAll("iframe").forEach((element) {
-      if (element.attributes['src']!.isEmpty) return;
-      if (element.attributes['src']!.startsWith('https://fishpi.yuis.cc')) {
-        list.add(Container(
-          child: Text('这是个天气卡片'),
-        ));
-      } else if (element.attributes['src']!
-          .startsWith('https://music.163.com')) {
-        list.add(Container(
-          child: Text('这是个音乐卡片'),
-        ));
-      } else {
-        list.add(Container(
-          child: Text('[不支持的iframe消息,请在web端查看]'),
-        ));
-      }
-    });
-
-    return list;
+      ),
+    );
   }
 
   /// 处理会话列表显示消息

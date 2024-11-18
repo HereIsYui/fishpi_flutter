@@ -8,8 +8,12 @@ import 'package:fishpi_app/widgets/pi_image.dart';
 import 'package:fishpi_app/widgets/pi_input.dart';
 import 'package:fishpi_app/widgets/pi_title_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_emoji/flutter_emoji.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:markdown_widget/config/configs.dart';
+import 'package:markdown_widget/config/markdown_generator.dart';
+import 'package:markdown_widget/widget/blocks/leaf/link.dart';
 
 import 'chat_logic.dart';
 
@@ -105,7 +109,8 @@ class ChatPage extends StatelessWidget {
                                             width: 2.w,
                                             color: Styles.primaryTextColor,
                                           ),
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                           color: Colors.white,
                                         ),
                                         alignment: Alignment.center,
@@ -123,8 +128,11 @@ class ChatPage extends StatelessWidget {
                                       width: 220.w,
                                       height: 34.h,
                                       child: PiInput(
-                                        controller: logic.chatRoomControllerText,
-                                        textAlign: logic.isShowVoice.value ? TextAlign.center : TextAlign.left,
+                                        controller:
+                                            logic.chatRoomControllerText,
+                                        textAlign: logic.isShowVoice.value
+                                            ? TextAlign.center
+                                            : TextAlign.left,
                                         hintText: '说点什么...',
                                         focusNode: logic.chatRoomFocusNode,
                                         onInputChanged: (text) {
@@ -162,7 +170,9 @@ class ChatPage extends StatelessWidget {
                               height: 28.w,
                               alignment: Alignment.center,
                               child: Image.asset(
-                                logic.content.value == '' ? 'assets/images/more_feature.png' : 'assets/images/send.png',
+                                logic.content.value == ''
+                                    ? 'assets/images/more_feature.png'
+                                    : 'assets/images/send.png',
                                 width: 28.w,
                                 height: 28.w,
                               ),
@@ -199,7 +209,9 @@ class ChatPage extends StatelessWidget {
     ChatRoomMessage chat = logic.messageList[index];
     return GestureDetector(
       onTap: () {},
-      child: chat.userName == logic.userInfo.value.userName ? _buildRight(chat) : _buildLeft(chat),
+      child: chat.userName == logic.userInfo.value.userName
+          ? _buildRight(chat)
+          : _buildLeft(chat),
     );
   }
 
@@ -216,7 +228,7 @@ class ChatPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  chat.userName,
+                  chat.allName,
                   style: TextStyle(
                     color: Styles.primaryTextColor,
                     fontWeight: FontWeight.bold,
@@ -227,7 +239,8 @@ class ChatPage extends StatelessWidget {
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat).length == 1 && PiUtils.getChatPreview(chat).first is! Text)
+                    : (PiUtils.getChatPreview(chat).length == 1 &&
+                            PiUtils.getChatPreview(chat).first is! Text)
                         ? Container(
                             width: 0.8.sw - 58.w,
                             padding: EdgeInsets.all(10.w),
@@ -236,7 +249,8 @@ class ChatPage extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: PiUtils.getChatPreview(chat, isSelf: true),
+                              children:
+                                  PiUtils.getChatPreview(chat, isSelf: true),
                             ),
                           )
                         : Container(
@@ -259,7 +273,7 @@ class ChatPage extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: PiUtils.getChatPreview(chat),
+                                  children: PiUtils.getChatPreview(chat,isSelf: true),
                                 ),
                                 SizedBox(
                                   width: 0.8.sw - 58.w,
@@ -316,7 +330,7 @@ class ChatPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  chat.userName,
+                  chat.allName,
                   style: TextStyle(
                     color: Styles.primaryTextColor,
                     fontWeight: FontWeight.bold,
@@ -327,7 +341,8 @@ class ChatPage extends StatelessWidget {
                 ),
                 chat.isRedpacket
                     ? _buildRedpacket(chat.redpacket!)
-                    : (PiUtils.getChatPreview(chat).length == 1 && PiUtils.getChatPreview(chat).first is! Text)
+                    : (PiUtils.getChatPreview(chat).length == 1 &&
+                            PiUtils.getChatPreview(chat).first is! Text)
                         ? Container(
                             width: 0.8.sw - 58.w,
                             padding: EdgeInsets.all(10.w),
@@ -438,7 +453,10 @@ class ChatPage extends StatelessWidget {
           Expanded(
             child: Container(
               width: 1.sw,
-              child: [_buildDefaultEmojiBox(), _buildDiyEmojiBox()][logic.emojiIndex.value],
+              child: [
+                _buildDefaultEmojiBox(),
+                _buildDiyEmojiBox()
+              ][logic.emojiIndex.value],
             ),
           )
         ],
