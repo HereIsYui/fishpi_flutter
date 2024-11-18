@@ -357,6 +357,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.2.0"
+  images_picker:
+    dependency: "direct main"
+    description:
+      name: images_picker
+      sha256: cc99347a6fa93228bf92f15ce36e4474256e4af0e6c0e1f0e7e9f047adbccd5b
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.11"
   intl:
     dependency: "direct overridden"
     description:
@@ -629,6 +637,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.28.0"
+  scan:
+    dependency: "direct main"
+    description:
+      name: scan
+      sha256: b343ec36f863a88d41eb4c174b810c055c6bd1f1822b2188ab31aab684fb7cdb
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.6.0"
   scroll_to_index:
     dependency: transitive
     description:

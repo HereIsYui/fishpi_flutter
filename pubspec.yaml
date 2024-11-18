@@ -55,6 +55,8 @@ dependencies:
   animate_do: ^3.3.4
   permission_handler: ^11.3.1
   dio: ^5.7.0
+  scan: ^1.6.0
+  images_picker: ^1.2.11
 
 dev_dependencies:
   flutter_test:
