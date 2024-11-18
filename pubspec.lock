@@ -205,10 +205,10 @@ packages:
     dependency: "direct main"
     description:
       name: fishpi
-      sha256: "4768fef1d775b5bff78f6f611f520ad27c96b1167560c40e33525d0cc25d535d"
+      sha256: fdc2f14dfcf8ccbfed6fc2130b234ce10f120076bd81de61b1287eab58390af7
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.18"
+    version: "1.0.20"
   fixnum:
     dependency: transitive
     description:

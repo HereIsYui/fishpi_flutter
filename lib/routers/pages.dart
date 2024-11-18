@@ -14,10 +14,20 @@ import 'package:fishpi_app/pages/home/home_binding.dart';
 import 'package:fishpi_app/pages/home/home_view.dart';
 import 'package:fishpi_app/pages/login/login_binding.dart';
 import 'package:fishpi_app/pages/login/login_view.dart';
+import 'package:fishpi_app/pages/mine/account/account_binding.dart';
+import 'package:fishpi_app/pages/mine/account/account_view.dart';
+import 'package:fishpi_app/pages/mine/collection_list/collection_list_binding.dart';
+import 'package:fishpi_app/pages/mine/collection_list/collection_list_view.dart';
 import 'package:fishpi_app/pages/mine/edit_info/edit_info_binding.dart';
 import 'package:fishpi_app/pages/mine/edit_info/edit_info_view.dart';
 import 'package:fishpi_app/pages/mine/mine_binding.dart';
 import 'package:fishpi_app/pages/mine/mine_view.dart';
+import 'package:fishpi_app/pages/mine/set_up/black_list/black_list_binding.dart';
+import 'package:fishpi_app/pages/mine/set_up/black_list/black_list_view.dart';
+import 'package:fishpi_app/pages/mine/set_up/complaint/complaint_binding.dart';
+import 'package:fishpi_app/pages/mine/set_up/complaint/complaint_view.dart';
+import 'package:fishpi_app/pages/mine/set_up/feedback/feedback_binding.dart';
+import 'package:fishpi_app/pages/mine/set_up/feedback/feedback_view.dart';
 import 'package:fishpi_app/pages/mine/set_up/set_up_binding.dart';
 import 'package:fishpi_app/pages/mine/set_up/set_up_view.dart';
 import 'package:fishpi_app/pages/splash/splash_binding.dart';
@@ -114,6 +124,31 @@ class AppPages {
       name: AppRoutes.userPanel,
       page: () => UserPanelPage(),
       binding: UserPanelBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.blackList,
+      page: () => BlackListPage(),
+      binding: BlackListBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.complaint,
+      page: () => ComplaintPage(),
+      binding: ComplaintBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.feedback,
+      page: () => FeedbackPage(),
+      binding: FeedbackBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.account,
+      page: () => AccountPage(),
+      binding: AccountBinding(),
+    ),
+    _pageBuilder(
+      name: AppRoutes.collection,
+      page: () => CollectionListPage(),
+      binding: CollectionListBinding(),
     ),
   ];
 }

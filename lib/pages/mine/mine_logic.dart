@@ -18,9 +18,13 @@ class MineLogic extends GetxController {
     print(userInfo.value.toJson());
   }
 
-  void toAccountPage(){}
+  void toAccountPage(){
+    AppNavigator.toAccount();
+  }
   
-  void toCollectionPage(){}
+  void toCollectionPage(){
+    AppNavigator.toCollection();
+  }
 
   void toSetUpPage(){
     AppNavigator.toSetting();

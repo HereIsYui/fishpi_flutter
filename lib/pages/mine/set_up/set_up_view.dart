@@ -50,7 +50,7 @@ class SetUpPage extends StatelessWidget {
                         title: '投诉举报',
                         iconColor: Colors.redAccent,
                         icon: Icons.sentiment_dissatisfied_outlined,
-                        onTap: logic.toAboutPage,
+                        onTap: logic.toComplaint,
                       ),
                     ],
                   ),
