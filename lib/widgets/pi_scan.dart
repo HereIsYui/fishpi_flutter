@@ -17,65 +17,66 @@ class PiScan extends StatelessWidget {
     final ScanController controller = ScanController();
 
     return Scaffold(
-      appBar: PiTitleBar.back(
-        title: '扫码',
-      ),
-      body: Stack(children: [
-        ScanView(
-          controller: controller,
-          scanLineColor: Styles.primaryColor,
-          onCapture: (data) {
-            controller.pause();
-            getResult(data, context);
-          },
-        ),
-        Positioned(
-          left: 100.w,
-          bottom: 100.h,
-          child: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-              return MaterialButton(
-                  child: Icon(
-                    lightIcon,
-                    size: 80.w,
-                    color: Color(0xFF4759DA),
-                  ),
-                  onPressed: () {
-                    controller.toggleTorchMode();
-                    if (lightIcon == Icons.flash_on) {
-                      lightIcon = Icons.flash_off;
-                    } else {
-                      lightIcon = Icons.flash_on;
-                    }
-                    setState(() {});
-                  });
+      body: Stack(
+        children: [
+          ScanView(
+            controller: controller,
+            scanLineColor: Styles.primaryColor,
+            onCapture: (data) {
+              controller.pause();
+              getResult(data, context);
             },
           ),
-        ),
-        Positioned(
-          right: 100.w,
-          bottom: 100.h,
-          child: MaterialButton(
-            child: Icon(
-              Icons.image,
-              size: 80.w,
-              color: Color(0xFF4759DA),
+          Positioned(
+            left: 100.w,
+            bottom: 100.h,
+            child: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return MaterialButton(
+                    child: Icon(
+                      lightIcon,
+                      size: 40.w,
+                      color: Styles.primaryColor,
+                    ),
+                    onPressed: () {
+                      controller.toggleTorchMode();
+                      if (lightIcon == Icons.flash_on) {
+                        lightIcon = Icons.flash_off;
+                      } else {
+                        lightIcon = Icons.flash_on;
+                      }
+                      setState(() {});
+                    });
+              },
             ),
-            onPressed: () async {
-              List<Media>? res =
-                  await ImagesPicker.pick(count: 1, maxSize: 1024);
-              if (res != null) {
-                controller.pause();
-                Media image = res.first;
-                String? result = await Scan.parse(image.path);
-                if (result != null) {
-                  getResult(result, context);
-                }
-              }
-            },
           ),
-        ),
-      ]),
+          Positioned(
+            right: 100.w,
+            bottom: 100.h,
+            child: MaterialButton(
+              child: Icon(
+                Icons.image,
+                size: 40.w,
+                color: Styles.primaryColor,
+              ),
+              onPressed: () async {
+                List<Media>? res =
+                    await ImagesPicker.pick(count: 1, maxSize: 1024);
+                if (res != null) {
+                  controller.pause();
+                  Media image = res.first;
+                  String? result = await Scan.parse(image.path);
+                  if (result != null) {
+                    getResult(result, context);
+                  }
+                }else{
+                  controller.resume();
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 

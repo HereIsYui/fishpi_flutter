@@ -1,3 +1,4 @@
+import 'package:fishpi_app/widgets/pi_scan.dart';
 import 'package:get/get.dart';
 import 'pages.dart';
 
@@ -62,5 +63,12 @@ class AppNavigator {
           "userName": userName,
         },
         preventDuplicates: false,
+      );
+
+  /// 扫码页面
+  static void toScan() => Get.to(
+        () => const PiScan(),
+        transition: Transition.cupertino,
+        popGesture: true,
       );
 }
