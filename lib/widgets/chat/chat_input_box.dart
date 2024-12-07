@@ -1,38 +1,32 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:fishpi_app/widgets/chat/chat_emoji_box.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../core/controller/im.dart';
 import '../../res/styles.dart';
-import '../pi_image.dart';
 import '../pi_input.dart';
 
 class ChatInputBox extends StatefulWidget {
-  final bool? isShowVoice;
-  final bool? isShowEmoji;
-  final bool? isShowTools;
   final TextEditingController controller;
   final FocusNode focusNode;
-  final Function() toggleVoice;
+  final Map<String, String> emojiList;
+  final List<String> diyEmojiList;
   final Function(String t) onInput;
   final Function() clickSend;
-  final Function() toggleEmoji;
-  final Function() toggleTools;
+  final Function() scrollToBottom;
   final String? content;
 
   const ChatInputBox({
-    required this.toggleVoice,
     required this.controller,
     required this.focusNode,
+    required this.emojiList,
+    required this.diyEmojiList,
     required this.onInput,
     required this.clickSend,
-    required this.toggleEmoji,
-    required this.toggleTools,
+    required this.scrollToBottom,
     this.content,
-    this.isShowVoice,
-    this.isShowEmoji,
-    this.isShowTools,
     super.key,
   });
 
@@ -41,6 +35,24 @@ class ChatInputBox extends StatefulWidget {
 }
 
 class ChatInputBoxState extends State<ChatInputBox> {
+  bool isShowEmoji = false;
+  bool isShowTools = false;
+  bool isShowVoice = false;
+
+  @override
+  void initState() {
+    widget.focusNode.addListener((){
+      if(widget.focusNode.hasFocus){
+        setState(() {
+          isShowVoice = false;
+          isShowTools = false;
+          isShowEmoji = false;
+        });
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,12 +80,12 @@ class ChatInputBoxState extends State<ChatInputBox> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      widget.toggleVoice();
+                      toggleVoice();
                     },
                     child: Container(
                       width: 24.w,
                       height: 24.w,
-                      child: (widget.isShowVoice ?? false)
+                      child: isShowVoice
                           ? Image.asset('assets/images/keyboard.png')
                           : const Icon(
                               Icons.keyboard_voice_outlined,
@@ -82,7 +94,7 @@ class ChatInputBoxState extends State<ChatInputBox> {
                   ),
                   SizedBox(
                       width: 220.w,
-                      child: (widget.isShowVoice ?? false)
+                      child: isShowVoice
                           ? GestureDetector(
                               onTap: () {},
                               behavior: HitTestBehavior.translucent,
@@ -113,7 +125,7 @@ class ChatInputBoxState extends State<ChatInputBox> {
                               height: 34.h,
                               child: PiInput(
                                 controller: widget.controller,
-                                textAlign: (widget.isShowVoice ?? false)
+                                textAlign: isShowVoice
                                     ? TextAlign.center
                                     : TextAlign.left,
                                 hintText: '说点什么...',
@@ -124,7 +136,7 @@ class ChatInputBoxState extends State<ChatInputBox> {
                             )),
                   GestureDetector(
                     onTap: () {
-                      widget.toggleEmoji();
+                      toggleEmoji();
                     },
                     child: SizedBox(
                       width: 24.w,
@@ -139,7 +151,7 @@ class ChatInputBoxState extends State<ChatInputBox> {
                   GestureDetector(
                     onTap: () {
                       if (widget.content == '') {
-                        widget.toggleTools();
+                        toggleTools();
                       } else {
                         widget.clickSend();
                       }
@@ -161,14 +173,20 @@ class ChatInputBoxState extends State<ChatInputBox> {
               ),
             ),
             Visibility(
-              visible: widget.isShowEmoji ?? false,
+              visible: isShowEmoji,
               child: FadeIn(
                 duration: const Duration(milliseconds: 200),
-                child: EmojiBox(onTap: (String t){}),
+                child: EmojiBox(
+                  emojiList: widget.emojiList,
+                    diyEmojiList: widget.diyEmojiList,
+                    onTap: (String t) {
+
+                    }
+                ),
               ),
             ),
             Visibility(
-              visible: widget.isShowTools ?? false,
+              visible: isShowTools,
               child: FadeIn(
                 duration: const Duration(milliseconds: 200),
                 child: _buildToolsBox(),
@@ -303,5 +321,52 @@ class ChatInputBoxState extends State<ChatInputBox> {
         children: list,
       ),
     );
+  }
+
+  focus() => FocusScope.of(Get.context!).requestFocus(widget.focusNode);
+
+  unFocus() => FocusScope.of(Get.context!).requestFocus(FocusNode());
+
+  void toggleTools() {
+    setState(() {
+      isShowTools = !isShowTools;
+      isShowEmoji = false;
+      isShowVoice = false;
+      isShowTools ? unFocus() : focus();
+    });
+    Future.delayed(const Duration(milliseconds: 100), () {
+      widget.scrollToBottom();
+    });
+  }
+
+  void toggleEmoji() {
+    setState(() {
+      isShowEmoji = !isShowEmoji;
+      isShowTools = false;
+      isShowVoice = false;
+      isShowEmoji ? unFocus() : focus();
+    });
+    Future.delayed(const Duration(milliseconds: 100), () {
+      widget.scrollToBottom();
+    });
+  }
+
+  void toggleVoice() {
+    setState(() {
+      isShowVoice = !isShowVoice;
+      isShowTools = false;
+      isShowEmoji = false;
+      isShowVoice ? unFocus() : focus();
+    });
+    Future.delayed(const Duration(milliseconds: 100), () {
+      widget.scrollToBottom();
+    });
+  }
+
+  void closeAllTools() {
+    isShowEmoji = false;
+    isShowTools = false;
+    isShowVoice = false;
+    unFocus();
   }
 }

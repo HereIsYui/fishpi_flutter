@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/chat/chat_input_box.dart';
 import 'chat_logic.dart';
 
 class ChatPage extends StatelessWidget {
@@ -29,7 +30,10 @@ class ChatPage extends StatelessWidget {
               child: logic.messageList.isEmpty
                   ? Container()
                   : GestureDetector(
-                      onTap: logic.closeAllTools,
+                      onTap: (){
+                        //logic.closeAllTools
+                        FocusScope.of(Get.context!).requestFocus(FocusNode());
+                      },
                       child: Container(
                         width: 1.sw,
                         height: 1.sh,
@@ -52,7 +56,15 @@ class ChatPage extends StatelessWidget {
                       ),
                     ),
             ),
-
+            ChatInputBox(
+              emojiList: logic.emojiList,
+              diyEmojiList: logic.diyEmojiList,
+              controller: logic.chatRoomControllerText,
+              focusNode: logic.chatRoomFocusNode,
+              onInput: logic.onInput,
+              clickSend: logic.clickSend,
+              scrollToBottom: logic.scrollToBottom,
+            ),
           ],
         ),
       ),
@@ -63,7 +75,9 @@ class ChatPage extends StatelessWidget {
     ChatRoomMessage chat = logic.messageList[index];
     return GestureDetector(
       onTap: () {},
-      child: chat.userName == logic.userInfo.value.userName ? _buildRight(chat) : _buildLeft(chat),
+      child: chat.userName == logic.userInfo.value.userName
+          ? _buildRight(chat)
+          : _buildLeft(chat),
     );
   }
 
@@ -111,7 +125,9 @@ class ChatPage extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [PiUtils.getChatPreview(chat, isSelf: true)],
+                              children: [
+                                PiUtils.getChatPreview(chat, isSelf: true)
+                              ],
                             ),
                             SizedBox(
                               width: 0.8.sw - 58.w,

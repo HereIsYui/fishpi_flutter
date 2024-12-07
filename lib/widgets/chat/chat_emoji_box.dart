@@ -4,9 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../pi_image.dart';
 
 class EmojiBox extends StatefulWidget {
+  final Map<String, String> emojiList;
+  final List<String> diyEmojiList;
   final Function(String t) onTap;
 
   const EmojiBox({
+    required this.emojiList,
+    required this.diyEmojiList,
     required this.onTap,
     super.key,
   });
@@ -78,8 +82,8 @@ class _EmojiBoxState extends State<EmojiBox> {
             child: Container(
               width: 1.sw,
               child: [
-                _buildDefaultEmojiBox({}),
-                _buildDiyEmojiBox([])
+                _buildDefaultEmojiBox(widget.emojiList),
+                _buildDiyEmojiBox(widget.diyEmojiList)
               ][emojiIndex],
             ),
           )

@@ -1,6 +1,4 @@
 import 'package:fishpi/fishpi.dart';
-import 'package:fishpi/types/chat.dart';
-import 'package:fishpi/types/chatroom.dart';
 import 'package:fishpi_app/pages/conversation/conversation_logic.dart';
 import 'package:fishpi_app/routers/navigator.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,9 +18,6 @@ class ChatLogic extends GetxController {
   final userID = ''.obs;
   final isClose = true.obs;
   final isSeeHistory = false.obs;
-  final isShowEmoji = false.obs;
-  final isShowTools = false.obs;
-  final isShowVoice = false.obs;
 
   ScrollController chatRoomController = ScrollController();
   TextEditingController chatRoomControllerText = TextEditingController();
@@ -30,12 +25,13 @@ class ChatLogic extends GetxController {
 
   final content = ''.obs;
 
-  final emojiList = {}.obs;
+  get emojiList => imController.fishpi.emoji.defaultEmojis;
   final diyEmojiList = <String>[].obs;
   final emojiIndex = 0.obs;
 
   @override
   void onInit() {
+    super.onInit();
     initChatRoom();
     loadEmojis();
     var args = Get.arguments;
@@ -46,12 +42,6 @@ class ChatLogic extends GetxController {
     messageList.refresh();
     imController.fishpi.user.info().then((value) => userInfo.value = value);
     isClose.value = false;
-    chatRoomFocusNode.addListener(() {
-      if (chatRoomFocusNode.hasFocus) {
-        isShowEmoji.value = false;
-        scrollToBottom(delay: 0);
-      }
-    });
     chatRoomController.addListener(() {
       if (chatRoomController.position.maxScrollExtent -
               chatRoomController.position.pixels >=
@@ -60,11 +50,9 @@ class ChatLogic extends GetxController {
       } else {
         isSeeHistory.value = false;
       }
-
       print(isSeeHistory.value);
     });
     scrollToBottom();
-    super.onInit();
   }
 
   void initChatRoom() async {
@@ -90,14 +78,8 @@ class ChatLogic extends GetxController {
     content.value = text;
   }
 
-  void toggleTools() {
-    isShowTools.value = !isShowTools.value;
-    isShowEmoji.value = false;
-    isShowVoice.value = false;
-    isShowTools.value ? unFocus() : focus();
-    Future.delayed(const Duration(milliseconds: 100), () {
-      scrollToBottom();
-    });
+  void clickUserAvatar(String userName) {
+    AppNavigator.toUserPanel(userName: userName);
   }
 
   void clickSend() async {
@@ -108,48 +90,11 @@ class ChatLogic extends GetxController {
     //ToastManager.dismiss();
   }
 
-  void toggleEmoji() {
-    isShowEmoji.value = !isShowEmoji.value;
-    isShowTools.value = false;
-    isShowVoice.value = false;
-    isShowEmoji.value ? unFocus() : focus();
-    Future.delayed(const Duration(milliseconds: 100), () {
-      scrollToBottom();
-    });
-  }
-
-  void toggleVoice() {
-    isShowVoice.value = !isShowVoice.value;
-    isShowTools.value = false;
-    isShowEmoji.value = false;
-    isShowVoice.value ? unFocus() : focus();
-    Future.delayed(const Duration(milliseconds: 100), () {
-      scrollToBottom();
-    });
-  }
-
-  void closeAllTools() {
-    isShowEmoji.value = false;
-    isShowTools.value = false;
-    isShowVoice.value = false;
-    unFocus();
-  }
-
   void loadEmojis() async {
-    emojiList.value = imController.fishpi.emoji.defaultEmojis;
     diyEmojiList.value = await imController.fishpi.emoji.get();
     emojiList.refresh();
     diyEmojiList.refresh();
-    print(diyEmojiList.toJson());
   }
-
-  void clickUserAvatar(String userName) {
-    AppNavigator.toUserPanel(userName: userName);
-  }
-
-  focus() => FocusScope.of(Get.context!).requestFocus(chatRoomFocusNode);
-
-  unFocus() => FocusScope.of(Get.context!).requestFocus(FocusNode());
 
   @override
   void onClose() {
