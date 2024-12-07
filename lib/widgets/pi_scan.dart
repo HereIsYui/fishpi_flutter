@@ -1,10 +1,17 @@
+import 'package:fishpi/types/user.dart';
+import 'package:fishpi_app/core/manager/toast.dart';
 import 'package:fishpi_app/main.dart';
 import 'package:fishpi_app/res/styles.dart';
+import 'package:fishpi_app/routers/navigator.dart';
 import 'package:fishpi_app/widgets/pi_title_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:images_picker/images_picker.dart';
 import 'package:scan/scan.dart';
+
+import '../core/controller/im.dart';
+import '../utils/pi_utils.dart';
 
 class PiScan extends StatelessWidget {
   const PiScan({
@@ -80,7 +87,22 @@ class PiScan extends StatelessWidget {
     );
   }
 
-  void getResult(String result, BuildContext context) {
+  void getResult(String result, BuildContext context) async{
+    final imController = Get.find<IMController>();
     print(result);
+    if(result.startsWith('login')){
+      bool isLogin = PiUtils.getBool('isLogin');
+      if(isLogin){
+        ToastManager.showToast('请先退出当前帐号!');
+        Get.back();
+        return;
+      }
+      String token = result.split(":")[1];
+      imController.init(token);
+      ToastManager.showToast('登录成功');
+      PiUtils.setString('token', token);
+      PiUtils.setBool('isLogin', true);
+      AppNavigator.closeAllToHome();
+    }
   }
 }

@@ -125,7 +125,8 @@ class LoginPage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        print('点击了扫码登录');
+                        // print('点击了扫码登录');
+                        AppNavigator.toScan();
                       },
                       child: const Icon(
                         Icons.qr_code_scanner,

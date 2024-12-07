@@ -32,14 +32,17 @@ class ChatLogic extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    initChatRoom();
-    loadEmojis();
     var args = Get.arguments;
     isGroup.value = args['isGroup'] ?? false;
     userName.value = args['userName'] ?? '聊天室';
     userID.value = args['userID'] ?? '';
-    messageList.value = conversationLogic.messageList;
-    messageList.refresh();
+    print(
+        "pageArgs:isGroup:${args['isGroup']},userName:${args['userName']},userID:${args['userID']}");
+    if (isGroup.value) {
+      messageList.value = conversationLogic.messageList;
+      messageList.refresh();
+      scrollToBottom();
+    }
     imController.fishpi.user.info().then((value) => userInfo.value = value);
     isClose.value = false;
     chatRoomController.addListener(() {
@@ -50,17 +53,65 @@ class ChatLogic extends GetxController {
       } else {
         isSeeHistory.value = false;
       }
-      print(isSeeHistory.value);
     });
-    scrollToBottom();
+    initChatRoom();
+    loadEmojis();
   }
 
   void initChatRoom() async {
-    conversationLogic.messageList.listen((data) {
-      messageList.value = data;
+    if (isGroup.value) {
+      conversationLogic.messageList.listen((data) {
+        messageList.value = data;
+        messageList.refresh();
+        scrollToBottom();
+      });
+    } else {
+      List<ChatData> list = await imController.fishpi.chat.get(
+        user: userName.value,
+        page: 1,
+      );
+      list = list.reversed.toList();
+      for (var ele in list) {
+        messageList.add(ChatRoomMessage(
+          oId: ele.oId,
+          content: ele.content,
+          userName: ele.senderUserName,
+          userOId: int.parse(ele.fromId),
+          time: ele.time,
+          avatarURL: ele.senderAvatar,
+          md: ele.markdown,
+        ));
+      }
       messageList.refresh();
       scrollToBottom();
-    });
+      imController.fishpi.chat.addListener(chatMsgListen, user: userName.value);
+    }
+  }
+
+  void chatMsgListen(
+    /// 消息类型
+    ChatMsgType type, {
+    /// 新聊天通知
+    ChatNotice? notice,
+
+    /// 聊天内容
+    ChatData? data,
+
+    /// 撤回聊天
+    ChatRevoke? revoke,
+  }) {
+    if(type != ChatMsgType.data) return;
+    messageList.add(ChatRoomMessage(
+      oId: data!.oId,
+      content: data.content,
+      userName: data.senderUserName,
+      userOId: int.parse(data.fromId),
+      time: data.time,
+      avatarURL: data.senderAvatar,
+      md: data.markdown,
+    ));
+    messageList.refresh();
+    scrollToBottom();
   }
 
   void scrollToBottom({int? delay}) {
@@ -83,16 +134,17 @@ class ChatLogic extends GetxController {
   }
 
   void clickSend() async {
-    //ToastManager.show(content: '发送中...');
-    imController.fishpi.chatroom.send(content.value);
+    if (isGroup.value) {
+      imController.fishpi.chatroom.send(content.value);
+    } else {
+      imController.fishpi.chat.send(userName.value, content.value);
+    }
     content.value = '';
     chatRoomControllerText.text = '';
-    //ToastManager.dismiss();
   }
 
   void loadEmojis() async {
     diyEmojiList.value = await imController.fishpi.emoji.get();
-    emojiList.refresh();
     diyEmojiList.refresh();
   }
 
@@ -100,6 +152,11 @@ class ChatLogic extends GetxController {
   void onClose() {
     isClose.value = true;
     chatRoomController.dispose();
+    if (isGroup.value) {
+      conversationLogic.messageList.close();
+    } else {
+      imController.fishpi.chat.removeListener();
+    }
     print('聊天页面关闭');
     super.onClose();
   }
