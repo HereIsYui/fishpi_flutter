@@ -141,6 +141,7 @@ class ChatLogic extends GetxController {
     }
     content.value = '';
     chatRoomControllerText.text = '';
+    scrollToBottom();
   }
 
   void loadEmojis() async {

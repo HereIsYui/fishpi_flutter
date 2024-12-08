@@ -48,6 +48,7 @@ class ChatInputBoxState extends State<ChatInputBox> {
           isShowTools = false;
           isShowEmoji = false;
         });
+        widget.scrollToBottom();
       }
     });
     super.initState();

@@ -205,10 +205,10 @@ packages:
     dependency: "direct main"
     description:
       name: fishpi
-      sha256: fdc2f14dfcf8ccbfed6fc2130b234ce10f120076bd81de61b1287eab58390af7
+      sha256: "30fa9808dfc782b8a317e057313bd9199e57e45a0eb1c18d4fa8110ffafa2d32"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.20"
+    version: "1.0.22"
   fixnum:
     dependency: transitive
     description:
@@ -915,7 +915,7 @@ packages:
     source: hosted
     version: "0.5.1"
   web_socket_channel:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: web_socket_channel
       sha256: "58c6666b342a38816b2e7e50ed0f1e261959630becd4c879c4f26bfa14aa5a42"
