@@ -59,7 +59,7 @@ class PiBreezemoonItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/images/Location.png',
+                'assets/images/location.png',
                 width: 24.w,
                 height: 24.w,
               ),
