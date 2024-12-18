@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:fishpi/fishpi.dart';
 import 'package:fishpi_app/pages/conversation/conversation_logic.dart';
 import 'package:fishpi_app/routers/navigator.dart';
@@ -22,6 +23,8 @@ class ChatLogic extends GetxController {
   ScrollController chatRoomController = ScrollController();
   TextEditingController chatRoomControllerText = TextEditingController();
   FocusNode chatRoomFocusNode = FocusNode();
+  //消息列表监听stream订阅对象
+  StreamSubscription<List<ChatRoomMessage>>? messageListSubscription;
 
   final content = ''.obs;
 
@@ -36,8 +39,7 @@ class ChatLogic extends GetxController {
     isGroup.value = args['isGroup'] ?? false;
     userName.value = args['userName'] ?? '聊天室';
     userID.value = args['userID'] ?? '';
-    print(
-        "pageArgs:isGroup:${args['isGroup']},userName:${args['userName']},userID:${args['userID']}");
+    print("pageArgs:isGroup:${args['isGroup']},userName:${args['userName']},userID:${args['userID']}");
     if (isGroup.value) {
       messageList.value = conversationLogic.messageList;
       messageList.refresh();
@@ -45,22 +47,22 @@ class ChatLogic extends GetxController {
     }
     imController.fishpi.user.info().then((value) => userInfo.value = value);
     isClose.value = false;
-    chatRoomController.addListener(() {
-      if (chatRoomController.position.maxScrollExtent -
-              chatRoomController.position.pixels >=
-          100) {
-        isSeeHistory.value = true;
-      } else {
-        isSeeHistory.value = false;
-      }
-    });
+    if (chatRoomController.hasClients) {
+      chatRoomController.addListener(() {
+        if (chatRoomController.position.maxScrollExtent - chatRoomController.position.pixels >= 100) {
+          isSeeHistory.value = true;
+        } else {
+          isSeeHistory.value = false;
+        }
+      });
+    }
     initChatRoom();
     loadEmojis();
   }
 
   void initChatRoom() async {
     if (isGroup.value) {
-      conversationLogic.messageList.listen((data) {
+      messageListSubscription = conversationLogic.messageList.listen((data) {
         messageList.value = data;
         messageList.refresh();
         scrollToBottom();
@@ -100,7 +102,7 @@ class ChatLogic extends GetxController {
     /// 撤回聊天
     ChatRevoke? revoke,
   }) {
-    if(type != ChatMsgType.data) return;
+    if (type != ChatMsgType.data) return;
     messageList.add(ChatRoomMessage(
       oId: data!.oId,
       content: data.content,
@@ -117,11 +119,13 @@ class ChatLogic extends GetxController {
   void scrollToBottom({int? delay}) {
     if (isClose.value || isSeeHistory.value) return;
     Future.delayed(Duration(milliseconds: delay ?? 200), () {
-      chatRoomController.animateTo(
-        chatRoomController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-      );
+      if (chatRoomController.hasClients) {
+        chatRoomController.animateTo(
+          chatRoomController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+        );
+      }
     });
   }
 
@@ -154,7 +158,8 @@ class ChatLogic extends GetxController {
     isClose.value = true;
     chatRoomController.dispose();
     if (isGroup.value) {
-      conversationLogic.messageList.close();
+      //取消监听消息列表
+      messageListSubscription?.cancel();
     } else {
       imController.fishpi.chat.removeListener();
     }
