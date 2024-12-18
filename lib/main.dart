@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 
 void main() async {
   SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
@@ -17,6 +18,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await PiUtils.getInstance();
+  await Hive.initFlutter();
   runApp(ScreenUtilInit(
     designSize: const Size(360, 812),
     minTextAdapt: true,

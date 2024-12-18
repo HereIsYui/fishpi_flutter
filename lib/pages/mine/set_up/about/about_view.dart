@@ -4,6 +4,7 @@ import 'package:fishpi_app/widgets/pi_title_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'about_logic.dart';
 
@@ -66,7 +67,9 @@ class AboutPage extends StatelessWidget {
                 child: 1.verticalSpace,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  launchUrl(Uri.parse('https://fishpi.cn/privacy'));
+                },
                 child: Text(
                   '《用户隐私协议》',
                   style: TextStyle(

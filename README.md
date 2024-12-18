@@ -57,6 +57,10 @@ Dart stable 当前3.5.4
 | 登录      | -               | 100% | 已完成 ✅   |
 | 注册      | -               | 0%   | 计划中 ⏰   |
 
+# 其他版本
+
+由[@imlinhanchao](https://github.com/imlinhanchao)开发的[鸿蒙原生版本](https://github.com/FishPiOffical/fishpi-harmony)
+
 # 鸣谢
 
 [fishpi dart sdk](https://pub.dev/packages/fishpi) 由[@imlinhanchao](https://github.com/imlinhanchao) 大佬开发的摸鱼派 Dart 版本 sdk
