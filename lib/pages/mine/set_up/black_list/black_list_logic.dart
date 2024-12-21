@@ -1,8 +1,5 @@
-import 'package:fishpi_app/core/manager/black_list.dart';
-import 'package:fishpi_app/core/manager/toast.dart';
-import 'package:fishpi_app/utils/pi_utils.dart';
+import 'package:fishpi_app/core/sql/black_list.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
 class BlackListLogic extends GetxController {
   final blackList = [].obs;
